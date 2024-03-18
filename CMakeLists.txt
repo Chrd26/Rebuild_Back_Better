@@ -1,6 +1,5 @@
 cmake_minimum_required(VERSION 3.28.3)
 project("RebuildBackBetter" LANGUAGES CXX VERSION 0.1 DESCRIPTION "Originally made during GGJ22") 
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ./src/main.cpp)
 
 # handle submldules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
@@ -21,3 +20,9 @@ endif()
 if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/SDL/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
+
+add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
+find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE ./src/main.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+
