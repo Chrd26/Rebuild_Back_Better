@@ -1,6 +1,0 @@
-[submodule "modules/SDL"]
-	path = modules/SDL
-	url = git@github.com:libsdl-org/SDL.git
-[submodule "modules/extern/repo"]
-	path = modules/extern/repo
-	url = https://github.com/libsdl-org/SDL.git
