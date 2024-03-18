@@ -1,8 +1,7 @@
-#include <iostream>
-#include <SDL3/SDL.h>
+#include "game.h"
 
 int main()
 {
-    std::cout << "Hello" << std::endl;
+    Game game;
     return 0;
 }
