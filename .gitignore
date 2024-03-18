@@ -1,2 +1,9 @@
-/cmake-build-debug/
-/graphics/
+graphics/*
+tests/*
+builds/*
+modules/*
+
+!graphics/.gitkeep
+!tests/.gitkeep
+!builds/.gitkeep
+!modules/.gitkeep
