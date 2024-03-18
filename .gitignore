@@ -1,15 +1,12 @@
 graphics/*
 tests/*
 builds/*
-modules/*
 .DS_Store
 commands/*
 
 !graphics/.gitkeep
 !tests/.gitkeep
 !builds/.gitkeep
-!modules/.gitkeep
 !commands/.gitkeep
-
 
 # https://stackoverflow.com/questions/4250063/how-to-gitignore-all-files-folder-in-a-folder-but-not-the-folder-itself
