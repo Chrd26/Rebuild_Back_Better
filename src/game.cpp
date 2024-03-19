@@ -12,8 +12,8 @@ bool Game::Initialise()
     
     // Create Window
     window = SDL_CreateWindow("Rebuild Back Better",
-							  width,
-							  height,
+							  SCREEN_WIDTH,
+							  SCREEN_HEIGHT,
 							  0);
 							  
 	// Set window position

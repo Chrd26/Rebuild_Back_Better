@@ -4,7 +4,7 @@
 #define LEFT_MOUSE_BUTTON 1
 #define RIGHT_MOUSE_BUTTON 4
 #define SCREEN_WIDTH 1280
-#DEFINE SCREEN_HEIGHT 720
+#define SCREEN_HEIGHT 720
 
 class Game
 {
@@ -15,5 +15,4 @@ public:
 private:
 	static SDL_Window *window;
     static bool Initialise();
-
 };
