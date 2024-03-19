@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.28.3)
 project("RebuildBackBetter" LANGUAGES CXX VERSION 0.1 DESCRIPTION "Originally made during GGJ22") 
 set(CMAKE_CXX_STANDARD 20)
 
-# handle submldules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
+# Handle Submodules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
 # Update submodules as needed
@@ -24,6 +24,7 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/SDL/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
+# Handle Libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 add_executable(${PROJECT_NAME} MACOSX_BUNDLE ./src/main.cpp ./src/game.h ./src/game.cpp)

@@ -1,7 +1,4 @@
 #include "game.h"
-
-const int Game::height = 720;
-const int Game::width = 1280;
 SDL_Window *Game::window = nullptr;
 
 bool Game::Initialise()
@@ -44,16 +41,40 @@ Game::Game()
     
     SDL_Event events;
     bool quit = false;
+    float mouseX, mouseY;
+    Uint32 buttons;
     
     while(!quit)
     {
 		while(SDL_PollEvent(&events))
 		{
-			if (events.type == SDL_EVENT_QUIT)
+			switch(events.type)
 			{
-				quit = true;
+				case SDL_EVENT_QUIT:
+					quit = true;
 			}
 		}	
+		
+		SDL_PumpEvents();
+		// Getting keyboard or mouse states are better for real time
+		// input detection it is also useful for keeping 
+		// keys pressed for a long time.
+		// Read more about that here: 
+		// https://discourse.libsdl.org/t/polling-events-vs-get-keyboardstate/39050/5
+		buttons = SDL_GetMouseState(&mouseX, &mouseY);
+		
+		if (buttons == LEFT_MOUSE_BUTTON)
+		{
+			std::cout << "Pressed Button: " << buttons << std::endl;
+			std::cout << "Mouse X: " << mouseX << "Mouse Y: " << mouseY << std::endl;
+		}
+		
+		if (buttons == RIGHT_MOUSE_BUTTON)
+		{
+			std::cout << "Pressed the left button" << std::endl;
+		}
+		
+		
 	}
 	
 	
