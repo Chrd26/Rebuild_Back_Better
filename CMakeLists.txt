@@ -27,6 +27,6 @@ endif()
 # Handle Libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ./src/main.cpp ./src/game.h ./src/game.cpp ./src/player.h ./src/gameobject.h)
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE ./src/main.cpp ./src/game.h ./src/game.cpp ./src/gameobjects.h ./src/player.h ./src/thief.h ./src/gatherer.h ./src/fighter.h)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 

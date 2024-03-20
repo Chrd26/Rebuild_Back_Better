@@ -1,7 +1,8 @@
 #pragma once
 #include "gameobjects.h"
 
-class Gatherer:Entity
+template<typename F>
+class Fighter: public Entity<F>
 {
 	
 };

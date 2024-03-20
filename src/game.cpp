@@ -1,5 +1,8 @@
 #include "game.h"
 SDL_Window *Game::window = nullptr;
+double Game::startTick = 0;
+double Game::endTick = 0;
+double Game::frameTime = 0;
 
 bool Game::Initialise()
 {
@@ -83,7 +86,8 @@ Game::Game()
 		
 		//Ending tick
 		endTick = SDL_GetTicks();
-		frameTime += endTick - startTick;
+		frameTime += (endTick - startTick)/1000;
+		std::cout << frameTime << std::endl;
 	}
 	
 	

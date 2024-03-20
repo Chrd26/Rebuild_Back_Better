@@ -1,7 +1,8 @@
 #pragma once
 #include "gameobjects.h"
 
-class Player:Entity
+template<typename P>
+class Player: public Entity<P>
 {
 	
 };
