@@ -21,6 +21,7 @@ private:
 	static double startTick;
 	static double endTick;
 	static double frameTime;
+	static unsigned int seconds;
 	static SDL_Window *window;
     static bool Initialise();
 };

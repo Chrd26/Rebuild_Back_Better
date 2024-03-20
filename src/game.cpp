@@ -3,6 +3,7 @@ SDL_Window *Game::window = nullptr;
 double Game::startTick = 0;
 double Game::endTick = 0;
 double Game::frameTime = 0;
+unsigned int Game::seconds = 0;
 
 bool Game::Initialise()
 {
@@ -45,7 +46,9 @@ Game::Game()
     SDL_Event events;
     bool quit = false;
     float mouseX, mouseY;
-    Uint32 buttons;
+    int keyPress;
+    Uint32 mouseState;
+    const Uint8 *keyboardState;
     
     while(!quit)
     {
@@ -66,28 +69,36 @@ Game::Game()
 		// keys pressed for a long time.
 		// Read more about that here: 
 		// https://discourse.libsdl.org/t/polling-events-vs-get-keyboardstate/39050/5
-		buttons = SDL_GetMouseState(&mouseX, &mouseY);
+		mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+		keyboardState = SDL_GetKeyboardState(&keyPress);
 		
-		if (buttons == LEFT_MOUSE_BUTTON)
+		if (mouseState == LEFT_MOUSE_BUTTON)
 		{
-			std::cout << "Pressed Button: " << buttons << std::endl;
+			std::cout << "Pressed Button: " << mouseState << std::endl;
 			std::cout << "Mouse X: " << mouseX << "Mouse Y: " << mouseY << std::endl;
 		}
 		
-		if (buttons == RIGHT_MOUSE_BUTTON)
+		if (mouseState == RIGHT_MOUSE_BUTTON)
 		{
 			std::cout << "Pressed the left button" << std::endl;
 		}
 		
-		if (frameTime >= 60)
+		if (frameTime >= 1)
 		{
-			std::cout << "One minute has passed" << std::endl;
+			std::cout << seconds++ << std::endl;
+			frameTime = 0;
 		}
+		
+		if (keyboardState[SDL_SCANCODE_F])
+		{
+			std::cout << "A key has been pressed" << std::endl;
+			std::cout << keyPress << std::endl;
+		}
+		
 		
 		//Ending tick
 		endTick = SDL_GetTicks();
 		frameTime += (endTick - startTick)/1000;
-		std::cout << frameTime << std::endl;
 	}
 	
 	
