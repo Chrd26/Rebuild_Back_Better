@@ -46,6 +46,8 @@ Game::Game()
     
     while(!quit)
     {
+		// Beggining tick
+		startTick = SDL_GetTicks();
 		while(SDL_PollEvent(&events))
 		{
 			switch(events.type)
@@ -74,7 +76,14 @@ Game::Game()
 			std::cout << "Pressed the left button" << std::endl;
 		}
 		
+		if (frameTime >= 60)
+		{
+			std::cout << "One minute has passed" << std::endl;
+		}
 		
+		//Ending tick
+		endTick = SDL_GetTicks();
+		frameTime += endTick - startTick;
 	}
 	
 	
