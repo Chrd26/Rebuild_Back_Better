@@ -91,7 +91,7 @@ Game::Game()
 		
 		if (keyboardState[SDL_SCANCODE_F])
 		{
-			std::cout << "A key has been pressed" << std::endl;
+			std::cout << "F button has been pressed" << std::endl;
 			std::cout << keyPress << std::endl;
 		}
 		
