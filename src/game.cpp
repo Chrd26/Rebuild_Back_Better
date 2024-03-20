@@ -46,7 +46,6 @@ Game::Game()
     SDL_Event events;
     bool quit = false;
     float mouseX, mouseY;
-    int keyPress;
     Uint32 mouseState;
     const Uint8 *keyboardState;
     
@@ -70,7 +69,7 @@ Game::Game()
 		// Read more about that here: 
 		// https://discourse.libsdl.org/t/polling-events-vs-get-keyboardstate/39050/5
 		mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-		keyboardState = SDL_GetKeyboardState(&keyPress);
+		keyboardState = SDL_GetKeyboardState(nullptr);
 		
 		if (mouseState == LEFT_MOUSE_BUTTON)
 		{
