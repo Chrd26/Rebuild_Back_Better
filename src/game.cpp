@@ -1,11 +1,4 @@
 #include "game.h"
-SDL_Window *Game::window = nullptr;
-double Game::startTick = 0;
-double Game::endTick = 0;
-double Game::frameTime = 0;
-unsigned int Game::seconds = 0;
-TTF_Font *Game::titleFont = nullptr;
-
 Game::Game()
 {
     if (!Initialise())
@@ -76,6 +69,20 @@ Game::Game()
 	SDL_Quit();
 }
 
+// Initialisation
+SDL_Window *Game::window = nullptr;
+double Game::startTick = 0;
+double Game::endTick = 0;
+double Game::frameTime = 0;
+unsigned int Game::seconds = 0;
+SDL_Renderer *Game::renderer = nullptr;
+
+
+// Menu Properties
+TTF_Font *Game::titleFont = nullptr;
+SDL_Surface *Game::titleTextSurface = nullptr;
+
+
 void Game::LoadMainMenu()
 {
 	
@@ -90,9 +97,10 @@ Game::~Game()
 bool Game::Initialise()
 {
 	// Make sure that video and audio have been initialised
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0 || TTF_Init() != 0)
     {
-        std::cout << "Failed to initialise SDL" << std::endl;
+        std::cout << "Failed to initialise SDL ";
+        std::cout << SDL_GetError() << std::endl;
         return false;
     }
     
@@ -109,11 +117,19 @@ bool Game::Initialise()
 							  
 	if (window == nullptr)
 	{
-		std::cout << "Failed to create window" << std::endl;
+		std::cout << "Failed to create window ";
+		std::cout << SDL_GetError() << std::endl;
 		return false;	
 	}
 	
-	titleFont = TTF_OpenFont("../fonts/ArianaVioleta-dz2K.ttf", 44);
+	titleFont = TTF_OpenFont("/Users/chrisd/Desktop/Rebuild Back Better/fonts/ArianaVioleta-dz2K.ttf", 44);
+	
+	if (titleFont == nullptr)
+	{
+		std::cout << "Failed to create font" << std::endl;
+		std::cout << SDL_GetError() << std::endl;
+		return false;
+	}
 
     return true;
 }

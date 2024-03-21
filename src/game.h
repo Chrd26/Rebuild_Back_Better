@@ -34,12 +34,16 @@ private:
 	static double frameTime;
 	static unsigned int seconds;
 	static SDL_Window *window;
+	static SDL_Renderer *renderer;
     static bool Initialise();
+    //static bool loadFont();
 
 // Main Menu
 private:
 	static TTF_Font *titleFont;
 	static void LoadMainMenu();
+	static SDL_Surface *titleTextSurface;
+	static SDL_Texture *titleTextTexture;
 	
 // Gameplay
 private:
