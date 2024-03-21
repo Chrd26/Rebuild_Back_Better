@@ -70,6 +70,7 @@ Game::Game()
 		switch (currentGameState)
 		{
 			case MAIN_MENU:
+				LoadMainMenu();
 				break;
 				
 			case GAMEPLAY:
@@ -104,6 +105,7 @@ int Game::currentGameState = MAIN_MENU;
 // Menu Properties
 TTF_Font *Game::titleFont = nullptr;
 SDL_Surface *Game::titleTextSurface = nullptr;
+SDL_Texture *Game::titleTextTexture;
 
 
 void Game::LoadMainMenu()
@@ -121,8 +123,17 @@ void Game::LoadMainMenu()
 		exit(-1);
 	}
 	
+	titleTextTexture = SDL_CreateTextureFromSurface(renderer, titleTextSurface);
 	
+	const SDL_FRect titleHolder = {static_cast<int>((float)SCREEN_WIDTH * 0.405),
+							static_cast<int>((float)SCREEN_HEIGHT * 0.2),
+							static_cast<float>(titleTextSurface->w),
+							static_cast<float>(titleTextSurface->h)};
+							
+	SDL_RenderTexture(renderer, titleTextTexture, nullptr,
+					  &titleHolder);
 	
+	SDL_DestroySurface(titleTextSurface);
 }
 
 Game::~Game()
