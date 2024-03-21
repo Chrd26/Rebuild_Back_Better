@@ -60,10 +60,32 @@ Game::Game()
 			std::cout << keyPress << std::endl;
 		}
 		
+		// Rendering
+		SDL_SetRenderDrawColor(renderer,
+								 0xFF, 0xFF,
+								 0xFF, 0XFF);
+		SDL_RenderClear(renderer);
 		
+		// Render stuff based on current state
+		switch (currentGameState)
+		{
+			case MAIN_MENU:
+				break;
+				
+			case GAMEPLAY:
+				break;
+				
+			case PAUSED:
+				break;
+		}
+		
+		
+		
+		SDL_RenderPresent(renderer);
 		//Ending tick
 		endTick = SDL_GetTicks();
 		frameTime += (endTick - startTick)/1000;
+		
 	}
 	
 	SDL_Quit();
@@ -76,6 +98,7 @@ double Game::endTick = 0;
 double Game::frameTime = 0;
 unsigned int Game::seconds = 0;
 SDL_Renderer *Game::renderer = nullptr;
+int Game::currentGameState = MAIN_MENU;
 
 
 // Menu Properties
@@ -86,12 +109,39 @@ SDL_Surface *Game::titleTextSurface = nullptr;
 void Game::LoadMainMenu()
 {
 	
+	SDL_Color titleTextcolor = {0x00, 0x00, 0x00};
+	titleTextSurface = TTF_RenderText_Solid(titleFont,
+											"Rebuild Back Better",
+											titleTextcolor);
+	
+	if (titleTextSurface == nullptr)
+	{
+		std::cout << "Failed to create title texture surface ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	
+	
 }
 
 Game::~Game()
 {
 	SDL_DestroyWindow(window);
 	window = nullptr;
+	
+	SDL_DestroyRenderer(renderer);
+	renderer = nullptr;
+	
+	if (titleFont != nullptr)
+	{
+		TTF_CloseFont(titleFont);
+		titleFont = nullptr;
+	}
+	
+	
+	
+	TTF_Quit();
 }
 
 bool Game::Initialise()
@@ -130,6 +180,11 @@ bool Game::Initialise()
 		std::cout << SDL_GetError() << std::endl;
 		return false;
 	}
+	
+	renderer = SDL_CreateRenderer(window, NULL, 
+								  SDL_RENDERER_ACCELERATED);
+								  
+	
 
     return true;
 }
