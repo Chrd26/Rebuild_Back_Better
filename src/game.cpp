@@ -4,35 +4,7 @@ double Game::startTick = 0;
 double Game::endTick = 0;
 double Game::frameTime = 0;
 unsigned int Game::seconds = 0;
-
-bool Game::Initialise()
-{
-	// Make sure that video and audio have been initialised
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
-    {
-        std::cout << "Failed to initialise SDL" << std::endl;
-        return false;
-    }
-    
-    // Create Window
-    window = SDL_CreateWindow("Rebuild Back Better",
-							  SCREEN_WIDTH,
-							  SCREEN_HEIGHT,
-							  0);
-							  
-	// Set window position
-	int windowPOSOutput = SDL_SetWindowPosition(window,
-												SDL_WINDOWPOS_CENTERED,
-												SDL_WINDOWPOS_CENTERED);
-							  
-	if (window == nullptr)
-	{
-		std::cout << "Failed to create window" << std::endl;
-		return false;	
-	}
-
-    return true;
-}
+TTF_Font *Game::titleFont = nullptr;
 
 Game::Game()
 {
@@ -47,6 +19,7 @@ Game::Game()
     bool quit = false;
     float mouseX, mouseY;
     Uint32 mouseState;
+    int keyPress = 0;
     const Uint8 *keyboardState;
     
     while(!quit)
@@ -69,7 +42,7 @@ Game::Game()
 		// Read more about that here: 
 		// https://discourse.libsdl.org/t/polling-events-vs-get-keyboardstate/39050/5
 		mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-		keyboardState = SDL_GetKeyboardState(nullptr);
+		keyboardState = SDL_GetKeyboardState(&keyPress);
 		
 		if (mouseState == LEFT_MOUSE_BUTTON)
 		{
@@ -100,8 +73,47 @@ Game::Game()
 		frameTime += (endTick - startTick)/1000;
 	}
 	
+	SDL_Quit();
+}
+
+void Game::LoadMainMenu()
+{
 	
+}
+
+Game::~Game()
+{
 	SDL_DestroyWindow(window);
 	window = nullptr;
-	SDL_Quit();
+}
+
+bool Game::Initialise()
+{
+	// Make sure that video and audio have been initialised
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    {
+        std::cout << "Failed to initialise SDL" << std::endl;
+        return false;
+    }
+    
+    // Create Window
+    window = SDL_CreateWindow("Rebuild Back Better",
+							  SCREEN_WIDTH,
+							  SCREEN_HEIGHT,
+							  0);
+							  
+	// Set window position
+	int windowPOSOutput = SDL_SetWindowPosition(window,
+												SDL_WINDOWPOS_CENTERED,
+												SDL_WINDOWPOS_CENTERED);
+							  
+	if (window == nullptr)
+	{
+		std::cout << "Failed to create window" << std::endl;
+		return false;	
+	}
+	
+	titleFont = TTF_OpenFont("../fonts/ArianaVioleta-dz2K.ttf", 44);
+
+    return true;
 }

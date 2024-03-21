@@ -1,4 +1,5 @@
 #include <SDL.h>
+#include <SDL3_ttf/SDL_ttf.h>
 #include "player.h"
 #include "thief.h"
 #include "gatherer.h"
@@ -13,8 +14,18 @@
 
 class Game
 {
+// Constructor and Destructors
 public:
     Game();
+    ~Game();
+
+// Game State
+	enum GameState
+	{
+		MAIN_MENU = 0,
+		GAMEPLAY,
+		PAUSED
+	};
 
 // Game Initialisation
 private:
@@ -24,6 +35,17 @@ private:
 	static unsigned int seconds;
 	static SDL_Window *window;
     static bool Initialise();
+
+// Main Menu
+private:
+	static TTF_Font *titleFont;
+	static void LoadMainMenu();
+	
+// Gameplay
+private:
+	// add here gameplay methods and properties
+	
+  
 };
 
 // Cool stuff to read about timestep and time for physics and timers

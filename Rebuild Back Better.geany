@@ -28,15 +28,16 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=1011;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
-FILE_NAME_1=419;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
+FILE_NAME_0=1049;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
+FILE_NAME_1=430;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
 FILE_NAME_2=0;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Ffighter.h;0;4
 FILE_NAME_3=28;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgameobjects.h;0;4
 FILE_NAME_4=0;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgatherer.h;0;4
 FILE_NAME_5=0;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fplayer.h;0;4
 FILE_NAME_6=0;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fthief.h;0;4
 FILE_NAME_7=0;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmain.cpp;0;4
-FILE_NAME_8=738;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
+FILE_NAME_8=226;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
+FILE_NAME_9=128;None;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2F.gitignore;0;4
 
 [VTE]
 last_dir=/Users/chrisd

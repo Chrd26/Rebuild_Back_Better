@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.28.3)
 project("RebuildBackBetter" LANGUAGES CXX VERSION 0.1 DESCRIPTION "Originally made during GGJ22") 
 set(CMAKE_CXX_STANDARD 20)
+set(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/build")
 
 # Handle Submodules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
@@ -24,9 +25,16 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/SDL/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/CMakeLists.txt")
+    message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
+endif()
+
 # Handle Libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
+add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_ttf")
+find_package(SDL3_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL3_ttf)
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 add_executable(${PROJECT_NAME} MACOSX_BUNDLE ./src/main.cpp ./src/game.h ./src/game.cpp ./src/gameobjects.h ./src/player.h ./src/thief.h ./src/gatherer.h ./src/fighter.h)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
 
