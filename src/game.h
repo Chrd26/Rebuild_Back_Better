@@ -63,6 +63,7 @@ private:
 	static SDL_Texture *startGameTexture;
 	static SDL_Texture *exitGameSurface;
 	static SDL_Texture *exitGameTexture;
+	static int currentMainMenuSelection;
 	
 // Gameplay
 private:

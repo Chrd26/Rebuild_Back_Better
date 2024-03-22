@@ -85,7 +85,7 @@ Game::Game()
 				{
 					menuFont = LoadFont(hasLoadedMenuFont,
 										"/Users/chrisd/Desktop/Rebuild Back Better/fonts/CfArpineDemoRegular-q2Zr2.ttf",
-										60)
+										60);
 										
 					if (!hasLoadedMenuFont)
 					{
@@ -129,6 +129,7 @@ TTF_Font *Game::titleFont = nullptr;
 SDL_Surface *Game::titleTextSurface = nullptr;
 SDL_Texture *Game::titleTextTexture = nullptr;
 bool Game::hasLoadedTitleFont = false;
+TTF_Font *Game::menuFont = nullptr;
 SDL_Surface* Game::startGameSurface = nullptr;
 SDL_Texture* Game::startGameTexture = nullptr;
 SDL_Surface* Game::continueGameSurface = nullptr;
@@ -136,6 +137,7 @@ SDL_Texture* Game::continueGameTexture = nullptr;
 SDL_Texture* Game::exitGameSurface = nullptr;
 SDL_Texture* Game::exitGameTexture = nullptr;
 bool Game::hasLoadedMenuFont = false;
+int Game::currentMainMenuSelection = 0;
 
 // Passing by Reference
 // https://www.ibm.com/docs/en/zos/2.4.0?topic=calls-pass-by-reference-c-only
@@ -186,6 +188,18 @@ void Game::LoadMainMenu()
 	SDL_Color notSelected = {0xff, 0xff, 0xff};
 	SDL_Color disabledOption = {0x10, 0x10, 0x10};
 	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
+	
+	switch (currentMainMenuSelection)
+	{
+		case ContinueSelected:
+			break;
+			
+		case StartSelected:
+			break;
+			
+		case ExitSelected:
+			break;
+	}
 }
 
 Game::~Game()
