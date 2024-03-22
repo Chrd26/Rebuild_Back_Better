@@ -122,6 +122,8 @@ double Game::frameTime = 0;
 unsigned int Game::seconds = 0;
 SDL_Renderer *Game::renderer = nullptr;
 int Game::currentGameState = MAIN_MENU;
+int Game::windowHeight = 0;
+int Game::windowWidth = 0;
 
 
 // Menu Properties
@@ -250,6 +252,10 @@ bool Game::Initialise()
 	
 	renderer = SDL_CreateRenderer(window, nullptr, 
 								  SDL_RENDERER_ACCELERATED);
+								  
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+	std::cout << "Window Width: " << windowWidth << std::endl;
+	std::cout << "Window Height: " << windowHeight << std::endl;
 								  
 
     return true;

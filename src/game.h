@@ -37,7 +37,9 @@ private:
 	static SDL_Renderer *renderer;
     static bool Initialise();
     static int currentGameState, windowWidth, windowHeight;
-    static TTF_Font* LoadFont(bool &hasFontLoaded, std::string urlToFont, unsigned int fontSize);
+    static TTF_Font* LoadFont(bool &hasFontLoaded,
+							 std::string urlToFont, 
+							 unsigned int fontSize);
 
 // Main Menu
 private:
