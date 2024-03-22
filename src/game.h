@@ -36,16 +36,33 @@ private:
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
     static bool Initialise();
-    static int currentGameState;
+    static int currentGameState, windowWidth, windowHeight;
     static TTF_Font* LoadFont(bool &hasFontLoaded, std::string urlToFont, unsigned int fontSize);
 
 // Main Menu
 private:
+
+	enum MenuOptionSelection
+	{
+		ContinueSelected = 0,
+		StartSelected,
+		ExitSelected
+	};
+	
 	static TTF_Font *titleFont;
 	static void LoadMainMenu();
 	static SDL_Surface *titleTextSurface;
 	static SDL_Texture *titleTextTexture;
 	static bool hasLoadedTitleFont;
+	
+	static TTF_Font *menuFont;
+	static bool hasLoadedMenuFont;
+	static SDL_Surface *continueGameSurface;
+	static SDL_Texture *continueGameTexture;
+	static SDL_Surface *startGameSurface;
+	static SDL_Texture *startGameTexture;
+	static SDL_Texture *exitGameSurface;
+	static SDL_Texture *exitGameTexture;
 	
 // Gameplay
 private:

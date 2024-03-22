@@ -6,8 +6,6 @@ Game::Game()
         exit(-1);
     }
     
-    std::cout << "Start Game" << std::endl;
-    
     SDL_Event events;
     bool quit = false;
     float mouseX, mouseY;
@@ -62,8 +60,8 @@ Game::Game()
 		
 		// Rendering
 		SDL_SetRenderDrawColor(renderer,
-								 0xFF, 0xFF,
-								 0xFF, 0XFF);
+								 0x00, 0x00,
+								 0x00, 0X00);
 		SDL_RenderClear(renderer);
 		
 		// Render stuff based on current state
@@ -74,14 +72,28 @@ Game::Game()
 				{
 					titleFont = LoadFont(hasLoadedTitleFont, 
 												  "/Users/chrisd/Desktop/Rebuild Back Better/fonts/ArianaVioleta-dz2K.ttf",
-												  44);	
+												  100);	
 					
 					if (!hasLoadedTitleFont)
 					{
-						std::cout << "Has not loaded" << std::endl;
+						std::cout << "Title font has not loaded" << std::endl;
 						exit(-1);
 					}
 				}
+				
+				if (!hasLoadedMenuFont)
+				{
+					menuFont = LoadFont(hasLoadedMenuFont,
+										"/Users/chrisd/Desktop/Rebuild Back Better/fonts/CfArpineDemoRegular-q2Zr2.ttf",
+										60)
+										
+					if (!hasLoadedMenuFont)
+					{
+						std::cout << "Menu font has not loaded" << std::endl;
+						exit(-1);
+					}
+				}
+				
 				LoadMainMenu();
 				break;
 				
@@ -115,13 +127,21 @@ int Game::currentGameState = MAIN_MENU;
 // Menu Properties
 TTF_Font *Game::titleFont = nullptr;
 SDL_Surface *Game::titleTextSurface = nullptr;
-SDL_Texture *Game::titleTextTexture;
+SDL_Texture *Game::titleTextTexture = nullptr;
 bool Game::hasLoadedTitleFont = false;
+SDL_Surface* Game::startGameSurface = nullptr;
+SDL_Texture* Game::startGameTexture = nullptr;
+SDL_Surface* Game::continueGameSurface = nullptr;
+SDL_Texture* Game::continueGameTexture = nullptr;
+SDL_Texture* Game::exitGameSurface = nullptr;
+SDL_Texture* Game::exitGameTexture = nullptr;
+bool Game::hasLoadedMenuFont = false;
 
+// Passing by Reference
+// https://www.ibm.com/docs/en/zos/2.4.0?topic=calls-pass-by-reference-c-only
 TTF_Font *Game::LoadFont(bool &hasFontLoaded, std::string urlToFont, unsigned int fontSize)
 {
 	TTF_Font *font = TTF_OpenFont(urlToFont.c_str(), fontSize);
-	std::cout << "assigned" << std::endl;
 	if (font == nullptr)
 	{
 		std::cout << "Failed to create font ";
@@ -129,15 +149,15 @@ TTF_Font *Game::LoadFont(bool &hasFontLoaded, std::string urlToFont, unsigned in
 		hasFontLoaded = false;
 		return nullptr;
 	}
-	
-	std::cout << "Return" << std::endl;
 	hasFontLoaded = true;
 	return font;
 }
 
 void Game::LoadMainMenu()
 {
-	SDL_Color titleTextcolor = {0x00, 0x00, 0x00};
+	SDL_Color titleTextcolor = {0xE0, 0xAA, 0x95};
+	
+	// Title
 	titleTextSurface = TTF_RenderText_Solid(titleFont,
 											"Rebuild Back Better",
 											titleTextcolor);
@@ -151,8 +171,8 @@ void Game::LoadMainMenu()
 	
 	titleTextTexture = SDL_CreateTextureFromSurface(renderer, titleTextSurface);
 	
-	const SDL_FRect titleHolder = {static_cast<int>((float)SCREEN_WIDTH * 0.405),
-							static_cast<int>((float)SCREEN_HEIGHT * 0.2),
+	const SDL_FRect titleHolder = {static_cast<int>((float)SCREEN_WIDTH * 0.27),
+							static_cast<int>((float)SCREEN_HEIGHT * 0.05),
 							static_cast<float>(titleTextSurface->w),
 							static_cast<float>(titleTextSurface->h)};
 							
@@ -161,6 +181,11 @@ void Game::LoadMainMenu()
 	
 	SDL_DestroySurface(titleTextSurface);
 	titleTextTexture = nullptr;
+	
+	// Menu Options
+	SDL_Color notSelected = {0xff, 0xff, 0xff};
+	SDL_Color disabledOption = {0x10, 0x10, 0x10};
+	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
 }
 
 Game::~Game()
@@ -176,7 +201,6 @@ Game::~Game()
 		TTF_CloseFont(titleFont);
 		titleFont = nullptr;
 	}
-	
 	
 	
 	TTF_Quit();
@@ -196,7 +220,7 @@ bool Game::Initialise()
     window = SDL_CreateWindow("Rebuild Back Better",
 							  SCREEN_WIDTH,
 							  SCREEN_HEIGHT,
-							  0);
+							  SDL_WINDOW_FULLSCREEN);
 							  
 	// Set window position
 	int windowPOSOutput = SDL_SetWindowPosition(window,
