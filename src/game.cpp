@@ -70,7 +70,7 @@ Game::Game()
 			case MAIN_MENU:
 				if (!hasLoadedTitleFont)
 				{
-					titleFont = LoadFont(hasLoadedTitleFont, 
+					titleFont = LoadFont(&hasLoadedTitleFont, 
 												  "/Users/chrisd/Desktop/Rebuild Back Better/fonts/ArianaVioleta-dz2K.ttf",
 												  100);	
 					
@@ -83,7 +83,7 @@ Game::Game()
 				
 				if (!hasLoadedMenuFont)
 				{
-					menuFont = LoadFont(hasLoadedMenuFont,
+					menuFont = LoadFont(&hasLoadedMenuFont,
 										"/Users/chrisd/Desktop/Rebuild Back Better/fonts/CfArpineDemoRegular-q2Zr2.ttf",
 										60);
 										
@@ -143,17 +143,17 @@ int Game::currentMainMenuSelection = 0;
 
 // Passing by Reference
 // https://www.ibm.com/docs/en/zos/2.4.0?topic=calls-pass-by-reference-c-only
-TTF_Font *Game::LoadFont(bool &hasFontLoaded, std::string urlToFont, unsigned int fontSize)
+TTF_Font *Game::LoadFont(bool *hasFontLoaded, std::string urlToFont, unsigned int fontSize)
 {
 	TTF_Font *font = TTF_OpenFont(urlToFont.c_str(), fontSize);
 	if (font == nullptr)
 	{
 		std::cout << "Failed to create font ";
 		std::cout << SDL_GetError() << std::endl;
-		hasFontLoaded = false;
+		*hasFontLoaded = false;
 		return nullptr;
 	}
-	hasFontLoaded = true;
+	*hasFontLoaded = true;
 	return font;
 }
 
