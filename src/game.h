@@ -37,7 +37,7 @@ private:
 	static SDL_Renderer *renderer;
     static bool Initialise();
     static int currentGameState;
-    //static bool loadFont();
+    static TTF_Font* LoadFont(bool &hasFontLoaded, std::string urlToFont, unsigned int fontSize);
 
 // Main Menu
 private:
@@ -45,6 +45,7 @@ private:
 	static void LoadMainMenu();
 	static SDL_Surface *titleTextSurface;
 	static SDL_Texture *titleTextTexture;
+	static bool hasLoadedTitleFont;
 	
 // Gameplay
 private:

@@ -70,6 +70,18 @@ Game::Game()
 		switch (currentGameState)
 		{
 			case MAIN_MENU:
+				if (!hasLoadedTitleFont)
+				{
+					titleFont = LoadFont(hasLoadedTitleFont, 
+												  "/Users/chrisd/Desktop/Rebuild Back Better/fonts/ArianaVioleta-dz2K.ttf",
+												  44);	
+					
+					if (!hasLoadedTitleFont)
+					{
+						std::cout << "Has not loaded" << std::endl;
+						exit(-1);
+					}
+				}
 				LoadMainMenu();
 				break;
 				
@@ -79,8 +91,6 @@ Game::Game()
 			case PAUSED:
 				break;
 		}
-		
-		
 		
 		SDL_RenderPresent(renderer);
 		//Ending tick
@@ -106,11 +116,27 @@ int Game::currentGameState = MAIN_MENU;
 TTF_Font *Game::titleFont = nullptr;
 SDL_Surface *Game::titleTextSurface = nullptr;
 SDL_Texture *Game::titleTextTexture;
+bool Game::hasLoadedTitleFont = false;
 
+TTF_Font *Game::LoadFont(bool &hasFontLoaded, std::string urlToFont, unsigned int fontSize)
+{
+	TTF_Font *font = TTF_OpenFont(urlToFont.c_str(), fontSize);
+	std::cout << "assigned" << std::endl;
+	if (font == nullptr)
+	{
+		std::cout << "Failed to create font ";
+		std::cout << SDL_GetError() << std::endl;
+		hasFontLoaded = false;
+		return nullptr;
+	}
+	
+	std::cout << "Return" << std::endl;
+	hasFontLoaded = true;
+	return font;
+}
 
 void Game::LoadMainMenu()
 {
-	
 	SDL_Color titleTextcolor = {0x00, 0x00, 0x00};
 	titleTextSurface = TTF_RenderText_Solid(titleFont,
 											"Rebuild Back Better",
@@ -134,6 +160,7 @@ void Game::LoadMainMenu()
 					  &titleHolder);
 	
 	SDL_DestroySurface(titleTextSurface);
+	titleTextTexture = nullptr;
 }
 
 Game::~Game()
@@ -183,19 +210,9 @@ bool Game::Initialise()
 		return false;	
 	}
 	
-	titleFont = TTF_OpenFont("/Users/chrisd/Desktop/Rebuild Back Better/fonts/ArianaVioleta-dz2K.ttf", 44);
-	
-	if (titleFont == nullptr)
-	{
-		std::cout << "Failed to create font" << std::endl;
-		std::cout << SDL_GetError() << std::endl;
-		return false;
-	}
-	
-	renderer = SDL_CreateRenderer(window, NULL, 
+	renderer = SDL_CreateRenderer(window, nullptr, 
 								  SDL_RENDERER_ACCELERATED);
 								  
-	
 
     return true;
 }
