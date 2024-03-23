@@ -68,10 +68,22 @@ Game::Game()
 		switch (currentGameState)
 		{
 			case MAIN_MENU:
+				 CFString *findTitleFont = obj_msgSend( obj_msgSend(NSClassFromString( CFSTR("NSBundle") ),
+												NSSelectorFromString( CFSTR("mainBundle") )),
+												NSSelectorFromString( CFSTR("pathForResource: extension:") ),
+												CFSTR("fonts/ArianaVioleta-dz2K"),
+												CFSTR("ttf"));
+												
+												
+				CFString *findTitleFont = obj_msgSend( obj_msgSend(NSClassFromString( CFSTR("NSBundle") ),
+												NSSelectorFromString( CFSTR("mainBundle") )),
+												NSSelectorFromString( CFSTR("pathForResource: extension:") ),
+												CFSTR("fonts/CfArpineDemoRegular-q2Zr2""),
+												CFSTR("ttf"));
 				if (!hasLoadedTitleFont)
 				{
 					titleFont = LoadFont(&hasLoadedTitleFont, 
-												  "/Users/chrisd/Desktop/Rebuild Back Better/fonts/ArianaVioleta-dz2K.ttf",
+												  findTitlefont,
 												  100);	
 					
 					if (!hasLoadedTitleFont)
@@ -84,7 +96,7 @@ Game::Game()
 				if (!hasLoadedMenuFont)
 				{
 					menuFont = LoadFont(&hasLoadedMenuFont,
-										"/Users/chrisd/Desktop/Rebuild Back Better/fonts/CfArpineDemoRegular-q2Zr2.ttf",
+										"../fonts/CfArpineDemoRegular-q2Zr2.ttf",
 										60);
 										
 					if (!hasLoadedMenuFont)
@@ -175,8 +187,8 @@ void Game::LoadMainMenu()
 	
 	titleTextTexture = SDL_CreateTextureFromSurface(renderer, titleTextSurface);
 	
-	const SDL_FRect titleHolder = {static_cast<int>((float)SCREEN_WIDTH * 0.27),
-							static_cast<int>((float)SCREEN_HEIGHT * 0.05),
+	const SDL_FRect titleHolder = {static_cast<float>(windowWidth * 0.34),
+							static_cast<float>(windowHeight * 0.05),
 							static_cast<float>(titleTextSurface->w),
 							static_cast<float>(titleTextSurface->h)};
 							

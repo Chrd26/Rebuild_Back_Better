@@ -6,6 +6,7 @@
 #include "fighter.h"
 #include <iostream>
 #include <string>
+#include <Foundation/Foundation.h>
 
 #define LEFT_MOUSE_BUTTON 1
 #define RIGHT_MOUSE_BUTTON 4

@@ -31,12 +31,40 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
+
+# Add resource files
+file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
+
 # Handle Libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_ttf")
 find_package(SDL3_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL3_ttf)
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE ./src/main.cpp ./src/game.h ./src/game.cpp ./src/gameobjects.h ./src/player.h ./src/thief.h ./src/gatherer.h ./src/fighter.h)
+add_executable(${PROJECT_NAME} MACOSX_BUNDLE 
+				./src/main.cpp ./src/game.h 
+				./src/game.cpp ./src/gameobjects.h 
+				./src/player.h ./src/thief.h 
+				./src/gatherer.h ./src/fighter.h
+				${FONT_SOURCES})
+				
+#individually set the file's path properties
+foreach(FONT_FILE ${FONT_SOURCES})
+	message(FONT_FILE="${FONT_FILE}")
+
+
+  # Get the folder and the file name
+  file(RELATIVE_PATH RES_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${FONT_FILE})
+  message(RELATIVE_PATH="${RES_PATH}")
+  
+  # keep only the name of the folder
+  get_filename_component(NEW_FILE_PATH ${RES_PATH} DIRECTORY)
+  message(NEW_RELATIVE_PATH="${NEW_FILE_PATH}")
+
+  # Add the FONT_FILE into the NEW_FILE_PATH folder
+  set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "${NEW_FILE_PATH}")
+
+endforeach(FONT_FILE)
+				
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
 
