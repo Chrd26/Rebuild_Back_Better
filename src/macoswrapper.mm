@@ -5,7 +5,7 @@ extern "C"
 
 extern "C" MacBuild  *MacBuilder()
 {
-	MacBuild *macbuild = [[MacBuild alloc] init]
+	MacBuild *macbuild = [[MacBuild alloc] init];
 	return macbuild;
 }
 

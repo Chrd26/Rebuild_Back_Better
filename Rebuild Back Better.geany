@@ -28,13 +28,13 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=4
-FILE_NAME_0=18;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
-FILE_NAME_1=185;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
-FILE_NAME_2=251;Objective-C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmacos.mm;0;4
-FILE_NAME_3=190;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmacos.h;0;4
-FILE_NAME_4=2918;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
-FILE_NAME_5=215;Objective-C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmacoswrapper.mm;0;4
+current_page=0
+FILE_NAME_0=2785;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
+FILE_NAME_1=1037;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
+FILE_NAME_2=139;Objective-C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmacoswrapper.mm;0;4
+FILE_NAME_3=229;Objective-C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmacos.mm;0;4
+FILE_NAME_4=165;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmacos.h;0;4
+FILE_NAME_5=3122;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
 
 [VTE]
 last_dir=/Users/chrisd
@@ -49,7 +49,7 @@ CMakeFT_01_WD=/Users/chrisd/Desktop/Rebuild Back Better
 filetypes=CMake;
 
 [prjorg]
-expanded_paths=/Users/chrisd/Desktop/Rebuild Back Better/fonts;/Users/chrisd/Desktop/Rebuild Back Better/src;
+expanded_paths=/Users/chrisd/Desktop/Rebuild Back Better/builds;/Users/chrisd/Desktop/Rebuild Back Better/fonts;/Users/chrisd/Desktop/Rebuild Back Better/src;
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
 header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
 ignored_dirs_patterns=.*;CVS;

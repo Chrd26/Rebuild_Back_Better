@@ -4,8 +4,7 @@
 
 @interface MacBuild : NSObject
 
-	@property (readonly) NSBundle *standardBundle;
-	@property (readonly) NSString *findFontMenuTitle;
+	@property (assign) NSBundle *standardBundle;
+	@property (assign) NSString *findFontMenuTitle;
 	void InitialiseProperties();
-
 @end

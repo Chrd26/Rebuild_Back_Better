@@ -6,7 +6,8 @@
 #include "fighter.h"
 #include <iostream>
 #include <string>
-#include "macos.h"
+#include <dlfcn.h>
+#include <cerrno>
 
 #define LEFT_MOUSE_BUTTON 1
 #define RIGHT_MOUSE_BUTTON 4
@@ -15,7 +16,7 @@
 
 class Game
 {
-// Constructor and Destructors
+// Constructor and Destructorss
 public:
     Game();
     ~Game();
@@ -41,6 +42,11 @@ private:
     static TTF_Font* LoadFont(bool *hasFontLoaded,
 							 std::string urlToFont, 
 							 unsigned int fontSize);
+// MacOs Init
+	static void *macBuildHandler;
+	static void *(*CreateMacBuilderObj)();
+	static void *(*DeleteMacBuilderObj)();
+	static std::string titleFontPathFinder;
 
 // OS specific Stuff
 private:
