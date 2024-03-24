@@ -6,7 +6,7 @@
 #include "fighter.h"
 #include <iostream>
 #include <string>
-#include <Foundation/Foundation.h>
+#include "macos.h"
 
 #define LEFT_MOUSE_BUTTON 1
 #define RIGHT_MOUSE_BUTTON 4
@@ -41,6 +41,9 @@ private:
     static TTF_Font* LoadFont(bool *hasFontLoaded,
 							 std::string urlToFont, 
 							 unsigned int fontSize);
+
+// OS specific Stuff
+private:
 
 // Main Menu
 private:

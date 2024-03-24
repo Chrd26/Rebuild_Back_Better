@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.28.3)
 project("RebuildBackBetter" LANGUAGES CXX VERSION 0.1 DESCRIPTION "Originally made during GGJ22") 
+if (APPLE)
+	enable_language(OBJCXX)
+endif()
 set(CMAKE_CXX_STANDARD 20)
 set(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/build")
 
@@ -33,6 +36,7 @@ endif()
 
 
 # Add resource files
+# Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
 file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
 
 # Handle Libraries
@@ -45,6 +49,7 @@ add_executable(${PROJECT_NAME} MACOSX_BUNDLE
 				./src/game.cpp ./src/gameobjects.h 
 				./src/player.h ./src/thief.h 
 				./src/gatherer.h ./src/fighter.h
+				./src/macos.h ./src/macos.mm 
 				${FONT_SOURCES})
 				
 #individually set the file's path properties
@@ -64,7 +69,39 @@ foreach(FONT_FILE ${FONT_SOURCES})
   set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "${NEW_FILE_PATH}")
 
 endforeach(FONT_FILE)
+
+# Build MacOs Build file
+# Read More: 
+# https://stackoverflow.com/questions/76486081/mix-c-and-objective-c-code-using-cmake-and-get-c-executable
+add_library(macosbuild MODULE
+    ./src/macoswrapper.mm
+)
+
+target_sources(macosbuild
+  PRIVATE
+    ./src/macos.h
+    ./src/macos.mm
+)
+
+target_link_libraries(macosbuild
+    PRIVATE "-framework Cocoa"
+    PRIVATE "-framework Foundation"
+    PRIVATE "-framework AppKit"
+)
+
+# Set the language for the library to Objective-C++
+set_target_properties(macosbuild PROPERTIES
+    LINKER_LANGUAGE "CXX"
+    XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES
+    XCODE_ATTRIBUTE_CLANG_ENABLE_MODULES YES
+    XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_WEAK YES
+)
 				
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
+# Code from here: https://stackoverflow.com/questions/17070101/why-i-cannot-link-the-mac-framework-file-with-cmake
+
+if (APPLE)
+    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Foundation")
+endif()
 

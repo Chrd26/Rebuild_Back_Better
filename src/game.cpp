@@ -1,4 +1,5 @@
 #include "game.h"
+
 Game::Game()
 {
     if (!Initialise())
@@ -68,23 +69,11 @@ Game::Game()
 		switch (currentGameState)
 		{
 			case MAIN_MENU:
-				 CFString *findTitleFont = obj_msgSend( obj_msgSend(NSClassFromString( CFSTR("NSBundle") ),
-												NSSelectorFromString( CFSTR("mainBundle") )),
-												NSSelectorFromString( CFSTR("pathForResource: extension:") ),
-												CFSTR("fonts/ArianaVioleta-dz2K"),
-												CFSTR("ttf"));
-												
-												
-				CFString *findTitleFont = obj_msgSend( obj_msgSend(NSClassFromString( CFSTR("NSBundle") ),
-												NSSelectorFromString( CFSTR("mainBundle") )),
-												NSSelectorFromString( CFSTR("pathForResource: extension:") ),
-												CFSTR("fonts/CfArpineDemoRegular-q2Zr2""),
-												CFSTR("ttf"));
 				if (!hasLoadedTitleFont)
 				{
 					titleFont = LoadFont(&hasLoadedTitleFont, 
-												  findTitlefont,
-												  100);	
+																	findTitlefont,
+																	100);	
 					
 					if (!hasLoadedTitleFont)
 					{
