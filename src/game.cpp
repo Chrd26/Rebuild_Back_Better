@@ -226,7 +226,7 @@ Game::~Game()
 		titleFont = nullptr;
 	}
 	
-	
+	dlclose(macBuildHandler);
 	TTF_Quit();
 }
 
@@ -274,8 +274,7 @@ bool Game::Initialise()
 								  
 	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 	std::cout << "Window Width: " << windowWidth << std::endl;
-	std::cout << "Window Height: " << windowHeight << std::endl;
-								  
+	std::cout << "Window Height: " << windowHeight << std::endl;						  
 
     return true;
 }

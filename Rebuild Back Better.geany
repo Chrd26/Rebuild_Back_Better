@@ -29,12 +29,8 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=2785;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
-FILE_NAME_1=1037;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
-FILE_NAME_2=139;Objective-C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmacoswrapper.mm;0;4
-FILE_NAME_3=229;Objective-C;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmacos.mm;0;4
-FILE_NAME_4=165;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmacos.h;0;4
-FILE_NAME_5=3122;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
+FILE_NAME_0=5265;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
+FILE_NAME_1=3083;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
 
 [VTE]
 last_dir=/Users/chrisd
