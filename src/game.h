@@ -6,7 +6,6 @@
 #include "fighter.h"
 #include <iostream>
 #include <string>
-#include <dlfcn.h>
 #include <cerrno>
 
 #define LEFT_MOUSE_BUTTON 1
@@ -42,11 +41,6 @@ private:
     static TTF_Font* LoadFont(bool *hasFontLoaded,
 							 std::string urlToFont, 
 							 unsigned int fontSize);
-// MacOs Init
-	static void *macBuildHandler;
-	static void *CreateMacBuilderObj;
-	static void *(*DeleteMacBuilderObj)(void *builder);
-	static std::string titleFontPathFinder;
 
 // OS specific Stuff
 private:
