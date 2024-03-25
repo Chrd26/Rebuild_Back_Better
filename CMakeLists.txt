@@ -65,43 +65,6 @@ foreach(FONT_FILE ${FONT_SOURCES})
   set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH}")
 
 endforeach(FONT_FILE)
-
-# Add maclibary
-# Get the folder and the file name
-file(RELATIVE_PATH MAC_LIB_RES_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MAC_LIBRARY})
-  
-# keep only the name of the folder
-get_filename_component(NEW_MAC_FILE_PATH ${MAC_LIB_RES_PATH} DIRECTORY)
-
-# Add the fileinto the folder
-set_property(SOURCE ${MAC_LIBRARY} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_MAC_FILE_PATH}")
-
-# Build MacOs Build file
-# Read More: 
-# https://stackoverflow.com/questions/76486081/mix-c-and-objective-c-code-using-cmake-and-get-c-executable
-add_library(macosbuild MODULE
-    ./src/macoswrapper.mm
-)
-
-target_sources(macosbuild
-  PRIVATE
-    ./src/macos.h
-    ./src/macos.mm
-)
-
-target_link_libraries(macosbuild
-    PRIVATE "-framework Cocoa"
-    PRIVATE "-framework Foundation"
-    PRIVATE "-framework AppKit"
-)
-
-# Set the language for the library to Objective-C++
-set_target_properties(macosbuild PROPERTIES
-    LINKER_LANGUAGE "CXX"
-    XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_ARC YES
-    XCODE_ATTRIBUTE_CLANG_ENABLE_MODULES YES
-    XCODE_ATTRIBUTE_CLANG_ENABLE_OBJC_WEAK YES
-)
 				
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
