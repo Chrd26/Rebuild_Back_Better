@@ -38,6 +38,7 @@ endif()
 # Add resource files
 # Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
 file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
+file(GLOB MAC_LIBRARY "builds/libmacosbuild.so")
 
 # Handle Libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
@@ -49,25 +50,32 @@ add_executable(${PROJECT_NAME} MACOSX_BUNDLE
 				./src/game.cpp ./src/gameobjects.h 
 				./src/player.h ./src/thief.h 
 				./src/gatherer.h ./src/fighter.h
-				${FONT_SOURCES})
+				${FONT_SOURCES}
+				${MAC_LIBRARY})
 				
 #individually set the file's path properties
 foreach(FONT_FILE ${FONT_SOURCES})
-	message(FONT_FILE="${FONT_FILE}")
-
 
   # Get the folder and the file name
   file(RELATIVE_PATH RES_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${FONT_FILE})
-  message(RELATIVE_PATH="${RES_PATH}")
   
   # keep only the name of the folder
   get_filename_component(NEW_FILE_PATH ${RES_PATH} DIRECTORY)
-  message(NEW_RELATIVE_PATH="${NEW_FILE_PATH}")
 
   # Add the FONT_FILE into the NEW_FILE_PATH folder
   set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "${NEW_FILE_PATH}")
 
 endforeach(FONT_FILE)
+
+# Add maclibary
+# Get the folder and the file name
+file(RELATIVE_PATH MAC_LIB_RES_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MAC_LIBRARY})
+  
+# keep only the name of the folder
+get_filename_component(NEW_MAC_FILE_PATH ${MAC_LIB_RES_PATH} DIRECTORY)
+
+# Add the fileinto the folder
+set_property(SOURCE ${MAC_LIBRARY} PROPERTY MACOSX_PACKAGE_LOCATION "${NEW_MAC_FILE_PATH}")
 
 # Build MacOs Build file
 # Read More: 

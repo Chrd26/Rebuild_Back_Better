@@ -72,7 +72,7 @@ Game::Game()
 				if (!hasLoadedTitleFont)
 				{
 					titleFont = LoadFont(&hasLoadedTitleFont, 
-										 "fonts/ArianaVioleta-dz2K.ttf",
+										 "../fonts/ArianaVioleta-dz2K.ttf",
 										 100);	
 					
 					if (!hasLoadedTitleFont)
@@ -258,7 +258,7 @@ bool Game::Initialise()
 		return false;	
 	}
 	
-	macBuildHandler = dlopen("./builds/lib/libmacosbuild.so", RTLD_LOCAL);
+	macBuildHandler = dlopen("../builds/libmacosbuild.so", RTLD_LOCAL);
 	
 	if (!macBuildHandler)
 	{
