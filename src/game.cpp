@@ -72,7 +72,7 @@ Game::Game()
 				if (!hasLoadedTitleFont)
 				{
 					titleFont = LoadFont(&hasLoadedTitleFont, 
-										 "../fonts/ArianaVioleta-dz2K.ttf",
+										 "../Resources/fonts/ArianaVioleta-dz2K.ttf",
 										 100);	
 					
 					if (!hasLoadedTitleFont)
@@ -85,7 +85,7 @@ Game::Game()
 				if (!hasLoadedMenuFont)
 				{
 					menuFont = LoadFont(&hasLoadedMenuFont,
-										"../fonts/CfArpineDemoRegular-q2Zr2.ttf",
+										"../Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf",
 										60);
 										
 					if (!hasLoadedMenuFont)
@@ -128,8 +128,8 @@ int Game::windowWidth = 0;
 
 // Mac Init
 void *Game::macBuildHandler = nullptr;
-void *(*Game::CreateMacBuilderObj)();
-void *(*Game::DeleteMacBuilderObj)();
+void *Game::CreateMacBuilderObj;
+void *(*Game::DeleteMacBuilderObj)(void *builder);
 std::string Game::titleFontPathFinder;
 
 
@@ -263,11 +263,9 @@ bool Game::Initialise()
 	if (!macBuildHandler)
 	{
 		std::cout << "Failed to open mac build library ";
-		std::cout << std::strerror(errno) << std::endl;;
+		std::cout << std::strerror(errno) << std::endl;
 		return false; 
 	}
-	
-	
 	
 	renderer = SDL_CreateRenderer(window, nullptr, 
 								  SDL_RENDERER_ACCELERATED);

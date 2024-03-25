@@ -50,8 +50,7 @@ add_executable(${PROJECT_NAME} MACOSX_BUNDLE
 				./src/game.cpp ./src/gameobjects.h 
 				./src/player.h ./src/thief.h 
 				./src/gatherer.h ./src/fighter.h
-				${FONT_SOURCES}
-				${MAC_LIBRARY})
+				${FONT_SOURCES})
 				
 #individually set the file's path properties
 foreach(FONT_FILE ${FONT_SOURCES})
@@ -63,7 +62,7 @@ foreach(FONT_FILE ${FONT_SOURCES})
   get_filename_component(NEW_FILE_PATH ${RES_PATH} DIRECTORY)
 
   # Add the FONT_FILE into the NEW_FILE_PATH folder
-  set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "${NEW_FILE_PATH}")
+  set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH}")
 
 endforeach(FONT_FILE)
 
@@ -75,7 +74,7 @@ file(RELATIVE_PATH MAC_LIB_RES_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MAC_LIBRARY}
 get_filename_component(NEW_MAC_FILE_PATH ${MAC_LIB_RES_PATH} DIRECTORY)
 
 # Add the fileinto the folder
-set_property(SOURCE ${MAC_LIBRARY} PROPERTY MACOSX_PACKAGE_LOCATION "${NEW_MAC_FILE_PATH}")
+set_property(SOURCE ${MAC_LIBRARY} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_MAC_FILE_PATH}")
 
 # Build MacOs Build file
 # Read More: 

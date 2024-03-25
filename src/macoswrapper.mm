@@ -3,7 +3,7 @@ extern "C"
 	#import "macos.h"
 }
 
-extern "C" MacBuild  *MacBuilder()
+extern "C" MacBuild *MacBuilder()
 {
 	MacBuild *macbuild = [[MacBuild alloc] init];
 	return macbuild;

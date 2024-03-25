@@ -44,8 +44,8 @@ private:
 							 unsigned int fontSize);
 // MacOs Init
 	static void *macBuildHandler;
-	static void *(*CreateMacBuilderObj)();
-	static void *(*DeleteMacBuilderObj)();
+	static void *CreateMacBuilderObj;
+	static void *(*DeleteMacBuilderObj)(void *builder);
 	static std::string titleFontPathFinder;
 
 // OS specific Stuff
