@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <cerrno>
+#include <cpplocate/cpplocate.h>
 
 #define LEFT_MOUSE_BUTTON 1
 #define RIGHT_MOUSE_BUTTON 4

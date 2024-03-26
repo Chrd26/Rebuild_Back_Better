@@ -126,14 +126,6 @@ int Game::currentGameState = MAIN_MENU;
 int Game::windowHeight = 0;
 int Game::windowWidth = 0;
 
-// Mac Init
-void *Game::macBuildHandler = nullptr;
-void *Game::CreateMacBuilderObj;
-void *(*Game::DeleteMacBuilderObj)(void *builder);
-std::string Game::titleFontPathFinder;
-
-
-
 // Menu Properties
 TTF_Font *Game::titleFont = nullptr;
 SDL_Surface *Game::titleTextSurface = nullptr;
@@ -226,7 +218,6 @@ Game::~Game()
 		titleFont = nullptr;
 	}
 	
-	dlclose(macBuildHandler);
 	TTF_Quit();
 }
 
@@ -256,15 +247,6 @@ bool Game::Initialise()
 		std::cout << "Failed to create window ";
 		std::cout << SDL_GetError() << std::endl;
 		return false;	
-	}
-	
-	macBuildHandler = dlopen("../builds/libmacosbuild.so", RTLD_LOCAL);
-	
-	if (!macBuildHandler)
-	{
-		std::cout << "Failed to open mac build library ";
-		std::cout << std::strerror(errno) << std::endl;
-		return false; 
 	}
 	
 	renderer = SDL_CreateRenderer(window, nullptr, 
