@@ -138,7 +138,7 @@ SDL_Surface* Game::startGameSurface = nullptr;
 SDL_Texture* Game::startGameTexture = nullptr;
 SDL_Surface* Game::continueGameSurface = nullptr;
 SDL_Texture* Game::continueGameTexture = nullptr;
-SDL_Texture* Game::exitGameSurface = nullptr;
+SDL_Surface* Game::exitGameSurface = nullptr;
 SDL_Texture* Game::exitGameTexture = nullptr;
 bool Game::hasLoadedMenuFont = false;
 int Game::currentMainMenuSelection = 0;
@@ -274,12 +274,41 @@ Game::~Game()
 		menuFont = nullptr;
 	}
 	
-	SDL_Surface* Game::startGameSurface = nullptr;
-	SDL_Texture* Game::startGameTexture = nullptr;
-	SDL_Surface* Game::continueGameSurface = nullptr;
-	SDL_Texture* Game::continueGameTexture = nullptr;
-	SDL_Texture* Game::exitGameSurface = nullptr;
-	SDL_Texture* Game::exitGameTexture = nullptr;
+	if (startGameSurface != nullptr)
+	{
+		SDL_DestroySurface(startGameSurface);
+	}
+
+
+	if (startGameTexture != nullptr)
+	{
+		SDL_DestroyTexture(startGameTexture);
+		startGameTexture = nullptr;
+	}
+	
+	if (continueGameSurface != nullptr)
+	{
+		SDL_DestroySurface(continueGameSurface);
+		continueGameSurface = nullptr;
+	}
+	
+	if (continueGameTexture != nullptr)
+	{
+		SDL_DestroyTexture(continueGameTexture);
+		continueGameTexture = nullptr;
+	}
+	
+	if (exitGameSurface != nullptr)
+	{
+		SDL_DestroySurface(exitGameSurface);
+		exitGameSurface = nullptr;
+	}
+	
+	if (exitGameTexture != nullptr)
+	{
+		SDL_DestroyTexture(exitGameTexture);
+		exitGameTexture = nullptr;
+	}
 	
 	TTF_Quit();
 }
