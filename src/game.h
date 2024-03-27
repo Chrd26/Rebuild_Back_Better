@@ -42,6 +42,7 @@ private:
     static TTF_Font* LoadFont(bool *hasFontLoaded,
 							 std::string urlToFont, 
 							 unsigned int fontSize);
+	static std::string execpath;
 
 // OS specific Stuff
 private:

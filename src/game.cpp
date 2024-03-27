@@ -72,7 +72,7 @@ Game::Game()
 				if (!hasLoadedTitleFont)
 				{
 					titleFont = LoadFont(&hasLoadedTitleFont, 
-										 "../Resources/fonts/ArianaVioleta-dz2K.ttf",
+										 execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
 										 100);	
 					
 					if (!hasLoadedTitleFont)
@@ -85,7 +85,7 @@ Game::Game()
 				if (!hasLoadedMenuFont)
 				{
 					menuFont = LoadFont(&hasLoadedMenuFont,
-										"../Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf",
+										execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
 										60);
 										
 					if (!hasLoadedMenuFont)
@@ -125,6 +125,8 @@ SDL_Renderer *Game::renderer = nullptr;
 int Game::currentGameState = MAIN_MENU;
 int Game::windowHeight = 0;
 int Game::windowWidth = 0;
+// Windows std::string Game::execpath = cpplocate::getExecutablePath();
+std::string Game::execpath = cpplocate::getBundlePath();
 
 // Menu Properties
 TTF_Font *Game::titleFont = nullptr;
@@ -175,7 +177,14 @@ void Game::LoadMainMenu()
 	
 	titleTextTexture = SDL_CreateTextureFromSurface(renderer, titleTextSurface);
 	
-	const SDL_FRect titleHolder = {static_cast<float>(windowWidth * 0.34),
+	if (titleTextTexture == nullptr)
+	{
+		std::cout << "Failed to create title text texture ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	const SDL_FRect titleHolder = {static_cast<float>(windowWidth * 0.31),
 							static_cast<float>(windowHeight * 0.05),
 							static_cast<float>(titleTextSurface->w),
 							static_cast<float>(titleTextSurface->h)};
@@ -188,8 +197,37 @@ void Game::LoadMainMenu()
 	
 	// Menu Options
 	SDL_Color notSelected = {0xff, 0xff, 0xff};
-	SDL_Color disabledOption = {0x10, 0x10, 0x10};
+	SDL_Color disabledOption = {0x40, 0x40, 0x40};
 	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
+	
+	continueGameSurface = TTF_RenderText_Solid(menuFont,
+											  "Continue",
+											  disabledOption);
+	if (continueGameSurface == nullptr)
+	{
+		std::cout << "Failed to create continue game text surface ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	continueGameTexture = SDL_CreateTextureFromSurface(renderer, continueGameSurface);
+	
+	if (continueGameTexture == nullptr)
+	{
+		std::cout << "Failed to create continue game texture ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+											  
+	const SDL_FRect continueTextHolder = {static_cast<float>(windowWidth * 0.4),
+										  static_cast<float>(windowHeight * 0.15),
+										  static_cast<float>(continueGameSurface->w),
+										  static_cast<float>(continueGameSurface->h)};
+										  
+	SDL_RenderTexture(renderer, continueGameTexture, nullptr, &continueTextHolder);
+	
+	SDL_DestroySurface(continueGameSurface);
+	continueGameSurface = nullptr;										  
 	
 	switch (currentMainMenuSelection)
 	{
@@ -217,6 +255,31 @@ Game::~Game()
 		TTF_CloseFont(titleFont);
 		titleFont = nullptr;
 	}
+	
+	if (titleTextSurface != nullptr)
+	{
+		SDL_DestroySurface(titleTextSurface);
+		titleTextSurface = nullptr;
+	}
+	
+	if (titleTextTexture != nullptr)
+	{
+		SDL_DestroyTexture(titleTextTexture);
+		titleTextTexture = nullptr;
+	}
+	
+	if (menuFont != nullptr)
+	{
+		TTF_CloseFont(menuFont);
+		menuFont = nullptr;
+	}
+	
+	SDL_Surface* Game::startGameSurface = nullptr;
+	SDL_Texture* Game::startGameTexture = nullptr;
+	SDL_Surface* Game::continueGameSurface = nullptr;
+	SDL_Texture* Game::continueGameTexture = nullptr;
+	SDL_Texture* Game::exitGameSurface = nullptr;
+	SDL_Texture* Game::exitGameTexture = nullptr;
 	
 	TTF_Quit();
 }
@@ -254,7 +317,9 @@ bool Game::Initialise()
 								  
 	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 	std::cout << "Window Width: " << windowWidth << std::endl;
-	std::cout << "Window Height: " << windowHeight << std::endl;						  
+	std::cout << "Window Height: " << windowHeight << std::endl;	
+	
+	std::cout << execpath << std::endl;					  
 
     return true;
 }
