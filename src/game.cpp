@@ -194,10 +194,12 @@ void Game::LoadMainMenu()
 	
 	SDL_DestroySurface(titleTextSurface);
 	titleTextTexture = nullptr;
+	SDL_DestroyTexture(titleTextTexture);
+	titleTextTexture = nullptr;
 	
 	// Menu Options
 	SDL_Color notSelected = {0xff, 0xff, 0xff};
-	SDL_Color disabledOption = {0x40, 0x40, 0x40};
+	SDL_Color disabledOption = {0xAA, 0xAA, 0xAA};
 	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
 	
 	continueGameSurface = TTF_RenderText_Solid(menuFont,
@@ -220,14 +222,79 @@ void Game::LoadMainMenu()
 	}
 											  
 	const SDL_FRect continueTextHolder = {static_cast<float>(windowWidth * 0.4),
-										  static_cast<float>(windowHeight * 0.15),
+										  static_cast<float>(windowHeight * 0.4),
 										  static_cast<float>(continueGameSurface->w),
 										  static_cast<float>(continueGameSurface->h)};
 										  
 	SDL_RenderTexture(renderer, continueGameTexture, nullptr, &continueTextHolder);
 	
 	SDL_DestroySurface(continueGameSurface);
-	continueGameSurface = nullptr;										  
+	continueGameSurface = nullptr;
+	SDL_DestroyTexture(continueGameTexture);
+	continueGameTexture = nullptr;
+	
+	startGameSurface = TTF_RenderText_Solid(menuFont,
+											"Start",
+											notSelected);
+	if (startGameSurface == nullptr)
+	{
+		std::cout << "Failed to create start game surface ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	startGameTexture = SDL_CreateTextureFromSurface(renderer, startGameSurface);
+	
+	if (startGameTexture == nullptr)
+	{
+		std::cout << "Failed to create start game texture ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	const SDL_FRect startTextHolder = {static_cast<float>(windowWidth * 0.4),
+									   static_cast<float>(windowHeight * 0.5),
+									   static_cast<float>(startGameSurface->w),
+									   static_cast<float>(startGameSurface->h)}; 	
+	
+	SDL_RenderTexture(renderer, startGameTexture, nullptr, &startTextHolder);		
+	
+	SDL_DestroySurface(startGameSurface);
+	startGameSurface = nullptr;
+	SDL_DestroyTexture(startGameTexture);
+	startGameTexture = nullptr;
+	
+	exitGameSurface = TTF_RenderText_Solid(menuFont,
+											"Exit",
+											notSelected);
+	if (exitGameSurface == nullptr)
+	{
+		std::cout << "Failed to create exit game surface ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	exitGameTexture = SDL_CreateTextureFromSurface(renderer, exitGameSurface);
+	
+	if (exitGameTexture == nullptr)
+	{
+		std::cout << "Failed to create exit game texture ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	const SDL_FRect exitTextHolder = {static_cast<float>(windowWidth * 0.405),
+									   static_cast<float>(windowHeight * 0.6),
+									   static_cast<float>(exitGameSurface->w),
+									   static_cast<float>(exitGameSurface->h)}; 	
+	
+	SDL_RenderTexture(renderer, exitGameTexture, nullptr, &exitTextHolder);		
+	
+	SDL_DestroySurface(exitGameSurface);
+	exitGameSurface = nullptr;
+	SDL_DestroyTexture(exitGameTexture);
+	exitGameTexture = nullptr;											  
+												  
 	
 	switch (currentMainMenuSelection)
 	{
@@ -309,6 +376,9 @@ Game::~Game()
 		SDL_DestroyTexture(exitGameTexture);
 		exitGameTexture = nullptr;
 	}
+	
+	
+	SDL_DestroyRenderer(renderer);
 	
 	TTF_Quit();
 }
