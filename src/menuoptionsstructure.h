@@ -10,14 +10,11 @@ struct MenuElement
 	}
 	
 	float x, y;
-	float getMouseX, getMouseY;
-	float width, height;
 	int currentState;
 	std::string content;
-	
-	C *color;
 	F *font;
+	R *renderer
 	
-	MenuOption(float inputX, float inputY, C *inputColor, F *inputFont);
-	CreateOption(std::string content, R *renderer, float getMouseX, float getMousey);
+	MenuElement(float inputX, float inputY, F *inputFont, R *inputRender);
+	CreateOption(std::string content, float getMouseX, float getMouseY, C *inputColor);
 };

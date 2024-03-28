@@ -84,6 +84,8 @@ private:
 	static SDL_Texture *exitGameTexture;
 	static int currentMainMenuSelection;
 	
+	MenuElement *menuTitle;
+	
 // Gameplay
 private:
 	// add here gameplay methods and properties

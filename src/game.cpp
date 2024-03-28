@@ -93,6 +93,11 @@ Game::Game()
 					}
 				}
 				
+				if (menuTitle == nullptr)
+				{
+					menuTitle = 
+				}
+				
 				LoadMainMenu();
 				break;
 				
@@ -127,9 +132,7 @@ int Game::windowWidth = 0;
 std::string Game::execpath = cpplocate::getBundlePath();
 
 // Menu Properties
-TTF_Font *Game::titleFont = nullptr;
-SDL_Surface *Game::titleTextSurface = nullptr;
-SDL_Texture *Game::titleTextTexture = nullptr;
+MainMenu *Game::menuTitle = nullptr
 TTF_Font *Game::menuFont = nullptr;
 SDL_Surface* Game::startGameSurface = nullptr;
 SDL_Texture* Game::startGameTexture = nullptr;
@@ -386,23 +389,22 @@ bool Game::Initialise()
 }
 
 template<>
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTf_Font>::MenuElement(float inputX, float inputY,
-																		float inputMouseX, float inputMouseY
-																		C *inputColor, F *inputFont);
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTf_Font, SDL_Renderer>::MenuElement(float inputX, float inputY,xw
+																		F *inputFont, SDL_Render *inputRender);
 {
 	x = inputX;
 	y = inputY;
 	getMouseX = inputMouseX;
 	getMouseY = inputMouseY;
-	width = inputWidth;
-	height = inputHeight;
-	color = inputColor;
 	font = inputFont;
+	renderer = inputRender;
 }
 
 template<>
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font>::CreateOption(std::string content, R *renderer,
-																		 getMouseX, getMouseY)
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateOption(std::string content, 
+																					   getMouseX, 
+																					   getMouseY, 
+																					   SDL_Color *inputColor)
 {
 	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
 											content,
@@ -423,14 +425,7 @@ MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font>::CreateOption(std::st
 		exit(-1);
 	}
 	
-	//const SDL_FRect optionHolder = {static_cast<float>(windowWidth * 0.405),
-	//								static_cast<float>(windowHeight * 0.6),
-	//								static_cast<float>(exitGameSurface->w),
-	//								 static_cast<float>(exitGameSurface->h)}; 
-		
-	width = optionSurface->w;
-	height = optionSurface->h;
-	const SDL_FRect optionHolder = {x, y, width, height}; 	
+	const SDL_FRect optionHolder = {x, y, optionSurface->w, optionSurface->h}; 	
 	
 	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
 	

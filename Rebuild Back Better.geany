@@ -29,9 +29,9 @@ long_line_column=72
 
 [files]
 current_page=1
-FILE_NAME_0=10025;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
-FILE_NAME_1=216;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmenuoptionsstructure.h;0;4
-FILE_NAME_2=1070;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
+FILE_NAME_0=9583;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
+FILE_NAME_1=165;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmenuoptionsstructure.h;0;4
+FILE_NAME_2=1657;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
 FILE_NAME_3=2731;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
 
 [VTE]
