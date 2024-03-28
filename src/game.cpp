@@ -415,7 +415,38 @@ bool Game::Initialise()
 }
 
 template<>
-MenuOption<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font>::MenuOption
+MenuOption<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font>::CreateOption(int x, int y, std::string content, R *renderer)
 {
+	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
+											content,
+											color);
+	if (optionSurface == nullptr)
+	{
+		std::cout << "Failed to create option surface ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
 	
+	SDL_Texture *optionTexture = SDL_CreateTextureFromSurface(renderer, optionSurface);
+	
+	if (optionTexture == nullptr)
+	{
+		std::cout << "Failed to create option texture ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	//const SDL_FRect optionHolder = {static_cast<float>(windowWidth * 0.405),
+	//								static_cast<float>(windowHeight * 0.6),
+	//								static_cast<float>(exitGameSurface->w),
+	//								 static_cast<float>(exitGameSurface->h)}; 	
+	
+	const SDL_FRect optionHolder = {	x, y, width, height}; 	
+	
+	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
+	
+	SDL_DestroySurface(optionSurface);
+	optionSurface = nullptr;
+	SDL_DestroyTexture(optionTexture);
+	exitGameTexture = nullptr;	
 }

@@ -1,5 +1,5 @@
 
-template<typename S, typename T, typename C, typename F>
+template<typename S, typename T, typename C, typename F, typename R>
 struct MenuOption
 {
 	enum state
@@ -11,7 +11,7 @@ struct MenuOption
 	
 	float x, y;
 	float width, height;
-	int state;
+	int currentState;
 	std::string content;
 	
 	S *optionSurface;
@@ -19,5 +19,6 @@ struct MenuOption
 	C *color;
 	F *font;
 	
-	MenuOption(int x, int y, std::string content);
+	MenuOption();
+	CreateOption(int x, int y, std::string content, R *renderer);
 };
