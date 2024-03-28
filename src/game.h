@@ -8,6 +8,7 @@
 #include <string>
 #include <cerrno>
 #include <cpplocate/cpplocate.h>
+#include <menuoptionsstructre.h
 
 #define LEFT_MOUSE_BUTTON 1
 #define RIGHT_MOUSE_BUTTON 4
@@ -39,13 +40,25 @@ private:
 	static SDL_Renderer *renderer;
     static bool Initialise();
     static int currentGameState, windowWidth, windowHeight;
-    static TTF_Font* LoadFont(bool *hasFontLoaded,
-							 std::string urlToFont, 
-							 unsigned int fontSize);
 	static std::string execpath;
+	
+// Methods
+private:
+    static TTF_Font* LoadFont(std::string urlToFont, 
+							 unsigned int fontSize);
 
 // OS specific Stuff
 private:
+
+
+// Options States
+private:
+	enum MenuOptionsStates
+	{
+		DEACTIVATED = 0,
+		ACTIVATED,
+		HOVERED
+	}
 
 // Main Menu
 private:
@@ -61,10 +74,8 @@ private:
 	static void LoadMainMenu();
 	static SDL_Surface *titleTextSurface;
 	static SDL_Texture *titleTextTexture;
-	static bool hasLoadedTitleFont;
 	
 	static TTF_Font *menuFont;
-	static bool hasLoadedMenuFont;
 	static SDL_Surface *continueGameSurface;
 	static SDL_Texture *continueGameTexture;
 	static SDL_Surface *startGameSurface;

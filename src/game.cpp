@@ -69,26 +69,24 @@ Game::Game()
 		switch (currentGameState)
 		{
 			case MAIN_MENU:
-				if (!hasLoadedTitleFont)
+				if (titleFont == nullptr)
 				{
-					titleFont = LoadFont(&hasLoadedTitleFont, 
-										 execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
+					titleFont = LoadFont(execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
 										 100);	
 					
-					if (!hasLoadedTitleFont)
+					if (titleFont == nullptr)
 					{
 						std::cout << "Title font has not loaded" << std::endl;
 						exit(-1);
 					}
 				}
 				
-				if (!hasLoadedMenuFont)
+				if (menuFont == nullptr)
 				{
-					menuFont = LoadFont(&hasLoadedMenuFont,
-										execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+					menuFont = LoadFont(execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
 										60);
 										
-					if (!hasLoadedMenuFont)
+					if (menuFont == nullptr)
 					{
 						std::cout << "Menu font has not loaded" << std::endl;
 						exit(-1);
@@ -132,7 +130,6 @@ std::string Game::execpath = cpplocate::getBundlePath();
 TTF_Font *Game::titleFont = nullptr;
 SDL_Surface *Game::titleTextSurface = nullptr;
 SDL_Texture *Game::titleTextTexture = nullptr;
-bool Game::hasLoadedTitleFont = false;
 TTF_Font *Game::menuFont = nullptr;
 SDL_Surface* Game::startGameSurface = nullptr;
 SDL_Texture* Game::startGameTexture = nullptr;
@@ -140,28 +137,30 @@ SDL_Surface* Game::continueGameSurface = nullptr;
 SDL_Texture* Game::continueGameTexture = nullptr;
 SDL_Surface* Game::exitGameSurface = nullptr;
 SDL_Texture* Game::exitGameTexture = nullptr;
-bool Game::hasLoadedMenuFont = false;
 int Game::currentMainMenuSelection = 0;
 
 // Passing by Reference
 // https://www.ibm.com/docs/en/zos/2.4.0?topic=calls-pass-by-reference-c-only
-TTF_Font *Game::LoadFont(bool *hasFontLoaded, std::string urlToFont, unsigned int fontSize)
+TTF_Font *Game::LoadFont(std::string urlToFont, unsigned int fontSize)
 {
 	TTF_Font *font = TTF_OpenFont(urlToFont.c_str(), fontSize);
 	if (font == nullptr)
 	{
 		std::cout << "Failed to create font ";
 		std::cout << SDL_GetError() << std::endl;
-		*hasFontLoaded = false;
 		return nullptr;
 	}
-	*hasFontLoaded = true;
 	return font;
 }
 
 void Game::LoadMainMenu()
 {
 	SDL_Color titleTextcolor = {0xE0, 0xAA, 0x95};
+	
+	// Menu Options
+	SDL_Color notSelected = {0xff, 0xff, 0xff};
+	SDL_Color disabledOption = {0xAA, 0xAA, 0xAA};
+	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
 	
 	// Title
 	titleTextSurface = TTF_RenderText_Solid(titleFont,
@@ -196,11 +195,6 @@ void Game::LoadMainMenu()
 	titleTextTexture = nullptr;
 	SDL_DestroyTexture(titleTextTexture);
 	titleTextTexture = nullptr;
-	
-	// Menu Options
-	SDL_Color notSelected = {0xff, 0xff, 0xff};
-	SDL_Color disabledOption = {0xAA, 0xAA, 0xAA};
-	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
 	
 	continueGameSurface = TTF_RenderText_Solid(menuFont,
 											  "Continue",
@@ -377,9 +371,6 @@ Game::~Game()
 		exitGameTexture = nullptr;
 	}
 	
-	
-	SDL_DestroyRenderer(renderer);
-	
 	TTF_Quit();
 }
 
@@ -421,4 +412,10 @@ bool Game::Initialise()
 	std::cout << execpath << std::endl;					  
 
     return true;
+}
+
+template<>
+MenuOption<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font>::MenuOption
+{
+	
 }

@@ -58,6 +58,7 @@ add_executable(${PROJECT_NAME} MACOSX_BUNDLE
 				./src/game.cpp ./src/gameobjects.h 
 				./src/player.h ./src/thief.h 
 				./src/gatherer.h ./src/fighter.h
+				./src/menuoptionsstructure.h
 				${FONT_SOURCES})
 				
 #individually set the file's path properties
