@@ -1,6 +1,6 @@
 
 template<typename S, typename T, typename C, typename F, typename R>
-struct MenuOption
+struct MenuElement
 {
 	enum state
 	{
@@ -10,15 +10,14 @@ struct MenuOption
 	}
 	
 	float x, y;
+	float getMouseX, getMouseY;
 	float width, height;
 	int currentState;
 	std::string content;
 	
-	S *optionSurface;
-	T *optionTexture;
 	C *color;
 	F *font;
 	
-	MenuOption();
-	CreateOption(int x, int y, std::string content, R *renderer);
+	MenuOption(float inputX, float inputY, C *inputColor, F *inputFont);
+	CreateOption(std::string content, R *renderer, float getMouseX, float getMousey);
 };

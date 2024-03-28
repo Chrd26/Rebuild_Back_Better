@@ -162,39 +162,10 @@ void Game::LoadMainMenu()
 	SDL_Color disabledOption = {0xAA, 0xAA, 0xAA};
 	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
 	
-	// Title
-	titleTextSurface = TTF_RenderText_Solid(titleFont,
-											"Rebuild Back Better",
-											titleTextcolor);
-	
-	if (titleTextSurface == nullptr)
-	{
-		std::cout << "Failed to create title texture surface ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	titleTextTexture = SDL_CreateTextureFromSurface(renderer, titleTextSurface);
-	
-	if (titleTextTexture == nullptr)
-	{
-		std::cout << "Failed to create title text texture ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	const SDL_FRect titleHolder = {static_cast<float>(windowWidth * 0.31),
-							static_cast<float>(windowHeight * 0.05),
-							static_cast<float>(titleTextSurface->w),
-							static_cast<float>(titleTextSurface->h)};
-							
-	SDL_RenderTexture(renderer, titleTextTexture, nullptr,
-					  &titleHolder);
-	
-	SDL_DestroySurface(titleTextSurface);
-	titleTextTexture = nullptr;
-	SDL_DestroyTexture(titleTextTexture);
-	titleTextTexture = nullptr;
+	// Add Title
+	MenuElement menuTitle(windowWidth * 0.32, windowHeight * 0.05,
+						  titleTextcolor, titleFont);
+	menuTitle.CreateOption("Rebuild Back Better", renderer);				
 	
 	continueGameSurface = TTF_RenderText_Solid(menuFont,
 											  "Continue",
@@ -415,7 +386,23 @@ bool Game::Initialise()
 }
 
 template<>
-MenuOption<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font>::CreateOption(int x, int y, std::string content, R *renderer)
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTf_Font>::MenuElement(float inputX, float inputY,
+																		float inputMouseX, float inputMouseY
+																		C *inputColor, F *inputFont);
+{
+	x = inputX;
+	y = inputY;
+	getMouseX = inputMouseX;
+	getMouseY = inputMouseY;
+	width = inputWidth;
+	height = inputHeight;
+	color = inputColor;
+	font = inputFont;
+}
+
+template<>
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font>::CreateOption(std::string content, R *renderer,
+																		 getMouseX, getMouseY)
 {
 	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
 											content,
@@ -439,9 +426,11 @@ MenuOption<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font>::CreateOption(int x, i
 	//const SDL_FRect optionHolder = {static_cast<float>(windowWidth * 0.405),
 	//								static_cast<float>(windowHeight * 0.6),
 	//								static_cast<float>(exitGameSurface->w),
-	//								 static_cast<float>(exitGameSurface->h)}; 	
-	
-	const SDL_FRect optionHolder = {	x, y, width, height}; 	
+	//								 static_cast<float>(exitGameSurface->h)}; 
+		
+	width = optionSurface->w;
+	height = optionSurface->h;
+	const SDL_FRect optionHolder = {x, y, width, height}; 	
 	
 	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
 	
