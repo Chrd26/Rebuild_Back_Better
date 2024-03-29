@@ -9,7 +9,6 @@ Game::Game()
     
     SDL_Event events;
     bool quit = false;
-    float mouseX, mouseY;
     Uint32 mouseState;
     int keyPress = 0;
     const Uint8 *keyboardState;
@@ -93,11 +92,6 @@ Game::Game()
 					}
 				}
 				
-				if (menuTitle == nullptr)
-				{
-					menuTitle = 
-				}
-				
 				LoadMainMenu();
 				break;
 				
@@ -118,29 +112,7 @@ Game::Game()
 	SDL_Quit();
 }
 
-// Initialisation
-SDL_Window *Game::window = nullptr;
-double Game::startTick = 0;
-double Game::endTick = 0;
-double Game::frameTime = 0;
-unsigned int Game::seconds = 0;
-SDL_Renderer *Game::renderer = nullptr;
-int Game::currentGameState = MAIN_MENU;
-int Game::windowHeight = 0;
-int Game::windowWidth = 0;
-// Windows std::string Game::execpath = cpplocate::getExecutablePath();
-std::string Game::execpath = cpplocate::getBundlePath();
 
-// Menu Properties
-MainMenu *Game::menuTitle = nullptr
-TTF_Font *Game::menuFont = nullptr;
-SDL_Surface* Game::startGameSurface = nullptr;
-SDL_Texture* Game::startGameTexture = nullptr;
-SDL_Surface* Game::continueGameSurface = nullptr;
-SDL_Texture* Game::continueGameTexture = nullptr;
-SDL_Surface* Game::exitGameSurface = nullptr;
-SDL_Texture* Game::exitGameTexture = nullptr;
-int Game::currentMainMenuSelection = 0;
 
 // Passing by Reference
 // https://www.ibm.com/docs/en/zos/2.4.0?topic=calls-pass-by-reference-c-only
@@ -156,6 +128,53 @@ TTF_Font *Game::LoadFont(std::string urlToFont, unsigned int fontSize)
 	return font;
 }
 
+template<>
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::MenuElement(float inputX, float inputY,
+																		TTF_Font *inputFont, SDL_Renderer *inputRender)
+{
+	x = inputX;
+	y = inputY;
+	font = inputFont;
+	renderer = inputRender;
+}
+
+template<>
+void MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateOption(std::string content, 
+																					        float getMouseX, 
+																					        float getMouseY, 
+																					        SDL_Color inputColor)
+{
+	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
+											content.c_str(),
+											inputColor);
+	if (optionSurface == nullptr)
+	{
+		std::cout << "Failed to create option surface ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	SDL_Texture *optionTexture = SDL_CreateTextureFromSurface(renderer, optionSurface);
+	
+	if (optionTexture == nullptr)
+	{
+		std::cout << "Failed to create option texture ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	const SDL_FRect optionHolder = {x, y, 
+									static_cast<float>(optionSurface->w), 
+									static_cast<float>(optionSurface->h)}; 	
+	
+	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
+	
+	SDL_DestroySurface(optionSurface);
+	optionSurface = nullptr;
+	SDL_DestroyTexture(optionTexture);
+	optionTexture = nullptr;	
+}
+
 void Game::LoadMainMenu()
 {
 	SDL_Color titleTextcolor = {0xE0, 0xAA, 0x95};
@@ -166,9 +185,7 @@ void Game::LoadMainMenu()
 	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
 	
 	// Add Title
-	MenuElement menuTitle(windowWidth * 0.32, windowHeight * 0.05,
-						  titleTextcolor, titleFont);
-	menuTitle.CreateOption("Rebuild Back Better", renderer);				
+	menuTitle->CreateOption("Rebuild Back Better", mouseX, mouseY, titleTextcolor);				
 	
 	continueGameSurface = TTF_RenderText_Solid(menuFont,
 											  "Continue",
@@ -291,18 +308,6 @@ Game::~Game()
 		titleFont = nullptr;
 	}
 	
-	if (titleTextSurface != nullptr)
-	{
-		SDL_DestroySurface(titleTextSurface);
-		titleTextSurface = nullptr;
-	}
-	
-	if (titleTextTexture != nullptr)
-	{
-		SDL_DestroyTexture(titleTextTexture);
-		titleTextTexture = nullptr;
-	}
-	
 	if (menuFont != nullptr)
 	{
 		TTF_CloseFont(menuFont);
@@ -388,49 +393,30 @@ bool Game::Initialise()
     return true;
 }
 
-template<>
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTf_Font, SDL_Renderer>::MenuElement(float inputX, float inputY,xw
-																		F *inputFont, SDL_Render *inputRender);
-{
-	x = inputX;
-	y = inputY;
-	getMouseX = inputMouseX;
-	getMouseY = inputMouseY;
-	font = inputFont;
-	renderer = inputRender;
-}
 
-template<>
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateOption(std::string content, 
-																					   getMouseX, 
-																					   getMouseY, 
-																					   SDL_Color *inputColor)
-{
-	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
-											content,
-											color);
-	if (optionSurface == nullptr)
-	{
-		std::cout << "Failed to create option surface ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	SDL_Texture *optionTexture = SDL_CreateTextureFromSurface(renderer, optionSurface);
-	
-	if (optionTexture == nullptr)
-	{
-		std::cout << "Failed to create option texture ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	const SDL_FRect optionHolder = {x, y, optionSurface->w, optionSurface->h}; 	
-	
-	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
-	
-	SDL_DestroySurface(optionSurface);
-	optionSurface = nullptr;
-	SDL_DestroyTexture(optionTexture);
-	exitGameTexture = nullptr;	
-}
+// Initialisation
+SDL_Window *Game::window = nullptr;
+double Game::startTick = 0;
+double Game::endTick = 0;
+double Game::frameTime = 0;
+unsigned int Game::seconds = 0;
+SDL_Renderer *Game::renderer = nullptr;
+int Game::currentGameState = MAIN_MENU;
+int Game::windowHeight = 0;
+int Game::windowWidth = 0;
+float Game::mouseX = 0;
+float Game::mouseY = 0;
+// Windows std::string Game::execpath = cpplocate::getExecutablePath();
+std::string Game::execpath = cpplocate::getBundlePath();
+
+// Menu Properties
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuTitle = nullptr;
+TTF_Font *Game::menuFont = nullptr;
+TTF_Font *Game::titleFont = nullptr;
+SDL_Surface* Game::startGameSurface = nullptr;
+SDL_Texture* Game::startGameTexture = nullptr;
+SDL_Surface* Game::continueGameSurface = nullptr;
+SDL_Texture* Game::continueGameTexture = nullptr;
+SDL_Surface* Game::exitGameSurface = nullptr;
+SDL_Texture* Game::exitGameTexture = nullptr;
+int Game::currentMainMenuSelection = 0;

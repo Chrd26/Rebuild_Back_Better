@@ -8,7 +8,7 @@
 #include <string>
 #include <cerrno>
 #include <cpplocate/cpplocate.h>
-#include <menuoptionsstructre.h
+#include "menuoptionsstructure.h"
 
 #define LEFT_MOUSE_BUTTON 1
 #define RIGHT_MOUSE_BUTTON 4
@@ -32,15 +32,19 @@ public:
 
 // Game Initialisation
 private:
+	static SDL_Window *window;
+	static SDL_Renderer *renderer;
+    static bool Initialise();
+	static std::string execpath;
+	
+// Basic Components
+private:
+	static float mouseX, mouseY;
+	static int currentGameState, windowWidth, windowHeight;
 	static double startTick;
 	static double endTick;
 	static double frameTime;
 	static unsigned int seconds;
-	static SDL_Window *window;
-	static SDL_Renderer *renderer;
-    static bool Initialise();
-    static int currentGameState, windowWidth, windowHeight;
-	static std::string execpath;
 	
 // Methods
 private:
@@ -58,7 +62,7 @@ private:
 		DEACTIVATED = 0,
 		ACTIVATED,
 		HOVERED
-	}
+	};
 
 // Main Menu
 private:
@@ -72,8 +76,6 @@ private:
 	
 	static TTF_Font *titleFont;
 	static void LoadMainMenu();
-	static SDL_Surface *titleTextSurface;
-	static SDL_Texture *titleTextTexture;
 	
 	static TTF_Font *menuFont;
 	static SDL_Surface *continueGameSurface;
@@ -84,7 +86,7 @@ private:
 	static SDL_Texture *exitGameTexture;
 	static int currentMainMenuSelection;
 	
-	MenuElement *menuTitle;
+	static MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuTitle;
 	
 // Gameplay
 private:
