@@ -1,5 +1,53 @@
 #include "game.h"
 
+template<>
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::MenuElement(float inputX, float inputY,
+																		TTF_Font *inputFont, SDL_Renderer *inputRender)
+{
+	x = inputX;
+	y = inputY;
+	font = inputFont;
+	renderer = inputRender;
+}
+
+template<>
+void MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateOption(std::string content, 
+																					        float getMouseX, 
+																					        float getMouseY, 
+																					        SDL_Color inputColor)
+{
+	std::cout << "Create Option has started" << std::endl;
+	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
+											content.c_str(),
+											inputColor);
+	if (optionSurface == nullptr)
+	{
+		std::cout << "Failed to create option surface ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	SDL_Texture *optionTexture = SDL_CreateTextureFromSurface(renderer, optionSurface);
+	
+	if (optionTexture == nullptr)
+	{
+		std::cout << "Failed to create option texture ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	const SDL_FRect optionHolder = {x, y, 
+									static_cast<float>(optionSurface->w), 
+									static_cast<float>(optionSurface->h)}; 	
+	
+	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
+	
+	SDL_DestroySurface(optionSurface);
+	optionSurface = nullptr;
+	SDL_DestroyTexture(optionTexture);
+	optionTexture = nullptr;	
+}
+
 Game::Game()
 {
     if (!Initialise())
@@ -92,6 +140,11 @@ Game::Game()
 					}
 				}
 				
+				if (menuTitle == nullptr)
+				{
+					menuTitle = new MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.31, windowHeight * 0.05, titleFont, renderer);
+				}
+				
 				LoadMainMenu();
 				break;
 				
@@ -113,7 +166,6 @@ Game::Game()
 }
 
 
-
 // Passing by Reference
 // https://www.ibm.com/docs/en/zos/2.4.0?topic=calls-pass-by-reference-c-only
 TTF_Font *Game::LoadFont(std::string urlToFont, unsigned int fontSize)
@@ -128,53 +180,6 @@ TTF_Font *Game::LoadFont(std::string urlToFont, unsigned int fontSize)
 	return font;
 }
 
-template<>
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::MenuElement(float inputX, float inputY,
-																		TTF_Font *inputFont, SDL_Renderer *inputRender)
-{
-	x = inputX;
-	y = inputY;
-	font = inputFont;
-	renderer = inputRender;
-}
-
-template<>
-void MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateOption(std::string content, 
-																					        float getMouseX, 
-																					        float getMouseY, 
-																					        SDL_Color inputColor)
-{
-	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
-											content.c_str(),
-											inputColor);
-	if (optionSurface == nullptr)
-	{
-		std::cout << "Failed to create option surface ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	SDL_Texture *optionTexture = SDL_CreateTextureFromSurface(renderer, optionSurface);
-	
-	if (optionTexture == nullptr)
-	{
-		std::cout << "Failed to create option texture ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	const SDL_FRect optionHolder = {x, y, 
-									static_cast<float>(optionSurface->w), 
-									static_cast<float>(optionSurface->h)}; 	
-	
-	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
-	
-	SDL_DestroySurface(optionSurface);
-	optionSurface = nullptr;
-	SDL_DestroyTexture(optionTexture);
-	optionTexture = nullptr;	
-}
-
 void Game::LoadMainMenu()
 {
 	SDL_Color titleTextcolor = {0xE0, 0xAA, 0x95};
@@ -183,6 +188,7 @@ void Game::LoadMainMenu()
 	SDL_Color notSelected = {0xff, 0xff, 0xff};
 	SDL_Color disabledOption = {0xAA, 0xAA, 0xAA};
 	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
+	std::cout << "Load Menu has started" << std::endl;
 	
 	// Add Title
 	menuTitle->CreateOption("Rebuild Back Better", mouseX, mouseY, titleTextcolor);				
@@ -350,6 +356,11 @@ Game::~Game()
 		exitGameTexture = nullptr;
 	}
 	
+	if (menuTitle != nullptr)
+	{
+		delete(menuTitle);
+		menuTitle = nullptr;
+	}
 	TTF_Quit();
 }
 
