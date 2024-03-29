@@ -13,9 +13,9 @@ MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::MenuEl
 template<>
 bool MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::IsMouseHovering(float inputMouseX, float inputMouseY)
 {
-	if (inputMouseX >= x && inputMouseX >= x + width)
+	if (inputMouseX >= x && inputMouseX <= x + width)
 	{
-		if (inputMouseY >= y && inputMouseY >= y + height)
+		if (inputMouseY >= y && inputMouseY <= y + height)
 		{
 			return true;
 		}
@@ -104,10 +104,11 @@ Game::Game()
     }
     
     SDL_Event events;
-    bool quit = false;
+  
     Uint32 mouseState;
     int keyPress = 0;
     const Uint8 *keyboardState;
+    bool quit = false;
     
     while(!quit)
     {
@@ -135,6 +136,7 @@ Game::Game()
 		{
 			std::cout << "Pressed Button: " << mouseState << std::endl;
 			std::cout << "Mouse X: " << mouseX << "Mouse Y: " << mouseY << std::endl;
+			
 		}
 		
 		if (mouseState == RIGHT_MOUSE_BUTTON)
@@ -164,6 +166,16 @@ Game::Game()
 		switch (currentGameState)
 		{
 			case MAIN_MENU:
+			
+				if (mouseState == LEFT_MOUSE_BUTTON)
+				{
+					if (menuExit->IsMouseHovering(mouseX, mouseY))
+					{
+							quit = true;
+					}
+					
+				}
+				
 				if (titleFont == nullptr)
 				{
 					titleFont = LoadFont(execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),

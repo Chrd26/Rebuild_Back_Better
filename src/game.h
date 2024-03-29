@@ -45,6 +45,7 @@ private:
 	static double endTick;
 	static double frameTime;
 	static unsigned int seconds;
+	static bool quit;
 	
 // Methods
 private:
