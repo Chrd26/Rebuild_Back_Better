@@ -11,15 +11,60 @@ MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::MenuEl
 }
 
 template<>
+bool MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::IsMouseHovering(float inputMouseX, float inputMouseY)
+{
+	if (inputMouseX >= x && inputMouseX >= x + width)
+	{
+		if (inputMouseY >= y && inputMouseY >= y + height)
+		{
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+template<>
 void MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateOption(std::string content, 
 																					        float getMouseX, 
 																					        float getMouseY, 
-																					        SDL_Color inputColor)
+																					        int elementType)
 {
-	std::cout << "Create Option has started" << std::endl;
+	SDL_Color fontColor;
+	
+	switch(elementType)
+	{
+		case TITLE:
+			fontColor = titleColor;
+			break;
+			
+		case CONTINUE:
+			fontColor = disabledOption;
+			break;
+			
+		case START:
+			if (IsMouseHovering(getMouseX, getMouseY))
+			{
+				fontColor = hoverOption;
+			}else
+			{
+				fontColor = notHovered;
+			}
+			break;
+			
+		case EXIT:
+			if (IsMouseHovering(getMouseX, getMouseY))
+			{
+				fontColor = hoverOption;
+			}else
+			{
+				fontColor = notHovered;
+			}
+			break;
+	}
 	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
 											content.c_str(),
-											inputColor);
+											fontColor);
 	if (optionSurface == nullptr)
 	{
 		std::cout << "Failed to create option surface ";
@@ -35,6 +80,9 @@ void MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::C
 		std::cout << SDL_GetError() << std::endl;
 		exit(-1);
 	}
+	
+	width = optionSurface->w;
+	height = optionSurface->h;
 	
 	const SDL_FRect optionHolder = {x, y, 
 									static_cast<float>(optionSurface->w), 
@@ -145,6 +193,21 @@ Game::Game()
 					menuTitle = new MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.31, windowHeight * 0.05, titleFont, renderer);
 				}
 				
+				if (menuContinue == nullptr)
+				{
+					menuContinue = new MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.4, menuFont, renderer);
+				}
+				
+				if (menuStart == nullptr)
+				{
+					menuStart = new MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.5, menuFont, renderer);
+				}
+				
+				if (menuExit == nullptr)
+				{
+					menuExit = new MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.405, windowHeight * 0.6, menuFont, renderer);
+				}
+				
 				LoadMainMenu();
 				break;
 				
@@ -182,122 +245,11 @@ TTF_Font *Game::LoadFont(std::string urlToFont, unsigned int fontSize)
 
 void Game::LoadMainMenu()
 {
-	SDL_Color titleTextcolor = {0xE0, 0xAA, 0x95};
-	
-	// Menu Options
-	SDL_Color notSelected = {0xff, 0xff, 0xff};
-	SDL_Color disabledOption = {0xAA, 0xAA, 0xAA};
-	SDL_Color selectedOption = {0xE0, 0xAA, 0x95};
-	std::cout << "Load Menu has started" << std::endl;
-	
 	// Add Title
-	menuTitle->CreateOption("Rebuild Back Better", mouseX, mouseY, titleTextcolor);				
-	
-	continueGameSurface = TTF_RenderText_Solid(menuFont,
-											  "Continue",
-											  disabledOption);
-	if (continueGameSurface == nullptr)
-	{
-		std::cout << "Failed to create continue game text surface ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	continueGameTexture = SDL_CreateTextureFromSurface(renderer, continueGameSurface);
-	
-	if (continueGameTexture == nullptr)
-	{
-		std::cout << "Failed to create continue game texture ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-											  
-	const SDL_FRect continueTextHolder = {static_cast<float>(windowWidth * 0.4),
-										  static_cast<float>(windowHeight * 0.4),
-										  static_cast<float>(continueGameSurface->w),
-										  static_cast<float>(continueGameSurface->h)};
-										  
-	SDL_RenderTexture(renderer, continueGameTexture, nullptr, &continueTextHolder);
-	
-	SDL_DestroySurface(continueGameSurface);
-	continueGameSurface = nullptr;
-	SDL_DestroyTexture(continueGameTexture);
-	continueGameTexture = nullptr;
-	
-	startGameSurface = TTF_RenderText_Solid(menuFont,
-											"Start",
-											notSelected);
-	if (startGameSurface == nullptr)
-	{
-		std::cout << "Failed to create start game surface ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	startGameTexture = SDL_CreateTextureFromSurface(renderer, startGameSurface);
-	
-	if (startGameTexture == nullptr)
-	{
-		std::cout << "Failed to create start game texture ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	const SDL_FRect startTextHolder = {static_cast<float>(windowWidth * 0.4),
-									   static_cast<float>(windowHeight * 0.5),
-									   static_cast<float>(startGameSurface->w),
-									   static_cast<float>(startGameSurface->h)}; 	
-	
-	SDL_RenderTexture(renderer, startGameTexture, nullptr, &startTextHolder);		
-	
-	SDL_DestroySurface(startGameSurface);
-	startGameSurface = nullptr;
-	SDL_DestroyTexture(startGameTexture);
-	startGameTexture = nullptr;
-	
-	exitGameSurface = TTF_RenderText_Solid(menuFont,
-											"Exit",
-											notSelected);
-	if (exitGameSurface == nullptr)
-	{
-		std::cout << "Failed to create exit game surface ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	exitGameTexture = SDL_CreateTextureFromSurface(renderer, exitGameSurface);
-	
-	if (exitGameTexture == nullptr)
-	{
-		std::cout << "Failed to create exit game texture ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	const SDL_FRect exitTextHolder = {static_cast<float>(windowWidth * 0.405),
-									   static_cast<float>(windowHeight * 0.6),
-									   static_cast<float>(exitGameSurface->w),
-									   static_cast<float>(exitGameSurface->h)}; 	
-	
-	SDL_RenderTexture(renderer, exitGameTexture, nullptr, &exitTextHolder);		
-	
-	SDL_DestroySurface(exitGameSurface);
-	exitGameSurface = nullptr;
-	SDL_DestroyTexture(exitGameTexture);
-	exitGameTexture = nullptr;											  
-												  
-	
-	switch (currentMainMenuSelection)
-	{
-		case ContinueSelected:
-			break;
-			
-		case StartSelected:
-			break;
-			
-		case ExitSelected:
-			break;
-	}
+	menuTitle->CreateOption("Rebuild Back Better", mouseX, mouseY, TITLE);	
+	menuContinue->CreateOption("Continue", mouseX, mouseY, CONTINUE);
+	menuStart->CreateOption("Start", mouseX, mouseY, START);
+	menuExit->CreateOption("Exit", mouseX, mouseY, EXIT);			
 }
 
 Game::~Game()
@@ -323,8 +275,8 @@ Game::~Game()
 	if (startGameSurface != nullptr)
 	{
 		SDL_DestroySurface(startGameSurface);
+		startGameSurface = nullptr;
 	}
-
 
 	if (startGameTexture != nullptr)
 	{
@@ -422,6 +374,9 @@ std::string Game::execpath = cpplocate::getBundlePath();
 
 // Menu Properties
 MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuTitle = nullptr;
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuContinue = nullptr;
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuStart = nullptr;
+MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuExit = nullptr;
 TTF_Font *Game::menuFont = nullptr;
 TTF_Font *Game::titleFont = nullptr;
 SDL_Surface* Game::startGameSurface = nullptr;

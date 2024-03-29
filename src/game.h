@@ -67,13 +67,13 @@ private:
 // Main Menu
 private:
 
-	enum MenuOptionSelection
+	enum ElementType
 	{
-		ContinueSelected = 0,
-		StartSelected,
-		ExitSelected
+		TITLE = 0,
+		CONTINUE,
+		START,
+		EXIT
 	};
-	
 	static TTF_Font *titleFont;
 	static void LoadMainMenu();
 	
@@ -87,6 +87,10 @@ private:
 	static int currentMainMenuSelection;
 	
 	static MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuTitle;
+	static MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuContinue;
+	static MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuStart;
+	static MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuExit;
+	
 	
 // Gameplay
 private:
