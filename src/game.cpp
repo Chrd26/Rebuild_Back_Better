@@ -325,6 +325,24 @@ Game::~Game()
 		delete(menuTitle);
 		menuTitle = nullptr;
 	}
+	
+	if (menuContinue != nullptr)
+	{
+		delete(menuContinue);
+		menuContinue = nullptr;
+	}
+	
+	if (menuStart != nullptr)
+	{
+		delete(menuStart);
+		menuStart = nullptr;
+	}
+	
+	if (menuExit != nullptr)
+	{
+		delete(menuExit);
+		menuExit = nullptr;
+	}
 	TTF_Quit();
 }
 
