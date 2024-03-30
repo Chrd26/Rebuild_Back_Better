@@ -7,3 +7,6 @@
 [submodule "modules/cpplocate"]
 	path = modules/cpplocate
 	url = git@github.com:cginternals/cpplocate.git
+[submodule "modules/SDL_mixer"]
+	path = modules/SDL_mixer
+	url = git@github.com:libsdl-org/SDL_mixer.git

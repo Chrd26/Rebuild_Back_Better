@@ -6,6 +6,7 @@ endif()
 set(CMAKE_CXX_STANDARD 20)
 set(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/build")
 set(cpplocate_DIR "${PROJECT_SOURCE_DIR}/modules/cpplocate")
+set(SDL3_mixer_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_mixer/build")
 
 # Handle Submodules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
@@ -40,19 +41,24 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/cpplocate/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
+# Has sdl_mixer been downloaded?
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/SDL_mixer/CMakeLists.txt")
+    message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
+endif()
 
 # Add resource files
 # Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
 file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
-file(GLOB MAC_LIBRARY "builds/libmacosbuild.so")
 
 # Handle Libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_ttf")
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/cpplocate")
+add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_mixer")
 find_package(SDL3_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL3_ttf)
 find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
 find_package(cpplocate REQUIRED CONFIG REQUIRED COMPONENTS cpplocate)
+find_package(SDL3_mixer REQUIRED CONFIG REQUIRED COMPONENTS SDL3_mixer)
 add_executable(${PROJECT_NAME} MACOSX_BUNDLE 
 				./src/main.cpp ./src/game.h 
 				./src/game.cpp ./src/gameobjects.h 
@@ -78,6 +84,7 @@ endforeach(FONT_FILE)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
 target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::cpplocate)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_mixer::SDL3_mixer)
 # Code from here: https://stackoverflow.com/questions/17070101/why-i-cannot-link-the-mac-framework-file-with-cmake
 
 if (APPLE)
