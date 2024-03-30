@@ -189,7 +189,6 @@ Game::Game()
 					}
 				}
 				
-				
 				if (titleFont == nullptr)
 				{
 					titleFont = LoadFont(execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
