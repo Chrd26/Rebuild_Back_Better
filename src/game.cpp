@@ -176,18 +176,7 @@ Game::Game()
 				
 				if (mouseState == LEFT_MOUSE_BUTTON && menuStart->IsMouseHovering(mouseX, mouseY))
 				{
-					currentGameState = GAMEPLAY;
-					TTF_CloseFont(titleFont);
-					TTF_CloseFont(menuFont);
-					delete(menuTitle);
-					menuTitle = nullptr;
-					delete(menuStart);
-					menuStart = nullptr;
-					delete(menuContinue);
-					menuContinue = nullptr;
-					delete(menuExit);
-					menuExit = nullptr;
-					
+					DestroyMainMenu();
 					break;
 				}
 				
@@ -195,17 +184,7 @@ Game::Game()
 				{
 					if (menuContinue->isEnabled)
 					{
-						currentGameState = GAMEPLAY;
-						TTF_CloseFont(titleFont);
-						TTF_CloseFont(menuFont);
-						delete(menuTitle);
-						menuTitle = nullptr;
-						delete(menuStart);
-						menuStart = nullptr;
-						delete(menuContinue);
-						menuContinue = nullptr;
-						delete(menuExit);
-						menuExit = nullptr;
+						DestroyMainMenu();
 					}
 				}
 	
@@ -422,6 +401,21 @@ bool Game::Initialise()
 	std::cout << execpath << std::endl;					  
 
     return true;
+}
+
+void Game::DestroyMainMenu()
+{
+	currentGameState = GAMEPLAY;
+	TTF_CloseFont(titleFont);
+	TTF_CloseFont(menuFont);
+	delete(menuTitle);
+	menuTitle = nullptr;
+	delete(menuStart);
+	menuStart = nullptr;
+	delete(menuContinue);
+	menuContinue = nullptr;
+	delete(menuExit);
+	menuExit = nullptr;
 }
 
 

@@ -50,6 +50,7 @@ private:
 private:
     static TTF_Font* LoadFont(std::string urlToFont, 
 							 unsigned int fontSize);
+	static void DestroyMainMenu();
 
 // OS specific Stuff
 private:
