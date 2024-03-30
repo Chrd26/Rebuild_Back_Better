@@ -186,9 +186,6 @@ Game::Game()
 					{
 						DestroyMainMenu();
 					}
-				}
-	
-					
 					break;
 				}
 				
