@@ -185,8 +185,8 @@ Game::Game()
 					if (menuContinue->isEnabled)
 					{
 						DestroyMainMenu();
+						break;
 					}
-					break;
 				}
 				
 				
