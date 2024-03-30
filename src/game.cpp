@@ -189,28 +189,38 @@ Game::Game()
 					}
 				}
 				
-				if (titleFont == nullptr)
+				// Load using async for faster loading times
+				// Read More:
+				// https://stackoverflow.com/questions/30810305/confusion-about-threads-launched-by-stdasync-with-stdlaunchasync-parameter
+				if (!menuFontsLoaded)
 				{
-					titleFont = LoadFont(execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
-										 100);	
+					auto getTitleFont = std::async(std::launch::deferred, LoadFont, 
+												   execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
+										           100);	
+				
+					auto getMenuFont = std::async(std::launch::deferred, LoadFont, 
+										          execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+												  60);
+												  
+					getTitleFont.wait();
+					getMenuFont.wait();
+												  
+					titleFont = getTitleFont.get();
+					menuFont = getMenuFont.get();
 					
 					if (titleFont == nullptr)
 					{
 						std::cout << "Title font has not loaded" << std::endl;
 						exit(-1);
 					}
-				}
-				
-				if (menuFont == nullptr)
-				{
-					menuFont = LoadFont(execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
-										60);
-										
+					
 					if (menuFont == nullptr)
 					{
 						std::cout << "Menu font has not loaded" << std::endl;
 						exit(-1);
 					}
+					
+					menuFontsLoaded = true;
 				}
 				
 				if (menuTitle == nullptr)
@@ -444,3 +454,4 @@ SDL_Texture* Game::continueGameTexture = nullptr;
 SDL_Surface* Game::exitGameSurface = nullptr;
 SDL_Texture* Game::exitGameTexture = nullptr;
 int Game::currentMainMenuSelection = 0;
+bool Game::menuFontsLoaded = false;
