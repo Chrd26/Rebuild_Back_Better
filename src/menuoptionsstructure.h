@@ -14,6 +14,7 @@ struct MenuElement
 	float x, y;
 	int currentState;
 	float width, height;
+	bool isEnabled;
 	std::string content;
 	F *font;
 	R *renderer;

@@ -40,6 +40,7 @@ void MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::C
 			
 		case CONTINUE:
 			fontColor = disabledOption;
+			isEnabled = false;
 			break;
 			
 		case START:
@@ -135,8 +136,7 @@ Game::Game()
 		if (mouseState == LEFT_MOUSE_BUTTON)
 		{
 			std::cout << "Pressed Button: " << mouseState << std::endl;
-			std::cout << "Mouse X: " << mouseX << "Mouse Y: " << mouseY << std::endl;
-			
+			std::cout << "Mouse X: " << mouseX << "Mouse Y: " << mouseY << std::endl;		
 		}
 		
 		if (mouseState == RIGHT_MOUSE_BUTTON)
@@ -167,14 +167,52 @@ Game::Game()
 		{
 			case MAIN_MENU:
 			
-				if (mouseState == LEFT_MOUSE_BUTTON)
+				if (mouseState == LEFT_MOUSE_BUTTON && menuExit->IsMouseHovering(mouseX, mouseY))
 				{
-					if (menuExit->IsMouseHovering(mouseX, mouseY))
-					{
-							quit = true;
-					}
-					
+					quit = true;	
 				}
+				
+				// If start button is pressed, destroy mmain menu and start game
+				
+				if (mouseState == LEFT_MOUSE_BUTTON && menuStart->IsMouseHovering(mouseX, mouseY))
+				{
+					currentGameState = GAMEPLAY;
+					TTF_CloseFont(titleFont);
+					TTF_CloseFont(menuFont);
+					delete(menuTitle);
+					menuTitle = nullptr;
+					delete(menuStart);
+					menuStart = nullptr;
+					delete(menuContinue);
+					menuContinue = nullptr;
+					delete(menuExit);
+					menuExit = nullptr;
+					
+					break;
+				}
+				
+				if (mouseState == LEFT_MOUSE_BUTTON && menuContinue->IsMouseHovering(mouseX, mouseY))
+				{
+					if (menuContinue->isEnabled)
+					{
+						currentGameState = GAMEPLAY;
+						TTF_CloseFont(titleFont);
+						TTF_CloseFont(menuFont);
+						delete(menuTitle);
+						menuTitle = nullptr;
+						delete(menuStart);
+						menuStart = nullptr;
+						delete(menuContinue);
+						menuContinue = nullptr;
+						delete(menuExit);
+						menuExit = nullptr;
+					}
+				}
+	
+					
+					break;
+				}
+				
 				
 				if (titleFont == nullptr)
 				{
