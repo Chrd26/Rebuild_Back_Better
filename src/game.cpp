@@ -307,64 +307,9 @@ Game::~Game()
 		menuFont = nullptr;
 	}
 	
-	if (startGameSurface != nullptr)
+	if (haveElementsLoaded||menuFontsLoaded)
 	{
-		SDL_DestroySurface(startGameSurface);
-		startGameSurface = nullptr;
-	}
-
-	if (startGameTexture != nullptr)
-	{
-		SDL_DestroyTexture(startGameTexture);
-		startGameTexture = nullptr;
-	}
-	
-	if (continueGameSurface != nullptr)
-	{
-		SDL_DestroySurface(continueGameSurface);
-		continueGameSurface = nullptr;
-	}
-	
-	if (continueGameTexture != nullptr)
-	{
-		SDL_DestroyTexture(continueGameTexture);
-		continueGameTexture = nullptr;
-	}
-	
-	if (exitGameSurface != nullptr)
-	{
-		SDL_DestroySurface(exitGameSurface);
-		exitGameSurface = nullptr;
-	}
-	
-	if (exitGameTexture != nullptr)
-	{
-		SDL_DestroyTexture(exitGameTexture);
-		exitGameTexture = nullptr;
-	}
-	
-	if (menuTitle != nullptr)
-	{
-		delete(menuTitle);
-		menuTitle = nullptr;
-	}
-	
-	if (menuContinue != nullptr)
-	{
-		delete(menuContinue);
-		menuContinue = nullptr;
-	}
-	
-	if (menuStart != nullptr)
-	{
-		delete(menuStart);
-		menuStart = nullptr;
-	}
-	
-	if (menuExit != nullptr)
-	{
-		delete(menuExit);
-		menuExit = nullptr;
+		DestroyMainMenu();
 	}
 	TTF_Quit();
 }
@@ -422,6 +367,8 @@ void Game::DestroyMainMenu()
 	menuContinue = nullptr;
 	delete(menuExit);
 	menuExit = nullptr;
+	menuFontsLoaded = false;
+	haveElementsLoaded = false;
 }
 
 
@@ -447,11 +394,5 @@ MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::
 MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuExit = nullptr;
 TTF_Font *Game::menuFont = nullptr;
 TTF_Font *Game::titleFont = nullptr;
-SDL_Surface* Game::startGameSurface = nullptr;
-SDL_Texture* Game::startGameTexture = nullptr;
-SDL_Surface* Game::continueGameSurface = nullptr;
-SDL_Texture* Game::continueGameTexture = nullptr;
-SDL_Surface* Game::exitGameSurface = nullptr;
-SDL_Texture* Game::exitGameTexture = nullptr;
-int Game::currentMainMenuSelection = 0;
 bool Game::menuFontsLoaded = false;
+bool Game::haveElementsLoaded = false;

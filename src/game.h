@@ -80,19 +80,13 @@ private:
 	static void LoadMainMenu();
 	
 	static TTF_Font *menuFont;
-	static SDL_Surface *continueGameSurface;
-	static SDL_Texture *continueGameTexture;
-	static SDL_Surface *startGameSurface;
-	static SDL_Texture *startGameTexture;
-	static SDL_Surface *exitGameSurface;
-	static SDL_Texture *exitGameTexture;
-	static int currentMainMenuSelection;
 	
 	static MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuTitle;
 	static MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuContinue;
 	static MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuStart;
 	static MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuExit;
 	static bool menuFontsLoaded;
+	static bool haveElementsLoaded;
 	
 	
 // Gameplay
