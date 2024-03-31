@@ -1,7 +1,7 @@
 #include "game.h"
 
 template<>
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::MenuElement(float inputX, float inputY,
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::TextElement(float inputX, float inputY,
 																		TTF_Font *inputFont, SDL_Renderer *inputRender)
 {
 	x = inputX;
@@ -10,8 +10,9 @@ MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::MenuEl
 	renderer = inputRender;
 }
 
+// Non-intearctive
 template<>
-bool MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::IsMouseHovering(float inputMouseX, float inputMouseY)
+bool TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::IsMouseHovering(float inputMouseX, float inputMouseY)
 {
 	if (inputMouseX >= x && inputMouseX <= x + width)
 	{
@@ -25,7 +26,53 @@ bool MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::I
 }
 
 template<>
-void MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateOption(std::string content, 
+void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateTextElement(std::string content,
+																								 int elementType)
+{
+	SDL_Color fontColor;
+	
+	switch(elementType)
+	{
+		case TITLE:
+			fontColor = titleColor;
+			break;
+	}
+	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
+											content.c_str(),
+											fontColor);
+	if (optionSurface == nullptr)
+	{
+		std::cout << "Failed to create option surface ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	SDL_Texture *optionTexture = SDL_CreateTextureFromSurface(renderer, optionSurface);
+	
+	if (optionTexture == nullptr)
+	{
+		std::cout << "Failed to create option texture ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	width = optionSurface->w;
+	height = optionSurface->h;
+	
+	const SDL_FRect optionHolder = {x, y, 
+									static_cast<float>(optionSurface->w), 
+									static_cast<float>(optionSurface->h)}; 	
+	
+	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
+	
+	SDL_DestroySurface(optionSurface);
+	optionSurface = nullptr;
+	SDL_DestroyTexture(optionTexture);
+	optionTexture = nullptr;	
+}			
+
+template<>
+void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateTextElement(std::string content, 
 																					        float getMouseX, 
 																					        float getMouseY, 
 																					        int elementType)
@@ -62,6 +109,7 @@ void MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::C
 				fontColor = notHovered;
 			}
 			break;
+			
 	}
 	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
 											content.c_str(),
@@ -194,11 +242,11 @@ Game::Game()
 				// https://stackoverflow.com/questions/30810305/confusion-about-threads-launched-by-stdasync-with-stdlaunchasync-parameter
 				if (!menuFontsLoaded)
 				{
-					auto getTitleFont = std::async(std::launch::deferred, LoadFont, 
+					auto getTitleFont = std::async(std::launch::async, LoadFont, 
 												   execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
 										           100);	
 				
-					auto getMenuFont = std::async(std::launch::deferred, LoadFont, 
+					auto getMenuFont = std::async(std::launch::async, LoadFont, 
 										          execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
 												  60);
 												  
@@ -225,28 +273,53 @@ Game::Game()
 				
 				if (menuTitle == nullptr)
 				{
-					menuTitle = new MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.31, windowHeight * 0.05, titleFont, renderer);
+					menuTitle = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.31, windowHeight * 0.05, titleFont, renderer);
 				}
 				
 				if (menuContinue == nullptr)
 				{
-					menuContinue = new MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.4, menuFont, renderer);
+					menuContinue = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.4, menuFont, renderer);
 				}
 				
 				if (menuStart == nullptr)
 				{
-					menuStart = new MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.5, menuFont, renderer);
+					menuStart = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.5, menuFont, renderer);
 				}
 				
 				if (menuExit == nullptr)
 				{
-					menuExit = new MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.405, windowHeight * 0.6, menuFont, renderer);
+					menuExit = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.405, windowHeight * 0.6, menuFont, renderer);
 				}
 				
 				LoadMainMenu();
 				break;
 				
 			case GAMEPLAY:
+				if (!gameplayFontsLoaded)
+				{
+				
+					auto getMenuFont = std::async(std::launch::async, LoadFont, 
+										          execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+												  100);
+												  
+					getMenuFont.wait();											  
+					menuFont = getMenuFont.get();
+		
+					if (menuFont == nullptr)
+					{
+						std::cout << "Menu font has not loaded" << std::endl;
+						exit(-1);
+					}
+					
+					gameplayFontsLoaded = true;
+				}
+				
+				if (menuExit == nullptr)
+				{
+					testingGameplayText = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.405, windowHeight * 0.6, menuFont, renderer);
+				}
+					
+				LoadGameplayElements();
 				break;
 				
 			case PAUSED:
@@ -281,10 +354,10 @@ TTF_Font *Game::LoadFont(std::string urlToFont, unsigned int fontSize)
 void Game::LoadMainMenu()
 {
 	// Add Title
-	menuTitle->CreateOption("Rebuild Back Better", mouseX, mouseY, TITLE);	
-	menuContinue->CreateOption("Continue", mouseX, mouseY, CONTINUE);
-	menuStart->CreateOption("Start", mouseX, mouseY, START);
-	menuExit->CreateOption("Exit", mouseX, mouseY, EXIT);			
+	menuTitle->CreateTextElement("Rebuild Back Better", TITLE);	
+	menuContinue->CreateTextElement("Continue", mouseX, mouseY, CONTINUE);
+	menuStart->CreateTextElement("Start", mouseX, mouseY, START);
+	menuExit->CreateTextElement("Exit", mouseX, mouseY, EXIT);			
 }
 
 Game::~Game()
@@ -371,6 +444,11 @@ void Game::DestroyMainMenu()
 	haveElementsLoaded = false;
 }
 
+void Game::LoadGameplayElements()
+{
+	testingGameplayText->CreateTextElement("GAMEPLAY", TITLE);
+}
+
 
 // Initialisation
 SDL_Window *Game::window = nullptr;
@@ -384,15 +462,18 @@ int Game::windowHeight = 0;
 int Game::windowWidth = 0;
 float Game::mouseX = 0;
 float Game::mouseY = 0;
-// Windows std::string Game::execpath = cpplocate::getExecutablePath();
 std::string Game::execpath = cpplocate::getBundlePath();
 
 // Menu Properties
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuTitle = nullptr;
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuContinue = nullptr;
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuStart = nullptr;
-MenuElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuExit = nullptr;
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuTitle = nullptr;
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuContinue = nullptr;
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuStart = nullptr;
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuExit = nullptr;
 TTF_Font *Game::menuFont = nullptr;
 TTF_Font *Game::titleFont = nullptr;
 bool Game::menuFontsLoaded = false;
 bool Game::haveElementsLoaded = false;
+
+// Gameplay Properties
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::testingGameplayText = nullptr;
+bool Game::gameplayFontsLoaded = false;

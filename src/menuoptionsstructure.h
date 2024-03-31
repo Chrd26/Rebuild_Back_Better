@@ -1,7 +1,7 @@
 #pragma once
 
 template<typename S, typename T, typename C, typename F, typename R>
-struct MenuElement
+struct TextElement
 {
 	enum ElementType
 	{
@@ -23,7 +23,8 @@ struct MenuElement
 	C hoverOption = {0xE0, 0xAA, 0x95};
 	C titleColor = {0xE0, 0xAA, 0x95};
 	
-	MenuElement(float inputX, float inputY, F *inputFont, R *inputRender);
-	void CreateOption(std::string content, float getMouseX, float getMouseY, int elementType);
+	TextElement(float inputX, float inputY, F *inputFont, R *inputRender);
+	void CreateTextElement(std::string content, int elementType);
+	void CreateTextElement(std::string content, float getMouseX, float getMouseY, int elementType);
 	bool IsMouseHovering(float inputMouseX, float inputMouseY);
 };
