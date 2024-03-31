@@ -316,7 +316,7 @@ Game::Game()
 				
 				if (menuExit == nullptr)
 				{
-					testingGameplayText = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.405, windowHeight * 0.6, menuFont, renderer);
+					testingGameplayText = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.3, windowHeight * 0.15, menuFont, renderer);
 				}
 					
 				LoadGameplayElements();
@@ -462,7 +462,11 @@ int Game::windowHeight = 0;
 int Game::windowWidth = 0;
 float Game::mouseX = 0;
 float Game::mouseY = 0;
-std::string Game::execpath = cpplocate::getBundlePath();
+#ifdef __APPLE__
+const std::string Game::execpath = cpplocate::getBundlePath();
+#elif __WIN64__
+const std::string Game::execpath = cpplocate::getExecutablePath();
+#endif
 
 // Menu Properties
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuTitle = nullptr;

@@ -1,6 +1,7 @@
 #include <SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <SDL3_mixer/SDL_mixer.h>
+#include <SDL3_image/SDL_image.h>
 #include "player.h"
 #include "thief.h"
 #include "gatherer.h"
@@ -37,7 +38,7 @@ private:
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
     static bool Initialise();
-	static std::string execpath;
+	static const std::string execpath;
 	
 // Basic Components
 private:
