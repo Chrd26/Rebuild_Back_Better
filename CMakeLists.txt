@@ -98,6 +98,9 @@ if (APPLE)
 	set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH}")
 
 	endforeach(FONT_FILE)
+elseif(WIN32)
+	# Copy directories https://stackoverflow.com/questions/697560/how-to-copy-directory-from-source-tree-to-binary-tree
+	file(COPY "./fonts" DESTINATION "builds/Resources")
 endif()
 				
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
