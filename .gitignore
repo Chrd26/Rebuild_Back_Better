@@ -10,5 +10,6 @@ fonts/*
 !builds/.gitkeep
 !commands/.gitkeep
 !fonts/.gitkeep
+!audio/.gitkeep
 
 # https://stackoverflow.com/questions/4250063/how-to-gitignore-all-files-folder-in-a-folder-but-not-the-folder-itself
