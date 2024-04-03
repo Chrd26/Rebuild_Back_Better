@@ -4,6 +4,7 @@ builds/*
 .DS_Store
 commands/*
 fonts/*
+build/
 
 !graphics/.gitkeep
 !tests/.gitkeep
