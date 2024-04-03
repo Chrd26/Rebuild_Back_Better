@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.28.3)
 project("RebuildBackBetter" LANGUAGES CXX VERSION 0.1 DESCRIPTION "Originally made during GGJ22") 
-if (APPLE)
-	enable_language(OBJCXX)
-endif()
 set(CMAKE_CXX_STANDARD 20)
 set(SDL3_DIR "${PROJECT_SOURCE_DIR}/modules/SDL/build")
 set(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/build")
 set(cpplocate_DIR "${PROJECT_SOURCE_DIR}/modules/cpplocate")
 set(SDL3_mixer_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_mixer/build")
 set(SDL3_image_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_image/build")
+
+if (WIN32)
+	set(CMAKE_WIN32_EXECUTABLE YES)
+endif()
 
 # Handle Submodules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
@@ -55,7 +56,9 @@ endif()
 
 # Add resource files
 # Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
-file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
+if (APPLE)
+	file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
+endif()
 
 # Handle Libraries
 add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
@@ -77,6 +80,8 @@ add_executable(${PROJECT_NAME} MACOSX_BUNDLE
 				./src/menuoptionsstructure.h
 				${FONT_SOURCES})
 elseif(WIN32)
+set(CMAKE_CXX_FLAGS "-L")
+set(CMAKE_EXE_LINKER_FLAGS "-L")
 add_executable(${PROJECT_NAME} WIN32 
 				./src/main.cpp ./src/game.h 
 				./src/game.cpp ./src/gameobjects.h 
@@ -101,7 +106,7 @@ if (APPLE)
 	endforeach(FONT_FILE)
 elseif(WIN32)
 	# Copy directories https://stackoverflow.com/questions/697560/how-to-copy-directory-from-source-tree-to-binary-tree
-	file(COPY "./fonts" DESTINATION "builds/Resources")
+	file(COPY "./fonts" DESTINATION "Resources")
 endif()
 				
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
