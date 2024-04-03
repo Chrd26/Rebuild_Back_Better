@@ -399,7 +399,7 @@ Game::~Game()
 	
 	if (menuStart != nullptr)
 	{
-		delete(menuStart)
+		delete(menuStart);
 		menuStart = nullptr;
 	}
 	
