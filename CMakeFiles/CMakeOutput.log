@@ -1,0 +1,247 @@
+The target system is: Windows -  - x86_64
+The host system is: Linux - 6.6.16-linuxkit - x86_64
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-g++ 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+
+The CXX compiler identification is GNU, found in "/work/CMakeFiles/3.20.1/CompilerIdCXX/a.exe"
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /work/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_11533/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_11533.dir/build.make CMakeFiles/cmTC_11533.dir/build
+gmake[1]: Entering directory '/work/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj
+/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-g++   -v -o CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj -c /usr/src/mxe/usr/x86_64-pc-linux-gnu/share/cmake-3.20/Modules/CMakeCXXCompilerABI.cpp
+Reading specs from /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/specs
+COLLECT_GCC=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-g++
+Target: x86_64-w64-mingw32.shared
+Configured with: /usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0/configure ac_cv_prog_HAVE_DOXYGEN=false --enable-doc=no --enable-gtk-doc=no --enable-gtk-doc-html=no --enable-gtk-doc-pdf=no --docdir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --infodir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --mandir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --with-html-dir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --disable-doxygen --target=x86_64-w64-mingw32.shared --build=x86_64-pc-linux-gnu --prefix=/usr/src/mxe/usr --libdir=/usr/src/mxe/usr/lib --with-sysroot=/usr/src/mxe/usr/x86_64-w64-mingw32.shared --enable-languages=c,c++,objc,fortran --enable-version-specific-runtime-libs --with-gcc --with-gnu-ld --with-gnu-as --disable-nls --disable-multilib --without-x --disable-win32-registry --enable-threads=posix --enable-default-ssp --enable-libgomp --with-gmp=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-isl=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-mpc=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-mpfr=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-as=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-as --with-ld=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-ld --with-nm=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-nm --with-zstd=/usr/src/mxe/usr/x86_64-pc-linux-gnu
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 11.2.0 (GCC) 
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_11533.dir/'
+ /usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/cc1plus -quiet -v -D_REENTRANT /usr/src/mxe/usr/x86_64-pc-linux-gnu/share/cmake-3.20/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_11533.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/cclbAmgE.s
+GNU C++17 (GCC) version 11.2.0 (x86_64-w64-mingw32.shared)
+	compiled by GNU C version 12.2.0, GMP version 6.1.2, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.16.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+ignoring nonexistent directory "/usr/src/mxe/usr/x86_64-w64-mingw32.shared/usr/local/include"
+ignoring duplicate directory "/usr/src/mxe/usr/x86_64-w64-mingw32.shared/include"
+#include "..." search starts here:
+#include <...> search starts here:
+ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++
+ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/x86_64-w64-mingw32.shared
+ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/backward
+ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include
+ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include-fixed
+ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/include
+End of search list.
+GNU C++17 (GCC) version 11.2.0 (x86_64-w64-mingw32.shared)
+	compiled by GNU C version 12.2.0, GMP version 6.1.2, MPFR version 4.0.2, MPC version 1.1.0, isl version isl-0.16.1-GMP
+
+GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+Compiler executable checksum: 86fbec17ede0a734d8c0a96bf9c0b7ee
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_11533.dir/'
+ /usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-as -v -o CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj /tmp/cclbAmgE.s
+GNU assembler version 2.36.1 (x86_64-w64-mingw32.shared) using BFD version (GNU Binutils) 2.36.1
+COMPILER_PATH=/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/bin/
+LIBRARY_PATH=/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib/:/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/../lib/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/:/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.'
+Linking CXX executable cmTC_11533.exe
+/usr/src/mxe/usr/x86_64-pc-linux-gnu/bin/cmake -E cmake_link_script CMakeFiles/cmTC_11533.dir/link.txt --verbose=1
+/usr/src/mxe/usr/x86_64-pc-linux-gnu/bin/cmake -E rm -f CMakeFiles/cmTC_11533.dir/objects.a
+/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-ar cr CMakeFiles/cmTC_11533.dir/objects.a @CMakeFiles/cmTC_11533.dir/objects1.rsp
+/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-g++  -v -Wl,--whole-archive CMakeFiles/cmTC_11533.dir/objects.a -Wl,--no-whole-archive -o cmTC_11533.exe -Wl,--out-implib,libcmTC_11533.dll.a -Wl,--major-image-version,0,--minor-image-version,0 
+Reading specs from /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/specs
+COLLECT_GCC=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-g++
+COLLECT_LTO_WRAPPER=/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/lto-wrapper
+Target: x86_64-w64-mingw32.shared
+Configured with: /usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0/configure ac_cv_prog_HAVE_DOXYGEN=false --enable-doc=no --enable-gtk-doc=no --enable-gtk-doc-html=no --enable-gtk-doc-pdf=no --docdir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --infodir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --mandir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --with-html-dir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --disable-doxygen --target=x86_64-w64-mingw32.shared --build=x86_64-pc-linux-gnu --prefix=/usr/src/mxe/usr --libdir=/usr/src/mxe/usr/lib --with-sysroot=/usr/src/mxe/usr/x86_64-w64-mingw32.shared --enable-languages=c,c++,objc,fortran --enable-version-specific-runtime-libs --with-gcc --with-gnu-ld --with-gnu-as --disable-nls --disable-multilib --without-x --disable-win32-registry --enable-threads=posix --enable-default-ssp --enable-libgomp --with-gmp=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-isl=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-mpc=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-mpfr=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-as=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-as --with-ld=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-ld --with-nm=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-nm --with-zstd=/usr/src/mxe/usr/x86_64-pc-linux-gnu
+Thread model: posix
+Supported LTO compression algorithms: zlib zstd
+gcc version 11.2.0 (GCC) 
+COMPILER_PATH=/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/bin/
+LIBRARY_PATH=/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib/:/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/../lib/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/:/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_11533.exe' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_11533.'
+ /usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/collect2 -plugin /usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/liblto_plugin.so -plugin-opt=/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccm64YwQ.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lssp_nonshared -plugin-opt=-pass-through=-lssp -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lssp_nonshared -plugin-opt=-pass-through=-lssp -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=/usr/src/mxe/usr/x86_64-w64-mingw32.shared -m i386pep -Bdynamic -o cmTC_11533.exe /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib/crt2.o /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtbegin.o -L/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0 -L/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib -L/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/../lib -L/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib -L/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib --whole-archive CMakeFiles/cmTC_11533.dir/objects.a --no-whole-archive --out-implib libcmTC_11533.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lssp_nonshared -lssp -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lssp_nonshared -lssp -lmsvcrt -lkernel32 /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtend.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_11533.exe' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_11533.'
+gmake[1]: Leaving directory '/work/CMakeFiles/CMakeTmp'
+
+
+
+Parsed CXX implicit include dir info from above output: rv=done
+  found start of include info
+  found start of implicit include info
+    add: [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++]
+    add: [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/x86_64-w64-mingw32.shared]
+    add: [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/backward]
+    add: [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include]
+    add: [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include-fixed]
+    add: [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/include]
+  end of search list found
+  collapse include dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++] ==> [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++]
+  collapse include dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/x86_64-w64-mingw32.shared] ==> [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/x86_64-w64-mingw32.shared]
+  collapse include dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/backward] ==> [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/backward]
+  collapse include dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include] ==> [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include]
+  collapse include dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include-fixed] ==> [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include-fixed]
+  collapse include dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/include] ==> [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/include]
+  implicit include dirs: [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++;/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/x86_64-w64-mingw32.shared;/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/backward;/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include;/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include-fixed;/usr/src/mxe/usr/x86_64-w64-mingw32.shared/include]
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(x86_64-w64-mingw32\.shared-ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /work/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_11533/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_11533.dir/build.make CMakeFiles/cmTC_11533.dir/build]
+  ignore line: [gmake[1]: Entering directory '/work/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj]
+  ignore line: [/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-g++   -v -o CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj -c /usr/src/mxe/usr/x86_64-pc-linux-gnu/share/cmake-3.20/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Reading specs from /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/specs]
+  ignore line: [COLLECT_GCC=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-g++]
+  ignore line: [Target: x86_64-w64-mingw32.shared]
+  ignore line: [Configured with: /usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0/configure ac_cv_prog_HAVE_DOXYGEN=false --enable-doc=no --enable-gtk-doc=no --enable-gtk-doc-html=no --enable-gtk-doc-pdf=no --docdir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --infodir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --mandir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --with-html-dir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --disable-doxygen --target=x86_64-w64-mingw32.shared --build=x86_64-pc-linux-gnu --prefix=/usr/src/mxe/usr --libdir=/usr/src/mxe/usr/lib --with-sysroot=/usr/src/mxe/usr/x86_64-w64-mingw32.shared --enable-languages=c,c++,objc,fortran --enable-version-specific-runtime-libs --with-gcc --with-gnu-ld --with-gnu-as --disable-nls --disable-multilib --without-x --disable-win32-registry --enable-threads=posix --enable-default-ssp --enable-libgomp --with-gmp=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-isl=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-mpc=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-mpfr=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-as=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-as --with-ld=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-ld --with-nm=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-nm --with-zstd=/usr/src/mxe/usr/x86_64-pc-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 11.2.0 (GCC) ]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_11533.dir/']
+  ignore line: [ /usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/cc1plus -quiet -v -D_REENTRANT /usr/src/mxe/usr/x86_64-pc-linux-gnu/share/cmake-3.20/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpdir CMakeFiles/cmTC_11533.dir/ -dumpbase CMakeCXXCompilerABI.cpp.cpp -dumpbase-ext .cpp -mtune=generic -march=x86-64 -version -o /tmp/cclbAmgE.s]
+  ignore line: [GNU C++17 (GCC) version 11.2.0 (x86_64-w64-mingw32.shared)]
+  ignore line: [	compiled by GNU C version 12.2.0  GMP version 6.1.2  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.16.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [ignoring nonexistent directory "/usr/src/mxe/usr/x86_64-w64-mingw32.shared/usr/local/include"]
+  ignore line: [ignoring duplicate directory "/usr/src/mxe/usr/x86_64-w64-mingw32.shared/include"]
+  ignore line: [#include "..." search starts here:]
+  ignore line: [#include <...> search starts here:]
+  ignore line: [ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++]
+  ignore line: [ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/x86_64-w64-mingw32.shared]
+  ignore line: [ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include/c++/backward]
+  ignore line: [ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include]
+  ignore line: [ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/include-fixed]
+  ignore line: [ /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/include]
+  ignore line: [End of search list.]
+  ignore line: [GNU C++17 (GCC) version 11.2.0 (x86_64-w64-mingw32.shared)]
+  ignore line: [	compiled by GNU C version 12.2.0  GMP version 6.1.2  MPFR version 4.0.2  MPC version 1.1.0  isl version isl-0.16.1-GMP]
+  ignore line: []
+  ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+  ignore line: [Compiler executable checksum: 86fbec17ede0a734d8c0a96bf9c0b7ee]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_11533.dir/']
+  ignore line: [ /usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-as -v -o CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj /tmp/cclbAmgE.s]
+  ignore line: [GNU assembler version 2.36.1 (x86_64-w64-mingw32.shared) using BFD version (GNU Binutils) 2.36.1]
+  ignore line: [COMPILER_PATH=/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/bin/]
+  ignore line: [LIBRARY_PATH=/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib/:/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/../lib/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/:/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.obj' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'CMakeFiles/cmTC_11533.dir/CMakeCXXCompilerABI.cpp.']
+  ignore line: [Linking CXX executable cmTC_11533.exe]
+  ignore line: [/usr/src/mxe/usr/x86_64-pc-linux-gnu/bin/cmake -E cmake_link_script CMakeFiles/cmTC_11533.dir/link.txt --verbose=1]
+  ignore line: [/usr/src/mxe/usr/x86_64-pc-linux-gnu/bin/cmake -E rm -f CMakeFiles/cmTC_11533.dir/objects.a]
+  ignore line: [/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-ar cr CMakeFiles/cmTC_11533.dir/objects.a @CMakeFiles/cmTC_11533.dir/objects1.rsp]
+  ignore line: [/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-g++  -v -Wl --whole-archive CMakeFiles/cmTC_11533.dir/objects.a -Wl --no-whole-archive -o cmTC_11533.exe -Wl --out-implib libcmTC_11533.dll.a -Wl --major-image-version 0 --minor-image-version 0 ]
+  ignore line: [Reading specs from /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/specs]
+  ignore line: [COLLECT_GCC=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-g++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/lto-wrapper]
+  ignore line: [Target: x86_64-w64-mingw32.shared]
+  ignore line: [Configured with: /usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0/configure ac_cv_prog_HAVE_DOXYGEN=false --enable-doc=no --enable-gtk-doc=no --enable-gtk-doc-html=no --enable-gtk-doc-pdf=no --docdir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --infodir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --mandir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --with-html-dir=/usr/src/mxe/tmp-gcc-x86_64-w64-mingw32.shared/gcc-11.2.0.build_.sink --disable-doxygen --target=x86_64-w64-mingw32.shared --build=x86_64-pc-linux-gnu --prefix=/usr/src/mxe/usr --libdir=/usr/src/mxe/usr/lib --with-sysroot=/usr/src/mxe/usr/x86_64-w64-mingw32.shared --enable-languages=c,c++,objc,fortran --enable-version-specific-runtime-libs --with-gcc --with-gnu-ld --with-gnu-as --disable-nls --disable-multilib --without-x --disable-win32-registry --enable-threads=posix --enable-default-ssp --enable-libgomp --with-gmp=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-isl=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-mpc=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-mpfr=/usr/src/mxe/usr/x86_64-pc-linux-gnu --with-as=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-as --with-ld=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-ld --with-nm=/usr/src/mxe/usr/bin/x86_64-w64-mingw32.shared-nm --with-zstd=/usr/src/mxe/usr/x86_64-pc-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [Supported LTO compression algorithms: zlib zstd]
+  ignore line: [gcc version 11.2.0 (GCC) ]
+  ignore line: [COMPILER_PATH=/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/bin/]
+  ignore line: [LIBRARY_PATH=/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib/:/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/../lib/:/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/:/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_11533.exe' '-shared-libgcc' '-mtune=generic' '-march=x86-64' '-dumpdir' 'cmTC_11533.']
+  link line: [ /usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/collect2 -plugin /usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/liblto_plugin.so -plugin-opt=/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccm64YwQ.res -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lssp_nonshared -plugin-opt=-pass-through=-lssp -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lpthread -plugin-opt=-pass-through=-ladvapi32 -plugin-opt=-pass-through=-lshell32 -plugin-opt=-pass-through=-luser32 -plugin-opt=-pass-through=-lkernel32 -plugin-opt=-pass-through=-lmingw32 -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lmoldname -plugin-opt=-pass-through=-lmingwex -plugin-opt=-pass-through=-lssp_nonshared -plugin-opt=-pass-through=-lssp -plugin-opt=-pass-through=-lmsvcrt -plugin-opt=-pass-through=-lkernel32 --sysroot=/usr/src/mxe/usr/x86_64-w64-mingw32.shared -m i386pep -Bdynamic -o cmTC_11533.exe /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib/crt2.o /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtbegin.o -L/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0 -L/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib -L/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/../lib -L/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib -L/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib --whole-archive CMakeFiles/cmTC_11533.dir/objects.a --no-whole-archive --out-implib libcmTC_11533.dll.a --major-image-version 0 --minor-image-version 0 -lstdc++ -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lssp_nonshared -lssp -lmsvcrt -lkernel32 -lpthread -ladvapi32 -lshell32 -luser32 -lkernel32 -lmingw32 -lgcc_s -lgcc -lmoldname -lmingwex -lssp_nonshared -lssp -lmsvcrt -lkernel32 /usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtend.o]
+    arg [/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/src/mxe/usr/libexec/gcc/x86_64-w64-mingw32.shared/11.2.0/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccm64YwQ.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+    arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+    arg [-plugin-opt=-pass-through=-lssp_nonshared] ==> ignore
+    arg [-plugin-opt=-pass-through=-lssp] ==> ignore
+    arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+    arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+    arg [-plugin-opt=-pass-through=-lpthread] ==> ignore
+    arg [-plugin-opt=-pass-through=-ladvapi32] ==> ignore
+    arg [-plugin-opt=-pass-through=-lshell32] ==> ignore
+    arg [-plugin-opt=-pass-through=-luser32] ==> ignore
+    arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+    arg [-plugin-opt=-pass-through=-lmingw32] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lmoldname] ==> ignore
+    arg [-plugin-opt=-pass-through=-lmingwex] ==> ignore
+    arg [-plugin-opt=-pass-through=-lssp_nonshared] ==> ignore
+    arg [-plugin-opt=-pass-through=-lssp] ==> ignore
+    arg [-plugin-opt=-pass-through=-lmsvcrt] ==> ignore
+    arg [-plugin-opt=-pass-through=-lkernel32] ==> ignore
+    arg [--sysroot=/usr/src/mxe/usr/x86_64-w64-mingw32.shared] ==> ignore
+    arg [-m] ==> ignore
+    arg [i386pep] ==> ignore
+    arg [-Bdynamic] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_11533.exe] ==> ignore
+    arg [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib/crt2.o] ==> obj [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib/crt2.o]
+    arg [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtbegin.o] ==> obj [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtbegin.o]
+    arg [-L/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0] ==> dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0]
+    arg [-L/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib] ==> dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib]
+    arg [-L/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/../lib] ==> dir [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/../lib]
+    arg [-L/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib] ==> dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib]
+    arg [-L/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib] ==> dir [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib]
+    arg [--whole-archive] ==> ignore
+    arg [CMakeFiles/cmTC_11533.dir/objects.a] ==> ignore
+    arg [--no-whole-archive] ==> ignore
+    arg [--out-implib] ==> ignore
+    arg [libcmTC_11533.dll.a] ==> ignore
+    arg [--major-image-version] ==> ignore
+    arg [0] ==> ignore
+    arg [--minor-image-version] ==> ignore
+    arg [0] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lmingw32] ==> lib [mingw32]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lmoldname] ==> lib [moldname]
+    arg [-lmingwex] ==> lib [mingwex]
+    arg [-lssp_nonshared] ==> lib [ssp_nonshared]
+    arg [-lssp] ==> lib [ssp]
+    arg [-lmsvcrt] ==> lib [msvcrt]
+    arg [-lkernel32] ==> lib [kernel32]
+    arg [-lpthread] ==> lib [pthread]
+    arg [-ladvapi32] ==> lib [advapi32]
+    arg [-lshell32] ==> lib [shell32]
+    arg [-luser32] ==> lib [user32]
+    arg [-lkernel32] ==> lib [kernel32]
+    arg [-lmingw32] ==> lib [mingw32]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lmoldname] ==> lib [moldname]
+    arg [-lmingwex] ==> lib [mingwex]
+    arg [-lssp_nonshared] ==> lib [ssp_nonshared]
+    arg [-lssp] ==> lib [ssp]
+    arg [-lmsvcrt] ==> lib [msvcrt]
+    arg [-lkernel32] ==> lib [kernel32]
+    arg [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtend.o] ==> obj [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtend.o]
+  remove lib [msvcrt]
+  remove lib [msvcrt]
+  collapse obj [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib/crt2.o] ==> [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/crt2.o]
+  collapse library dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0] ==> [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0]
+  collapse library dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib/../lib] ==> [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib]
+  collapse library dir [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/../lib] ==> [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib]
+  collapse library dir [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/../../../../x86_64-w64-mingw32.shared/lib] ==> [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib]
+  collapse library dir [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib] ==> [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib]
+  implicit libs: [stdc++;mingw32;gcc_s;gcc;moldname;mingwex;ssp_nonshared;ssp;kernel32;pthread;advapi32;shell32;user32;kernel32;mingw32;gcc_s;gcc;moldname;mingwex;ssp_nonshared;ssp;kernel32]
+  implicit objs: [/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib/crt2.o;/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtbegin.o;/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0/crtend.o]
+  implicit dirs: [/usr/src/mxe/usr/lib/gcc/x86_64-w64-mingw32.shared/11.2.0;/usr/src/mxe/usr/x86_64-w64-mingw32.shared/lib]
+  implicit fwks: []
+
+

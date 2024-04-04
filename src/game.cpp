@@ -242,6 +242,7 @@ Game::Game()
 				// https://stackoverflow.com/questions/30810305/confusion-about-threads-launched-by-stdasync-with-stdlaunchasync-parameter
 				if (!menuFontsLoaded)
 				{
+					#ifdef __APPLE__
 					auto getTitleFont = std::async(std::launch::async, LoadFont, 
 												   execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
 										           100);	
@@ -249,6 +250,17 @@ Game::Game()
 					auto getMenuFont = std::async(std::launch::async, LoadFont, 
 										          execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
 												  60);
+					#endif
+					
+					#ifdef __win64__
+					auto getTitleFont = std::async(std::launch::async, LoadFont, 
+												   execpath + std::string("Resources/fonts/ArianaVioleta-dz2K.ttf"),
+										           100);	
+				
+					auto getMenuFont = std::async(std::launch::async, LoadFont, 
+										          execpath + std::string("Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+												  60);
+					#endif
 												  
 					getTitleFont.wait();
 					getMenuFont.wait();

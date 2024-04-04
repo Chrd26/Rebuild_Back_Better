@@ -119,4 +119,3 @@ target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_image::SDL3_image)
 if (APPLE)
     target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Foundation")
 endif()
-
