@@ -99,19 +99,14 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 elseif (CMAKE_SYSTEM_NAME MATCHES Windows)
 	message("Build Windows Version")
 	
+	file(COPY "./fonts" DESTINATION "Resources")
+	add_executable(${PROJECT_NAME} WIN32_EXECUTABLE 
+				./src/main.cpp ./src/game.h 
+				./src/game.cpp ./src/gameobjects.h 
+				./src/player.h ./src/thief.h 
+				./src/gatherer.h ./src/fighter.h
+				./src/menuoptionsstructure.h)
 endif()
-
-
-#add_executable(${PROJECT_NAME} WIN32 
-#				./src/main.cpp ./src/game.h 
-#				./src/game.cpp ./src/gameobjects.h 
-#				./src/player.h ./src/thief.h 
-#				./src/gatherer.h ./src/fighter.h
-#				./src/menuoptionsstructure.h)
-
-# Copy directories https://stackoverflow.com/questions/697560/how-to-copy-directory-from-source-tree-to-binary-tree
-#	file(COPY "./fonts" DESTINATION "Resources")
-
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
 target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::cpplocate)
