@@ -32,7 +32,9 @@ current_page=3
 FILE_NAME_0=875;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
 FILE_NAME_1=739;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
 FILE_NAME_2=103;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmenuoptionsstructure.h;0;4
-FILE_NAME_3=987;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
+FILE_NAME_3=2639;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
+FILE_NAME_4=64;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Ftoolchains%2Fmacos%2Fmacosbuild.cmake;0;4
+FILE_NAME_5=63;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Ftoolchains%2Fwindows%2Fwindowsbuild.cmake;0;4
 
 [VTE]
 last_dir=/Users/chrisd
@@ -47,7 +49,7 @@ CMakeFT_01_WD=/Users/chrisd/Desktop/Rebuild Back Better
 filetypes=CMake;
 
 [prjorg]
-expanded_paths=/Users/chrisd/Desktop/Rebuild Back Better/audio;/Users/chrisd/Desktop/Rebuild Back Better/src;
+expanded_paths=/Users/chrisd/Desktop/Rebuild Back Better/audio;/Users/chrisd/Desktop/Rebuild Back Better/src;/Users/chrisd/Desktop/Rebuild Back Better/toolchains/macos;/Users/chrisd/Desktop/Rebuild Back Better/toolchains/windows;
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
 header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
 ignored_dirs_patterns=.*;CVS;

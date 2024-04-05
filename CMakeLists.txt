@@ -7,9 +7,6 @@ set(cpplocate_DIR "${PROJECT_SOURCE_DIR}/modules/cpplocate")
 set(SDL3_mixer_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_mixer/build")
 set(SDL3_image_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_image/build")
 
-if (WIN32)
-	set(CMAKE_WIN32_EXECUTABLE YES)
-endif()
 
 # Handle Submodules: https://cliutils.gitlab.io/modern-cmake/chapters/projects/submodule.html 
 find_package(Git QUIET)
@@ -54,44 +51,35 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/SDL_image/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
-# Add resource files
-# Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
-if (APPLE)
+
+if (CMAKE_SYSTEM_NAME MATCHES Darwin)
+	message("Building MacOS Version")
+	# Add resource files
+	# Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
 	file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
-endif()
-
-# Handle Libraries
-add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
-add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_ttf")
-add_subdirectory("${PROJECT_SOURCE_DIR}/modules/cpplocate")
-add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_mixer")
-add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_image")
-find_package(SDL3_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL3_ttf)
-find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
-find_package(cpplocate REQUIRED CONFIG REQUIRED COMPONENTS cpplocate)
-find_package(SDL3_mixer REQUIRED CONFIG REQUIRED COMPONENTS SDL3_mixer)
-
-if (APPLE)
-add_executable(${PROJECT_NAME} MACOSX_BUNDLE 
+	
+	# Handle Libraries
+	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
+	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_ttf")
+	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/cpplocate")
+	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_mixer")
+	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_image")
+	find_package(SDL3_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL3_ttf)
+	find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
+	find_package(cpplocate REQUIRED CONFIG REQUIRED COMPONENTS cpplocate)
+	find_package(SDL3_mixer REQUIRED CONFIG REQUIRED COMPONENTS SDL3_mixer)
+	
+	# Create Executable
+	add_executable(${PROJECT_NAME} MACOSX_BUNDLE
 				./src/main.cpp ./src/game.h 
 				./src/game.cpp ./src/gameobjects.h 
 				./src/player.h ./src/thief.h 
 				./src/gatherer.h ./src/fighter.h
 				./src/menuoptionsstructure.h
 				${FONT_SOURCES})
-elseif(WIN32)
-set(CMAKE_CXX_FLAGS "-L")
-set(CMAKE_EXE_LINKER_FLAGS "-L")
-add_executable(${PROJECT_NAME} WIN32 
-				./src/main.cpp ./src/game.h 
-				./src/game.cpp ./src/gameobjects.h 
-				./src/player.h ./src/thief.h 
-				./src/gatherer.h ./src/fighter.h
-				./src/menuoptionsstructure.h)
-endif()
 				
-#individually set the file's path properties
-if (APPLE)
+	#individually set the file's path properties
+
 	foreach(FONT_FILE ${FONT_SOURCES})
 
 	# Get the folder and the file name
@@ -104,18 +92,28 @@ if (APPLE)
 	set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH}")
 
 	endforeach(FONT_FILE)
-elseif(WIN32)
-	# Copy directories https://stackoverflow.com/questions/697560/how-to-copy-directory-from-source-tree-to-binary-tree
-	file(COPY "./fonts" DESTINATION "Resources")
-endif()
-				
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
-target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::cpplocate)
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_mixer::SDL3_mixer)
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_image::SDL3_image)
-# Code from here: https://stackoverflow.com/questions/17070101/why-i-cannot-link-the-mac-framework-file-with-cmake
+	
+	target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+	target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
+	target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::cpplocate)
+	target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_mixer::SDL3_mixer)
+	target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_image::SDL3_image)
+	
+	# Code from here: https://stackoverflow.com/questions/17070101/why-i-cannot-link-the-mac-framework-file-with-cmake
+	target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Foundation")
 
-if (APPLE)
-    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Foundation")
+elseif (CMAKE_SYSTEM_NAME MATCHES Windows)
+	message("Build Windows Version")
+	
 endif()
+
+
+#add_executable(${PROJECT_NAME} WIN32 
+#				./src/main.cpp ./src/game.h 
+#				./src/game.cpp ./src/gameobjects.h 
+#				./src/player.h ./src/thief.h 
+#				./src/gatherer.h ./src/fighter.h
+#				./src/menuoptionsstructure.h)
+
+# Copy directories https://stackoverflow.com/questions/697560/how-to-copy-directory-from-source-tree-to-binary-tree
+#	file(COPY "./fonts" DESTINATION "Resources")
