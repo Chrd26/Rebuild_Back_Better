@@ -93,12 +93,6 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 
 	endforeach(FONT_FILE)
 	
-	target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
-	target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
-	target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::cpplocate)
-	target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_mixer::SDL3_mixer)
-	target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_image::SDL3_image)
-	
 	# Code from here: https://stackoverflow.com/questions/17070101/why-i-cannot-link-the-mac-framework-file-with-cmake
 	target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Foundation")
 
@@ -117,3 +111,9 @@ endif()
 
 # Copy directories https://stackoverflow.com/questions/697560/how-to-copy-directory-from-source-tree-to-binary-tree
 #	file(COPY "./fonts" DESTINATION "Resources")
+
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
+target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::cpplocate)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_mixer::SDL3_mixer)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_image::SDL3_image)
