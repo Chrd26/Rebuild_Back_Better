@@ -51,23 +51,23 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/modules/SDL_image/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
+# Handle Libraries
+add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
+add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_ttf")
+add_subdirectory("${PROJECT_SOURCE_DIR}/modules/cpplocate")
+add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_mixer")
+add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_image")
+find_package(SDL3_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL3_ttf)
+find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
+find_package(cpplocate REQUIRED CONFIG REQUIRED COMPONENTS cpplocate)
+find_package(SDL3_mixer REQUIRED CONFIG REQUIRED COMPONENTS SDL3_mixer)
+
 
 if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 	message("Building MacOS Version")
 	# Add resource files
 	# Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
 	file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
-	
-	# Handle Libraries
-	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL")
-	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_ttf")
-	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/cpplocate")
-	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_mixer")
-	add_subdirectory("${PROJECT_SOURCE_DIR}/modules/SDL_image")
-	find_package(SDL3_ttf REQUIRED CONFIG REQUIRED COMPONENTS SDL3_ttf)
-	find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
-	find_package(cpplocate REQUIRED CONFIG REQUIRED COMPONENTS cpplocate)
-	find_package(SDL3_mixer REQUIRED CONFIG REQUIRED COMPONENTS SDL3_mixer)
 	
 	# Create Executable
 	add_executable(${PROJECT_NAME} MACOSX_BUNDLE
@@ -98,9 +98,10 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 
 elseif (CMAKE_SYSTEM_NAME MATCHES Windows)
 	message("Build Windows Version")
+	set(WIN32_EXECUTABLE YES)
 	
 	file(COPY "./fonts" DESTINATION "Resources")
-	add_executable(${PROJECT_NAME} WIN32_EXECUTABLE 
+	add_executable(${PROJECT_NAME} WIN32 
 				./src/main.cpp ./src/game.h 
 				./src/game.cpp ./src/gameobjects.h 
 				./src/player.h ./src/thief.h 
