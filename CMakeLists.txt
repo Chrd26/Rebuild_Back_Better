@@ -97,8 +97,8 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 	target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Foundation")
 
 elseif (CMAKE_SYSTEM_NAME MATCHES Windows)
-	message("Build Windows Version")
-	set(WIN32_EXECUTABLE YES)
+	set(WIN32_EXECUTABLE ON)
+	message("Build Windows Version, BUILD EXECUTABLE: ${WIN32_EXECUTABLE}")
 	
 	file(COPY "./fonts" DESTINATION "Resources")
 	add_executable(${PROJECT_NAME} WIN32 
