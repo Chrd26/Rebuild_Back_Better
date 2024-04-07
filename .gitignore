@@ -6,6 +6,7 @@ commands/*
 fonts/*
 build/
 Audio/*
+RBB_Windows/modules
 
 !graphics/.gitkeep
 !tests/.gitkeep
@@ -13,5 +14,6 @@ Audio/*
 !commands/.gitkeep
 !fonts/.gitkeep
 !audio/.gitkeep
+!RBB_Windows/Modules
 
 # https://stackoverflow.com/questions/4250063/how-to-gitignore-all-files-folder-in-a-folder-but-not-the-folder-itself
