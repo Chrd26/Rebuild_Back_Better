@@ -145,7 +145,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL3.dll;SDL3_test.dll;SDL3_ttf.dll;SDL3_image.dll;SDL3_mixer.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL3.dll;SDL3_ttf.dll;SDL3_image.dll;SDL3_mixer.dll;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,7 +165,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL3.dll;SDL3_test.dll;SDL3_ttf.dll;SDL3_image.dll;SDL3_mixer.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL3.dll;SDL3_ttf.dll;SDL3_image.dll;SDL3_mixer.dll;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
