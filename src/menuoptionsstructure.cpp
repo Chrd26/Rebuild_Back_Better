@@ -1,6 +1,6 @@
 #include "menuoptionsstructure.h"
 
-MenuElement::MenuElement(float inputX, float inputY, TTF_Font *inputFont, SDL_Renderer *inputRender)
+TextElement::TextElement(float inputX, float inputY, TTF_Font *inputFont, SDL_Renderer *inputRender)
 {
 	x = inputX;
 	y = inputY;
@@ -8,7 +8,7 @@ MenuElement::MenuElement(float inputX, float inputY, TTF_Font *inputFont, SDL_Re
 	renderer = inputRender;
 }
 
-bool MenuElement::IsMouseHovering(float inputMouseX, float inputMouseY)
+bool TextElement::IsMouseHovering(float inputMouseX, float inputMouseY)
 {
 	if (inputMouseX >= x && inputMouseX <= x + width)
 	{
@@ -21,7 +21,7 @@ bool MenuElement::IsMouseHovering(float inputMouseX, float inputMouseY)
 	return false;
 }
 
-void MenuElement::CreateOption(std::string content, float getMouseX, float getMouseY, int elementType)
+void TextElement::CreateOption(std::string content, float getMouseX, float getMouseY, int elementType)
 {
 	SDL_Color fontColor;
 	
