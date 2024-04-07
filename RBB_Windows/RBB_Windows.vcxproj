@@ -32,6 +32,12 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\menuoptionsstructure.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="modules\SDL\build\Debug\SDL3.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="modules\SDL\SDL3.dll" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -126,11 +132,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>"C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL\include";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>"C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL\build";%(AdditionalLibraryDirectories);"C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL\build"</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL3.dll;SDL3_test.dll;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -142,13 +150,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>"C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL\include";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>;"C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL\build"</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL3.dll;SDL3_test.dll;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

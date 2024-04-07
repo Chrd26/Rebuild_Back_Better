@@ -1,0 +1,3 @@
+[submodule "RBB_Windows/modules/SDL"]
+	path = RBB_Windows/modules/SDL
+	url = https://github.com/libsdl-org/SDL.git
