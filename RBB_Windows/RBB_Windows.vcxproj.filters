@@ -50,8 +50,14 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="modules\SDL\build\Debug\SDL3.lib" />
+    <Library Include="modules\SDL_ttf\build\Debug\SDL3_ttf.lib" />
+    <Library Include="modules\SDL_image\build\Debug\SDL3_image.lib" />
+    <Library Include="modules\SDL_mixer\build\Debug\SDL3_mixer.lib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="modules\SDL\SDL3.dll" />
+    <None Include="SDL3_ttf.dll" />
+    <None Include="SDL3_image.dll" />
+    <None Include="modules\SDL_mixer\build\Debug\SDL3_mixer.dll" />
   </ItemGroup>
 </Project>
