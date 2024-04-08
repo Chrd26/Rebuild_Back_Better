@@ -10,3 +10,6 @@
 [submodule "RBB_Windows/modules/SDL_mixer"]
 	path = RBB_Windows/modules/SDL_mixer
 	url = https://github.com/libsdl-org/SDL_mixer.git
+[submodule "RBB_Windows/modules/vcpkg"]
+	path = RBB_Windows/modules/vcpkg
+	url = https://github.com/microsoft/vcpkg

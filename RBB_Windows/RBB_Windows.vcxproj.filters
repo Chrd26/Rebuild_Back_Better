@@ -41,9 +41,6 @@
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\menuoptionsstructure.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -53,11 +50,20 @@
     <Library Include="modules\SDL_ttf\build\Debug\SDL3_ttf.lib" />
     <Library Include="modules\SDL_image\build\Debug\SDL3_image.lib" />
     <Library Include="modules\SDL_mixer\build\Debug\SDL3_mixer.lib" />
+    <Library Include="modules\SDL\build\Debug\SDL3_test.lib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="modules\SDL\SDL3.dll" />
     <None Include="SDL3_ttf.dll" />
     <None Include="SDL3_image.dll" />
     <None Include="modules\SDL_mixer\build\Debug\SDL3_mixer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\resources\fonts\ArianaVioleta-dz2K.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
+    <Font Include="..\resources\fonts\CfArpineDemoRegular-q2Zr2.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
 </Project>

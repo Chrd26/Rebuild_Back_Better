@@ -30,10 +30,10 @@
   <ItemGroup>
     <ClCompile Include="..\src\game.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\menuoptionsstructure.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="modules\SDL\build\Debug\SDL3.lib" />
+    <Library Include="modules\SDL\build\Debug\SDL3_test.lib" />
     <Library Include="modules\SDL_image\build\Debug\SDL3_image.lib" />
     <Library Include="modules\SDL_mixer\build\Debug\SDL3_mixer.lib" />
     <Library Include="modules\SDL_ttf\build\Debug\SDL3_ttf.lib" />
@@ -43,6 +43,10 @@
     <None Include="modules\SDL_mixer\build\Debug\SDL3_mixer.dll" />
     <None Include="SDL3_image.dll" />
     <None Include="SDL3_ttf.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\resources\fonts\ArianaVioleta-dz2K.ttf" />
+    <Font Include="..\resources\fonts\CfArpineDemoRegular-q2Zr2.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -138,14 +142,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_ttf\include;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL\include;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_image\include;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL3.dll;SDL3_ttf.dll;SDL3_image.dll;SDL3_mixer.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_ttf\build\Debug;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_mixer\build\Debug;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_image\build\Debug;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL\build\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;SDL3_image.lib;SDL3_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -156,7 +160,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <AdditionalIncludeDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_ttf\include;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL\include;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_image\include;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_mixer\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -164,8 +168,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL3.dll;SDL3_ttf.dll;SDL3_image.dll;SDL3_mixer.dll;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_ttf\build\Debug;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_mixer\build\Debug;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL_image\build\Debug;C:\Users\chris\Desktop\Rebuild_Back_Better\RBB_Windows\modules\SDL\build\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL3.lib;SDL3_ttf.lib;SDL3_image.lib;SDL3_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
