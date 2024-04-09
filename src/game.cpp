@@ -245,7 +245,7 @@ Game::Game()
 					#ifdef __APPLE__
 					auto getTitleFont = std::async(std::launch::async, LoadFont, 
 												   execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
-										           100);	
+										           150);	
 				
 					auto getMenuFont = std::async(std::launch::async, LoadFont, 
 										          execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
@@ -254,23 +254,65 @@ Game::Game()
 					getMenuFont.wait();								  
 					titleFont = getTitleFont.get();
 					menuFont = getMenuFont.get();
-					#endif
+												 
 					
-					#ifdef __win64__
-					auto getTitleFont = std::async(std::launch::async, LoadFont, 
-												   execpath + std::string("Resources/fonts/ArianaVioleta-dz2K.ttf"),
-										           100);	
+					if (titleFont == nullptr)
+					{
+						std::cout << "Title font has not loaded" << std::endl;
+						exit(-1);
+					}
+					
+					if (menuFont == nullptr)
+					{
+						std::cout << "Menu font has not loaded" << std::endl;
+						exit(-1);
+					}
+					
+					menuFontsLoaded = true;
+				}
+
 				
-					auto getMenuFont = std::async(std::launch::async, LoadFont, 
-										          execpath + std::string("Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
-												  60);
+				if (menuTitle == nullptr)
+				{
+					menuTitle = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.245, windowHeight * 0.08, titleFont, renderer);
+				}
+				
+				if (menuContinue == nullptr)
+				{
+					menuContinue = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.4, menuFont, renderer);
+				}
+				
+				if (menuStart == nullptr)
+				{
+					menuStart = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.428, windowHeight * 0.5, menuFont, renderer);
+				}
+				
+				if (menuExit == nullptr)
+				{
+					menuExit = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.436, windowHeight * 0.6, menuFont, renderer);
+				}
+				
+				#endif
+
+				// Use __WIN64 when using MSVC
+				// Use __MINGW32__ when using mingw
+				#ifdef _WIN64
+				if (!menuFontsLoaded)
+				{
+					// Use __WIN64 when using MSVC
+					// Use __MINGW32__ when using mingw
+					auto getTitleFont = std::async(std::launch::async, LoadFont, 
+												   std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/ArianaVioleta-dz2K.ttf"),
+										           250);	
+				
+					auto getMenuFont = std::async(std::launch::async, LoadFont,
+										          std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+												  100);
 					getTitleFont.wait();
 					getMenuFont.wait();
 												  
 					titleFont = getTitleFont.get();
-					menuFont = getMenuFont.get();
-					#endif
-												 
+					menuFont = getMenuFont.get();					 
 					
 					if (titleFont == nullptr)
 					{
@@ -289,23 +331,25 @@ Game::Game()
 				
 				if (menuTitle == nullptr)
 				{
-					menuTitle = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.31, windowHeight * 0.05, titleFont, renderer);
+					menuTitle = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.3, windowHeight * 0.05, titleFont, renderer);
 				}
 				
 				if (menuContinue == nullptr)
 				{
-					menuContinue = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.4, menuFont, renderer);
+					menuContinue = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.438, windowHeight * 0.4, menuFont, renderer);
 				}
 				
 				if (menuStart == nullptr)
 				{
-					menuStart = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.5, menuFont, renderer);
+					menuStart = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.46, windowHeight * 0.5, menuFont, renderer);
 				}
 				
 				if (menuExit == nullptr)
 				{
-					menuExit = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.405, windowHeight * 0.6, menuFont, renderer);
-				}
+					menuExit = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.468, windowHeight * 0.6, menuFont, renderer);
+				}	
+				
+				#endif	
 				
 				LoadMainMenu();
 				break;
