@@ -242,35 +242,27 @@ Game::Game()
 				// https://stackoverflow.com/questions/30810305/confusion-about-threads-launched-by-stdasync-with-stdlaunchasync-parameter
 				if (!menuFontsLoaded)
 				{
-					#ifdef __APPLE__
-					auto getTitleFont = std::async(std::launch::async, LoadFont, 
-												   execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
-										           100);	
-				
-					auto getMenuFont = std::async(std::launch::async, LoadFont, 
-										          execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
-												  60);
-					getTitleFont.wait();
-					getMenuFont.wait();								  
-					titleFont = getTitleFont.get();
-					menuFont = getMenuFont.get();
-					#endif
 					
-					#ifdef __win64__
+					#ifdef _WIN64
+
+					// Use __WIN64 when using MSVC
+					// Use __MINGW32__ when using mingw
+
+
 					auto getTitleFont = std::async(std::launch::async, LoadFont, 
-												   execpath + std::string("Resources/fonts/ArianaVioleta-dz2K.ttf"),
-										           100);	
+												   std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/ArianaVioleta-dz2K.ttf"),
+										           250);	
 				
-					auto getMenuFont = std::async(std::launch::async, LoadFont, 
-										          execpath + std::string("Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
-												  60);
+					auto getMenuFont = std::async(std::launch::async, LoadFont,
+										          std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+												  100);
 					getTitleFont.wait();
 					getMenuFont.wait();
 												  
 					titleFont = getTitleFont.get();
 					menuFont = getMenuFont.get();
-					#endif
-												 
+
+					#endif					 
 					
 					if (titleFont == nullptr)
 					{
@@ -289,22 +281,22 @@ Game::Game()
 				
 				if (menuTitle == nullptr)
 				{
-					menuTitle = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.31, windowHeight * 0.05, titleFont, renderer);
+					menuTitle = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.3, windowHeight * 0.05, titleFont, renderer);
 				}
 				
 				if (menuContinue == nullptr)
 				{
-					menuContinue = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.4, menuFont, renderer);
+					menuContinue = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.438, windowHeight * 0.4, menuFont, renderer);
 				}
 				
 				if (menuStart == nullptr)
 				{
-					menuStart = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.5, menuFont, renderer);
+					menuStart = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.46, windowHeight * 0.5, menuFont, renderer);
 				}
 				
 				if (menuExit == nullptr)
 				{
-					menuExit = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.405, windowHeight * 0.6, menuFont, renderer);
+					menuExit = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.468, windowHeight * 0.6, menuFont, renderer);
 				}
 				
 				LoadMainMenu();
@@ -315,7 +307,7 @@ Game::Game()
 				{
 				
 					auto getMenuFont = std::async(std::launch::async, LoadFont, 
-										          execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+										          std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
 												  100);
 												  
 					getMenuFont.wait();											  
@@ -462,14 +454,11 @@ bool Game::Initialise()
 		return false;	
 	}
 	
-	renderer = SDL_CreateRenderer(window, nullptr, 
-								  SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, nullptr, 0);
 								  
 	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 	std::cout << "Window Width: " << windowWidth << std::endl;
-	std::cout << "Window Height: " << windowHeight << std::endl;	
-	
-	std::cout << execpath << std::endl;					  
+	std::cout << "Window Height: " << windowHeight << std::endl;					  
 
     return true;
 }
@@ -509,11 +498,6 @@ int Game::windowHeight = 0;
 int Game::windowWidth = 0;
 float Game::mouseX = 0;
 float Game::mouseY = 0;
-#ifdef __APPLE__
-const std::string Game::execpath = cpplocate::getBundlePath();
-#elif __WIN64__
-const std::string Game::execpath = cpplocate::getExecutablePath();
-#endif
 
 // Menu Properties
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuTitle = nullptr;

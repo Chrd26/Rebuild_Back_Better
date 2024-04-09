@@ -37,7 +37,6 @@ private:
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
     static bool Initialise();
-	static const std::string execpath;
 	
 // Basic Components
 private:
