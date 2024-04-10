@@ -10,7 +10,7 @@ class AudioPlayer
 	
 public:
 	AudioPlayer(std::string fileLocation);
-	void Play_Audio(Types... types);
+	void PlayAudio(Types... types);
 
 private:
 	~AudioPlayer();
