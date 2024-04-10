@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.28.3)
 project("RebuildBackBetter" LANGUAGES CXX VERSION 0.1 DESCRIPTION "Originally made during GGJ22") 
-set(CMAKE_CXX_STANDARD 20)git a
+set(CMAKE_CXX_STANDARD 20)
 set(SDL3_DIR "${PROJECT_SOURCE_DIR}/modules/SDL/build")
 set(SDL3_ttf_DIR "${PROJECT_SOURCE_DIR}/modules/SDL_ttf/build")
 set(cpplocate_DIR "${PROJECT_SOURCE_DIR}/modules/cpplocate")
@@ -68,6 +68,7 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 	# Add resource files
 	# Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
 	file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
+	file(GLOB MENU_LIGHT_UP_SOUND "audio/Menu Light Up/Menu Light Up.wav")
 	
 	# Create Executable
 	add_executable(${PROJECT_NAME} MACOSX_BUNDLE
@@ -75,8 +76,14 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 				./src/game.cpp ./src/gameobjects.h 
 				./src/player.h ./src/thief.h 
 				./src/gatherer.h ./src/fighter.h
-				./src/menuoptionsstructure.h
-				${FONT_SOURCES})
+				./src/menuoptionsstructure.h ./src/audioplayer.h
+				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND})
+				
+				
+	# Add menu light up to the .app bundle
+	file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MENU_LIGHT_UP_SOUND} )
+	get_filename_component(FILE_PATH "${GET_REL_PATH}" DIRECTORY)
+	set_property(SOURCE "${MENU_LIGHT_UP_SOUND}" PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${FILE_PATH}")
 				
 	#individually set the file's path properties
 

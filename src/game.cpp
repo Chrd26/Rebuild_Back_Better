@@ -481,7 +481,7 @@ Game::~Game()
 bool Game::Initialise()
 {
 	// Make sure that video and audio have been initialised
-    if (SDL_Init(SDL_INIT_VIDEO) != 0 || TTF_Init() != 0)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0 || TTF_Init() != 0 || Mix_Init(MIX_INIT_MP3|MIX_INIT_WAVPACK) == 0)
     {
         std::cout << "Failed to initialise SDL ";
         std::cout << SDL_GetError() << std::endl;
@@ -490,8 +490,7 @@ bool Game::Initialise()
     
     // Create Window
     window = SDL_CreateWindow("Rebuild Back Better",
-							  SCREEN_WIDTH,
-							  SCREEN_HEIGHT,
+							  SCREEN_WIDTH, SCREEN_HEIGHT,
 							  SDL_WINDOW_FULLSCREEN);
 							  
 	// Set window position
