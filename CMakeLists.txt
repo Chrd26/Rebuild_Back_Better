@@ -77,6 +77,7 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 				./src/player.h ./src/thief.h 
 				./src/gatherer.h ./src/fighter.h
 				./src/menuoptionsstructure.h ./src/audioplayer.h
+				./src/audioplayer.cpp
 				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND})
 				
 				

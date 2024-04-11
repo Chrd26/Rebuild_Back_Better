@@ -1,17 +1,19 @@
 #include <SDL3_mixer/SDL_mixer.h>
 #include <string>
+#include <stdarg. h>
 
 // Read more on audio
 // https://wiki.libsdl.org/SDL3_mixer/CategoryAPI
 template<typename T, typename... Types>
 class AudioPlayer
 {
-	T* audio_file;
+	static T* audioFile;
 	
 public:
-	AudioPlayer(std::string fileLocation);
-	void PlayAudio(Types... types);
+	static  AudioPlayer(std::string fileLocation);
+	static  void PlayAudio(T *audioFile, Types... types);
+	static void StopAudio(int timeToFadeOut);
 
 private:
-	~AudioPlayer();
+	static ~AudioPlayer();
 };

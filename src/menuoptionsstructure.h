@@ -1,4 +1,5 @@
 #pragma once
+#include <SDL3_ttf/SDL_ttf.h>
 
 template<typename S, typename T, typename C, typename F, typename R>
 struct TextElement
