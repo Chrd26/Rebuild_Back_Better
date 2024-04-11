@@ -7,13 +7,14 @@
 template<typename T, typename... Types>
 class AudioPlayer
 {
-	static T* audioFile;
+	static	T* 	audioFile;
+	static int result;
 	
 public:
 	static  AudioPlayer(std::string fileLocation);
-	static  void PlayAudio(T *audioFile, Types... types);
-	static void StopAudio(int timeToFadeOut);
+	static	void PlayAudio(T *audioFile, Types... types);
+	static 	void StopAudio(int timeToFadeOut);
 
 private:
-	static ~AudioPlayer();
+	static	~AudioPlayer();
 };
