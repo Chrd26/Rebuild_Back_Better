@@ -1,8 +1,7 @@
 #include "audioplayer.h"
 
 // Music
-template<>
-typedef *AudioPlayer<Mix_Music>::audioFile = nullptr;
+T *AudioPlayer<Mix_Music>::audioFile = nullptr;
 
 AudioPlayer<Mix_Music>::AudioPlayer(std::string fileLocation)
 {
@@ -18,6 +17,7 @@ AudioPlayer<Mix_Music>::AudioPlayer(std::string fileLocation)
 AudioPlayer<Mix_Music::~AudioPlayer()
 {
 	Mix_FreeMusic(audioFile);
+	audiFile = nullptr
 }
 
 void AudioPlayer<Mix_Music>::PlayAudio(T *audioFile, Types... types)
