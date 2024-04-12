@@ -4,7 +4,7 @@
 
 // Read more on audio
 // https://wiki.libsdl.org/SDL3_mixer/CategoryAPI
-template<typename T, typename... Types>
+template<typename T>
 class AudioPlayer
 {
 	static	T* 	audioFile;
