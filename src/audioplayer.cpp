@@ -21,35 +21,14 @@ AudioPlayer<Mix_Music::~AudioPlayer()
 	audioFile = nullptr;
 }
 
-void AudioPlayer<Mix_Music>::PlayAudio(T *audioFile, Types... types)
+void AudioPlayer<Mix_Music>::PlayAudio(int loops, intfadeInTime)
 {
-	constexpr std::size_t getSize = sizeof...(types);
-	va_list args;
-	va_start(args, types);
-	
-	switch(getSize)
-	{
-		case 1:
-			result =  Mix_PlayMusic(audioFile, va_arg(args, 0));	
-			
-			if (result != 0)
-			{
-				exit(-1);
-			}
-			
-			break;
-		case 2:
-			result = Mix_FadeInMusic(audioFile, va_arg(args, 0), 
+	constexpr result = Mix_FadeInMusic(audioFile, va_arg(args, 0), 
 													 va_arg(args, 1));
 			
-			if (result !=- 0)
-			{
-				exit(-1);
-			}
-			break;
-		
-		default:
-			break;
+	if (result != 0)
+	{
+		exit(-1);
 	}
 }
 
@@ -81,34 +60,14 @@ AudioPlayer<Mix_Chunk::~AudioPlayer()
 
 void AudioPlayer<Mix_Chunk>::PlayAudio(T *audioFile, Types... types)
 {
-	constexpr std::size_t getSize = sizeof...(types);
-	va_list args;
-	va_start(args, types);
-	
-	switch(getSize)
+	result = Mix_FadeInChannel(-1,	audioFile, 	va_arg(args, 0), 
+												va_arg(args, 1));
+			
+	if (result == -1)
 	{
-		case 1:
-			result =  Mix_PlayChannel(-1,	audioFile,	va_arg(args, 0));	
-			
-			if (result	==	-1)
-			{
-				exit(-1);
-			}
-			
-			break;
-		case 2:
-			result = Mix_FadeInChannel(-1,	audioFile, 	va_arg(args, 0), 
-														va_arg(args, 1));
-			
-			if (result == -1)
-			{
-				exit(-1);
-			}
-			break;
-		
-		default:
-			break;
+		exit(-1);
 	}
+	break;
 }
 
 void AudioPlayer<Mix_Music>::StopAudio(int timeToFadeOut)
