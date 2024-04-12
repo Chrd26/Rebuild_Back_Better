@@ -21,10 +21,9 @@ AudioPlayer<Mix_Music::~AudioPlayer()
 	audioFile = nullptr;
 }
 
-void AudioPlayer<Mix_Music>::PlayAudio(int loops, intfadeInTime)
+void AudioPlayer<Mix_Music>::PlayAudio(int loops, int fadeInTime)
 {
-	constexpr result = Mix_FadeInMusic(audioFile, va_arg(args, 0), 
-													 va_arg(args, 1));
+	constexpr result = Mix_FadeInMusic(audioFile, loops, fadeInTime);
 			
 	if (result != 0)
 	{
@@ -58,10 +57,9 @@ AudioPlayer<Mix_Chunk::~AudioPlayer()
 	audioFile = nullptr;
 }
 
-void AudioPlayer<Mix_Chunk>::PlayAudio(T *audioFile, Types... types)
+void AudioPlayer<Mix_Chunk>::PlayAudio(T *audioFile, int loops, int fadeInTime)
 {
-	result = Mix_FadeInChannel(-1,	audioFile, 	va_arg(args, 0), 
-												va_arg(args, 1));
+	result = Mix_FadeInChannel(-1,	audioFile, loops, fadeInTime);
 			
 	if (result == -1)
 	{
