@@ -1,8 +1,20 @@
 #include "game.h"
 
 template<>
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::TextElement(float inputX, float inputY,
-																		TTF_Font *inputFont, SDL_Renderer *inputRender)
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::TextElement(float inputX, float inputY,
+																		TTF_Font *inputFont, SDL_Renderer *inputRender,
+																		std::string getAudioPath): sfxPlayer {new AudioPlayer<Mix_Chunk>(getAudioPath)}
+{
+	x = inputX;
+	y = inputY;
+	font = inputFont;
+	renderer = inputRender;
+	hasSoundPlayed = false;
+}
+
+template<>
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::TextElement(float inputX, float inputY,
+																		TTF_Font *inputFont, SDL_Renderer *inputRender) : sfxPlayer {nullptr}
 {
 	x = inputX;
 	y = inputY;
@@ -10,9 +22,8 @@ TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::TextEl
 	renderer = inputRender;
 }
 
-// Non-intearctive
 template<>
-bool TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::IsMouseHovering(float inputMouseX, float inputMouseY)
+bool TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::IsMouseHovering(float inputMouseX, float inputMouseY)
 {
 	if (inputMouseX >= x && inputMouseX <= x + width)
 	{
@@ -25,8 +36,9 @@ bool TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::I
 	return false;
 }
 
+// Non-intearctive
 template<>
-void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateTextElement(std::string content,
+void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::CreateTextElement(std::string content,
 																								 int elementType)
 {
 	SDL_Color fontColor;
@@ -69,10 +81,10 @@ void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::C
 	optionSurface = nullptr;
 	SDL_DestroyTexture(optionTexture);
 	optionTexture = nullptr;	
-}			
+}	
 
 template<>
-void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::CreateTextElement(std::string content, 
+void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::CreateTextElement(std::string content, 
 																					        float getMouseX, 
 																					        float getMouseY, 
 																					        int elementType)
@@ -94,9 +106,16 @@ void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::C
 			if (IsMouseHovering(getMouseX, getMouseY))
 			{
 				fontColor = hoverOption;
+				
+				if (!hasSoundPlayed)
+				{
+					sfxPlayer->PlayAudio(0, 0);
+					hasSoundPlayed = true;
+				}
 			}else
 			{
 				fontColor = notHovered;
+				hasSoundPlayed = false;
 			}
 			break;
 			
@@ -104,9 +123,16 @@ void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>::C
 			if (IsMouseHovering(getMouseX, getMouseY))
 			{
 				fontColor = hoverOption;
+				
+				if (!hasSoundPlayed)
+				{
+					sfxPlayer->PlayAudio(0, 0);
+					hasSoundPlayed = true;
+				}
 			}else
 			{
 				fontColor = notHovered;
+				hasSoundPlayed = false;
 			}
 			break;
 			
@@ -274,22 +300,57 @@ Game::Game()
 				
 				if (menuTitle == nullptr)
 				{
-					menuTitle = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.245, windowHeight * 0.08, titleFont, renderer);
+					menuTitle = new TextElement<	SDL_Surface, 
+													SDL_Texture, 
+													SDL_Color, 
+													TTF_Font,
+													 SDL_Renderer, 
+													 AudioPlayer<Mix_Chunk>>(	windowWidth *0.245, 
+																				windowHeight * 0.08, 
+																				titleFont, 
+																				renderer);
 				}
 				
 				if (menuContinue == nullptr)
 				{
-					menuContinue = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.4, windowHeight * 0.4, menuFont, renderer);
+					menuContinue = new TextElement<	SDL_Surface, 
+													SDL_Texture, 
+													SDL_Color,
+													TTF_Font, 
+													SDL_Renderer, 
+													AudioPlayer<Mix_Chunk>>(	windowWidth *0.4, 
+																				windowHeight * 0.4, 
+																				menuFont, 
+																				renderer,
+																				execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
 				}
 				
 				if (menuStart == nullptr)
 				{
-					menuStart = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.428, windowHeight * 0.5, menuFont, renderer);
+					menuStart = new TextElement<	SDL_Surface, 
+													SDL_Texture, 
+													SDL_Color, 
+													TTF_Font, 
+													SDL_Renderer, 
+													AudioPlayer<Mix_Chunk>>(	windowWidth *0.428, 
+																				windowHeight * 0.5, 
+																				menuFont, 
+																				renderer,
+																				execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
 				}
 				
 				if (menuExit == nullptr)
 				{
-					menuExit = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.436, windowHeight * 0.6, menuFont, renderer);
+					menuExit = new TextElement<	SDL_Surface, 
+												SDL_Texture, 
+												SDL_Color, 
+												TTF_Font, 
+												SDL_Renderer, 
+												AudioPlayer<Mix_Chunk>>(	windowWidth *0.436, 
+																			windowHeight * 0.6, 
+																			menuFont, 
+																			renderer,
+																			execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
 				}
 				
 				#endif
@@ -358,9 +419,10 @@ Game::Game()
 				if (!gameplayFontsLoaded)
 				{
 				
-					auto getMenuFont = std::async(std::launch::async, LoadFont, 
-										          execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
-												  100);
+					auto getMenuFont = std::async(	std::launch::async, 
+													LoadFont, 
+													execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+													100);
 												  
 					getMenuFont.wait();											  
 					menuFont = getMenuFont.get();
@@ -376,7 +438,15 @@ Game::Game()
 				
 				if (menuExit == nullptr)
 				{
-					testingGameplayText = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.3, windowHeight * 0.15, menuFont, renderer);
+					testingGameplayText = new TextElement<	SDL_Surface, 
+															SDL_Texture, 
+															SDL_Color, 
+															TTF_Font, 
+															SDL_Renderer,
+															AudioPlayer<Mix_Chunk>>(	windowWidth *0.3, 	
+																						windowHeight * 0.15, 
+																						menuFont, 
+																						renderer);
 				}
 					
 				LoadGameplayElements();
@@ -390,7 +460,6 @@ Game::Game()
 		//Ending tick
 		endTick = SDL_GetTicks();
 		frameTime += (endTick - startTick)/1000;
-		
 	}
 	
 	SDL_Quit();
@@ -475,6 +544,7 @@ Game::~Game()
 		testingGameplayText = nullptr;
 	}
 	
+	Mix_CloseAudio();
 	TTF_Quit();
 }
 
@@ -487,6 +557,15 @@ bool Game::Initialise()
         std::cout << SDL_GetError() << std::endl;
         return false;
     }
+    
+    int openAudioREsult =  Mix_OpenAudio(0, nullptr);
+    
+    if (openAudioREsult != 0)
+    {
+		std::cout << "Failed to initialise SDL ";
+        std::cout << SDL_GetError() << std::endl;
+		return false;
+	}
     
     // Create Window
     window = SDL_CreateWindow("Rebuild Back Better",
@@ -509,10 +588,10 @@ bool Game::Initialise()
 								  SDL_RENDERER_ACCELERATED);
 								  
 	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
-	std::cout << "Window Width: " << windowWidth << std::endl;
-	std::cout << "Window Height: " << windowHeight << std::endl;	
+	//std::cout << "Window Width: " << windowWidth << std::endl;
+	//std::cout << "Window Height: " << windowHeight << std::endl;	
 	
-	std::cout << execpath << std::endl;					  
+	//std::cout << execpath << std::endl;					  
 
     return true;
 }
@@ -555,19 +634,19 @@ float Game::mouseY = 0;
 #ifdef __APPLE__
 const std::string Game::execpath = cpplocate::getBundlePath();
 #elif __WIN64__
-const std::string Game::execpath = cpplocate::getExecutablePath();
+//constexpr std::string Game::execpath = cpplocate::getExecutablePath();
 #endif
 
 // Menu Properties
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuTitle = nullptr;
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuContinue = nullptr;
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuStart = nullptr;
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::menuExit = nullptr;
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuTitle = nullptr;
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuContinue = nullptr;
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuStart = nullptr;
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuExit = nullptr;
 TTF_Font *Game::menuFont = nullptr;
 TTF_Font *Game::titleFont = nullptr;
 bool Game::menuFontsLoaded = false;
 bool Game::haveElementsLoaded = false;
 
 // Gameplay Properties
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *Game::testingGameplayText = nullptr;
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::testingGameplayText = nullptr;
 bool Game::gameplayFontsLoaded = false;

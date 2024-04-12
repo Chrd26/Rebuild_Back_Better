@@ -1,74 +1,73 @@
 #include "audioplayer.h"
 
 // Music
-T *AudioPlayer<Mix_Music>::audioFile = nullptr;
-AudioPlayer<Mix_Music>::result = 0;
-
+template<>
 AudioPlayer<Mix_Music>::AudioPlayer(std::string fileLocation)
 {
 	audioFile = Mix_LoadMUS(fileLocation.c_str());
 	
-	if (audioFile = nullptr)
+	if (audioFile == nullptr)
 	{
-		std::cout << "Failed to find audiofile"
+		std::cout << "Failed to find audiofile ";
+		std::cout << SDL_GetError() << std::endl;
 		exit(-1);
 	}
 }
 
-AudioPlayer<Mix_Music::~AudioPlayer()
+template<>
+AudioPlayer<Mix_Music>::~AudioPlayer()
 {
 	Mix_FreeMusic(audioFile);
 	audioFile = nullptr;
 }
 
+template<>
 void AudioPlayer<Mix_Music>::PlayAudio(int loops, int fadeInTime)
 {
-	constexpr result = Mix_FadeInMusic(audioFile, loops, fadeInTime);
-			
-	if (result != 0)
+	if (Mix_PlayingMusic() == 0)
 	{
-		exit(-1);
+		result = Mix_FadeInMusic(audioFile, loops, fadeInTime);
 	}
 }
 
+template<>
 void AudioPlayer<Mix_Music>::StopAudio(int timeToFadeOut)
 {
 	Mix_FadeOutMusic(timeToFadeOut);
 }
 
 // Sound Effect
-T *AudioPlayer<Mix_Chunk>::audioFile = nullptr;
-AudioPlayer<Mix_Chunk>::channel = 0;
-
+template<>
 AudioPlayer<Mix_Chunk>::AudioPlayer(std::string fileLocation)
 {
 	audioFile = Mix_LoadWAV(fileLocation.c_str());
 	
-	if (audioFile = nullptr)
+	if (audioFile == nullptr)
 	{
-		std::cout << "Failed to find audiofile"
+		std::cout << "Failed to find audiofile" << std::endl;
+		std::cout << SDL_GetError() << std::endl;
 		exit(-1);
 	}
 }
 
-AudioPlayer<Mix_Chunk::~AudioPlayer()
+template<>
+AudioPlayer<Mix_Chunk>::~AudioPlayer()
 {
 	Mix_FreeChunk(audioFile);
 	audioFile = nullptr;
 }
 
-void AudioPlayer<Mix_Chunk>::PlayAudio(T *audioFile, int loops, int fadeInTime)
+template<>
+void AudioPlayer<Mix_Chunk>::PlayAudio(int loops, int fadeInTime)
 {
-	result = Mix_FadeInChannel(-1,	audioFile, loops, fadeInTime);
-			
-	if (result == -1)
+	if (Mix_Playing(result) == 0)
 	{
-		exit(-1);
+		result = Mix_FadeInChannel(-1,	audioFile, loops, fadeInTime);
 	}
-	break;
 }
 
-void AudioPlayer<Mix_Music>::StopAudio(int timeToFadeOut)
+template<>
+void AudioPlayer<Mix_Chunk>::StopAudio(int timeToFadeOut)
 {
 	Mix_FadeOutChannel(result, timeToFadeOut);
 }

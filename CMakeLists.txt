@@ -68,7 +68,7 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 	# Add resource files
 	# Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
 	file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
-	file(GLOB MENU_LIGHT_UP_SOUND "audio/Menu Light Up/Menu Light Up.wav")
+	file(GLOB MENU_LIGHT_UP_SOUND "audio/menulightup/lightup.wav")
 	
 	# Create Executable
 	add_executable(${PROJECT_NAME} MACOSX_BUNDLE

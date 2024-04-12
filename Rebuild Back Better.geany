@@ -29,12 +29,13 @@ long_line_column=72
 
 [files]
 current_page=3
-FILE_NAME_0=284;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
-FILE_NAME_1=299;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
-FILE_NAME_2=759;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmenuoptionsstructure.h;0;4
-FILE_NAME_3=33;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Faudioplayer.h;0;4
-FILE_NAME_4=547;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Faudioplayer.cpp;0;4
-FILE_NAME_5=3788;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
+FILE_NAME_0=11922;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
+FILE_NAME_1=528;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmenuoptionsstructure.h;0;4
+FILE_NAME_2=33;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Faudioplayer.h;0;4
+FILE_NAME_3=514;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Faudioplayer.cpp;0;4
+FILE_NAME_4=3457;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
+FILE_NAME_5=0;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmain.cpp;0;4
+FILE_NAME_6=157;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;4
 
 [VTE]
 last_dir=/Users/chrisd
@@ -49,7 +50,7 @@ CMakeFT_01_WD=/Users/chrisd/Desktop/Rebuild Back Better
 filetypes=CMake;
 
 [prjorg]
-expanded_paths=/Users/chrisd/Desktop/Rebuild Back Better/audio;/Users/chrisd/Desktop/Rebuild Back Better/src;
+expanded_paths=/Users/chrisd/Desktop/Rebuild Back Better/audio/Menu Light Up;/Users/chrisd/Desktop/Rebuild Back Better/src;
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
 header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
 ignored_dirs_patterns=.*;CVS;

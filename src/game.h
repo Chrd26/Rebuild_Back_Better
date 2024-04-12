@@ -82,10 +82,10 @@ private:
 	
 	static TTF_Font *menuFont;
 	
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuTitle;
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuContinue;
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuStart;
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuExit;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuTitle;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuContinue;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuStart;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuExit;
 	static bool menuFontsLoaded;
 	static bool haveElementsLoaded;
 	
@@ -93,7 +93,7 @@ private:
 // Gameplay
 private:
 	static void LoadGameplayElements();
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *testingGameplayText;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *testingGameplayText;
 	static bool gameplayFontsLoaded;
 };
 
