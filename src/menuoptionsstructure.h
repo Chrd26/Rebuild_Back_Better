@@ -4,15 +4,7 @@
 
 template<typename S, typename T, typename C, typename F, typename R, typename AUD>
 struct TextElement
-{
-	enum ElementType
-	{
-		TITLE = 0,
-		CONTINUE,
-		START,
-		EXIT
-	};
-	
+{	
 	float x, y;
 	int currentState;
 	float width, height;
@@ -29,7 +21,7 @@ struct TextElement
 	
 	TextElement(float inputX, float inputY, F *inputFont, R *inputRender, std::string getAudioPath);
 	TextElement(float inputX, float inputY, F *inputFont, R *inputRender);
-	void CreateTextElement(std::string content, int elementType);
-	void CreateTextElement(std::string content, float getMouseX, float getMouseY, int elementType);
+	void CreateTextElement(std::string content);
+	void CreateTextElement(std::string content, float getMouseX, float getMouseY);
 	bool IsMouseHovering(float inputMouseX, float inputMouseY);
 };

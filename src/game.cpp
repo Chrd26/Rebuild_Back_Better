@@ -38,17 +38,12 @@ bool TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, Au
 
 // Non-intearctive
 template<>
-void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::CreateTextElement(std::string content,
-																								 int elementType)
+void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::CreateTextElement(std::string content)
 {
 	SDL_Color fontColor;
 	
-	switch(elementType)
-	{
-		case TITLE:
-			fontColor = titleColor;
-			break;
-	}
+	fontColor = titleColor;
+
 	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
 											content.c_str(),
 											fontColor);
@@ -86,57 +81,30 @@ void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, Au
 template<>
 void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::CreateTextElement(std::string content, 
 																					        float getMouseX, 
-																					        float getMouseY, 
-																					        int elementType)
+																					        float getMouseY)
 {
 	SDL_Color fontColor;
 	
-	switch(elementType)
+	if (IsMouseHovering(getMouseX, getMouseY) && isEnabled)
 	{
-		case TITLE:
-			fontColor = titleColor;
-			break;
-			
-		case CONTINUE:
-			fontColor = disabledOption;
-			isEnabled = false;
-			break;
-			
-		case START:
-			if (IsMouseHovering(getMouseX, getMouseY))
-			{
-				fontColor = hoverOption;
+		fontColor = hoverOption;
 				
-				if (!hasSoundPlayed)
-				{
-					sfxPlayer->PlayAudio(0, 0);
-					hasSoundPlayed = true;
-				}
-			}else
-			{
-				fontColor = notHovered;
-				hasSoundPlayed = false;
-			}
-			break;
-			
-		case EXIT:
-			if (IsMouseHovering(getMouseX, getMouseY))
-			{
-				fontColor = hoverOption;
-				
-				if (!hasSoundPlayed)
-				{
-					sfxPlayer->PlayAudio(0, 0);
-					hasSoundPlayed = true;
-				}
-			}else
-			{
-				fontColor = notHovered;
-				hasSoundPlayed = false;
-			}
-			break;
-			
+		if (!hasSoundPlayed)
+		{
+			sfxPlayer->PlayAudio(0, 0);
+			hasSoundPlayed = true;
+		}
 	}
+	else if (isEnabled)
+	{
+		fontColor = notHovered;
+		hasSoundPlayed = false;
+	}
+	else
+	{
+		fontColor = disabledOption;
+	}
+	
 	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
 											content.c_str(),
 											fontColor);
@@ -483,10 +451,13 @@ TTF_Font *Game::LoadFont(std::string urlToFont, unsigned int fontSize)
 void Game::LoadMainMenu()
 {
 	// Add Title
-	menuTitle->CreateTextElement("Rebuild Back Better", TITLE);	
-	menuContinue->CreateTextElement("Continue", mouseX, mouseY, CONTINUE);
-	menuStart->CreateTextElement("Start", mouseX, mouseY, START);
-	menuExit->CreateTextElement("Exit", mouseX, mouseY, EXIT);			
+	menuTitle->CreateTextElement("Rebuild Back Better");	
+	menuContinue->CreateTextElement("Continue", mouseX, mouseY);
+	menuContinue->isEnabled = false;
+	menuStart->CreateTextElement("Start", mouseX, mouseY);
+	menuStart->isEnabled = true;
+	menuExit->CreateTextElement("Exit", mouseX, mouseY);		
+	menuExit->isEnabled = true;	
 }
 
 Game::~Game()
@@ -615,7 +586,7 @@ void Game::DestroyMainMenu()
 
 void Game::LoadGameplayElements()
 {
-	testingGameplayText->CreateTextElement("GAMEPLAY", TITLE);
+	testingGameplayText->CreateTextElement("GAMEPLAY");
 }
 
 

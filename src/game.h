@@ -68,15 +68,7 @@ private:
 	};
 
 // Main Menu
-private:
-
-	enum ElementType
-	{
-		TITLE = 0,
-		CONTINUE,
-		START,
-		EXIT
-	};
+private:	
 	static TTF_Font *titleFont;
 	static void LoadMainMenu();
 	
