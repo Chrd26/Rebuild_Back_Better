@@ -1,6 +1,12 @@
 #include "game.h"
 
 template<>
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::~TextElement()
+{
+	delete(sfxPlayer);
+}
+
+template<>
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::TextElement(float inputX, float inputY,
 																		TTF_Font *inputFont, SDL_Renderer *inputRender,
 																		std::string getAudioPath): sfxPlayer {new AudioPlayer<Mix_Chunk>(getAudioPath)}

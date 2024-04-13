@@ -21,6 +21,7 @@ struct TextElement
 	
 	TextElement(float inputX, float inputY, F *inputFont, R *inputRender, std::string getAudioPath);
 	TextElement(float inputX, float inputY, F *inputFont, R *inputRender);
+	~TextElement();
 	void CreateTextElement(std::string content);
 	void CreateTextElement(std::string content, float getMouseX, float getMouseY);
 	bool IsMouseHovering(float inputMouseX, float inputMouseY);
