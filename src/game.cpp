@@ -646,6 +646,10 @@ void Game::DestroyMainMenu()
 	menuExit = nullptr;
 	menuFontsLoaded = false;
 	haveElementsLoaded = false;
+	
+	menuMusic->StopAudio(2000);
+	delete(menuMusic);
+	
 }
 
 void Game::LoadGameplayElements()
