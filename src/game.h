@@ -1,14 +1,14 @@
-#include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
-#include <SDL3_mixer/SDL_mixer.h>
+#include <SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include "player.h"
 #include "thief.h"
 #include "gatherer.h"
 #include "fighter.h"
+#include "audioplayer.h"
 #include <iostream>
 #include <string>
 #include <cerrno>
+#include <cpplocate/cpplocate.h>
 #include "menuoptionsstructure.h"
 #include <future>
 
@@ -37,6 +37,7 @@ private:
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
     static bool Initialise();
+	static const std::string execpath;
 	
 // Basic Components
 private:
@@ -59,40 +60,26 @@ private:
 
 // Options States
 private:
-	enum MenuOptionsStates
-	{
-		DEACTIVATED = 0,
-		ACTIVATED,
-		HOVERED
-	};
 
 // Main Menu
-private:
-
-	enum ElementType
-	{
-		TITLE = 0,
-		CONTINUE,
-		START,
-		EXIT
-	};
+private:	
 	static TTF_Font *titleFont;
 	static void LoadMainMenu();
 	
 	static TTF_Font *menuFont;
 	
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuTitle;
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuContinue;
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuStart;
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *menuExit;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuTitle;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuContinue;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuStart;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuExit;
+	static AudioPlayer<Mix_Music> *menuMusic;
 	static bool menuFontsLoaded;
 	static bool haveElementsLoaded;
-	
 	
 // Gameplay
 private:
 	static void LoadGameplayElements();
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer> *testingGameplayText;
+	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *testingGameplayText;
 	static bool gameplayFontsLoaded;
 };
 
