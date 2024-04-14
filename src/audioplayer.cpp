@@ -4,7 +4,9 @@
 template<>
 AudioPlayer<Mix_Music>::AudioPlayer(std::string fileLocation)
 {
-	audioFile = Mix_LoadMUS(fileLocation.c_str());
+	auto getFile = std::async(std::launch::async, Mix_LoadMUS, fileLocation.c_str());
+	getFile.wait();
+	audioFile = getFile.get();
 	
 	if (audioFile == nullptr)
 	{
@@ -24,10 +26,8 @@ AudioPlayer<Mix_Music>::~AudioPlayer()
 template<>
 void AudioPlayer<Mix_Music>::PlayAudio(int loops, int fadeInTime)
 {
-	if (Mix_PlayingMusic() == 0)
-	{
-		result = Mix_FadeInMusic(audioFile, loops, fadeInTime);
-	}
+	result = Mix_FadeInMusic(audioFile, loops, fadeInTime);
+	plays = true;
 }
 
 template<>
@@ -40,7 +40,9 @@ void AudioPlayer<Mix_Music>::StopAudio(int timeToFadeOut)
 template<>
 AudioPlayer<Mix_Chunk>::AudioPlayer(std::string fileLocation)
 {
-	audioFile = Mix_LoadWAV(fileLocation.c_str());
+	auto getFile = std::async(std::launch::async, Mix_LoadWAV, fileLocation.c_str());
+	getFile.wait();
+	audioFile = getFile.get();
 	
 	if (audioFile == nullptr)
 	{
@@ -60,7 +62,7 @@ AudioPlayer<Mix_Chunk>::~AudioPlayer()
 template<>
 void AudioPlayer<Mix_Chunk>::PlayAudio(int loops, int fadeInTime)
 {
-	if (Mix_Playing(result) == 0)
+	if (Mix_Playing(result) == 0) 
 	{
 		result = Mix_FadeInChannel(-1,	audioFile, loops, fadeInTime);
 	}

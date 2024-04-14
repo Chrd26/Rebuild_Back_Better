@@ -1,6 +1,7 @@
 #include <SDL3_mixer/SDL_mixer.h>
 #include <string>
 #include <iostream>
+#include <future>
 
 // Read more on audio
 // https://wiki.libsdl.org/SDL3_mixer/CategoryAPI
@@ -15,4 +16,5 @@ public:
 	~AudioPlayer();
 	void PlayAudio(int loops, int fadeInTime);
 	void StopAudio(int timeToFadeOut);
+	bool plays;
 };

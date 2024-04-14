@@ -327,6 +327,12 @@ Game::Game()
 																			execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
 				}
 				
+				if (menuMusic == nullptr)
+				{
+					menuMusic = new AudioPlayer<Mix_Music>(execpath + std::string("/Contents/Resources/audio/music/onceuponatime.mp3"));
+				}	
+				
+				
 				#endif
 
 				// Use __WIN64 when using MSVC
@@ -364,27 +370,73 @@ Game::Game()
 					menuFontsLoaded = true;
 				}
 				
-				if (menuTitle == nullptr)
+								if (menuTitle == nullptr)
 				{
-					menuTitle = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.3, windowHeight * 0.05, titleFont, renderer);
+					menuTitle = new TextElement<	SDL_Surface, 
+													SDL_Texture, 
+													SDL_Color, 
+													TTF_Font,
+													 SDL_Renderer, 
+													 AudioPlayer<Mix_Chunk>>(	windowWidth *0.245, 
+																				windowHeight * 0.08, 
+																				titleFont, 
+																				renderer);
 				}
 				
 				if (menuContinue == nullptr)
 				{
-					menuContinue = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.438, windowHeight * 0.4, menuFont, renderer);
+					menuContinue = new TextElement<	SDL_Surface, 
+													SDL_Texture, 
+													SDL_Color,
+													TTF_Font, 
+													SDL_Renderer, 
+													AudioPlayer<Mix_Chunk>>(	windowWidth *0.4, 
+																				windowHeight * 0.4, 
+																				menuFont, 
+																				renderer,
+																				execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
 				}
 				
 				if (menuStart == nullptr)
 				{
-					menuStart = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.46, windowHeight * 0.5, menuFont, renderer);
+					menuStart = new TextElement<	SDL_Surface, 
+													SDL_Texture, 
+													SDL_Color, 
+													TTF_Font, 
+													SDL_Renderer, 
+													AudioPlayer<Mix_Chunk>>(	windowWidth *0.428, 
+																				windowHeight * 0.5, 
+																				menuFont, 
+																				renderer,
+																				execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
 				}
 				
 				if (menuExit == nullptr)
 				{
-					menuExit = new TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer>(windowWidth *0.468, windowHeight * 0.6, menuFont, renderer);
+					menuExit = new TextElement<	SDL_Surface, 
+												SDL_Texture, 
+												SDL_Color, 
+												TTF_Font, 
+												SDL_Renderer, 
+												AudioPlayer<Mix_Chunk>>(	windowWidth *0.436, 
+																			windowHeight * 0.6, 
+																			menuFont, 
+																			renderer,
+																			execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
+				}
+				
+				if (menuMusic == nullptr)
+				{
+					menuMusic = new AudioPlayer<Mix_Music>(execpath + std::string("/Contents/Resources/audio/music/onceuponatime.mp3"));
 				}	
 				
 				#endif	
+				
+				if (!menuMusic->plays)
+				{
+					menuMusic->PlayAudio(-1, 0);
+					std::cout << "Play Music" << std::endl;
+				}
 				
 				LoadMainMenu();
 				break;
@@ -521,6 +573,12 @@ Game::~Game()
 		testingGameplayText = nullptr;
 	}
 	
+	if (menuMusic != nullptr)
+	{
+		delete(menuMusic);
+		menuMusic = nullptr;
+	}
+	
 	Mix_CloseAudio();
 	TTF_Quit();
 }
@@ -528,16 +586,16 @@ Game::~Game()
 bool Game::Initialise()
 {
 	// Make sure that video and audio have been initialised
-    if (SDL_Init(SDL_INIT_VIDEO) != 0 || TTF_Init() != 0 || Mix_Init(MIX_INIT_MP3|MIX_INIT_WAVPACK) == 0)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0 || TTF_Init() != 0)
     {
         std::cout << "Failed to initialise SDL ";
         std::cout << SDL_GetError() << std::endl;
         return false;
     }
     
-    int openAudioREsult =  Mix_OpenAudio(0, nullptr);
+    int openAudioResult =  Mix_OpenAudio(0, nullptr);
     
-    if (openAudioREsult != 0)
+    if (openAudioResult != 0)
     {
 		std::cout << "Failed to initialise SDL ";
         std::cout << SDL_GetError() << std::endl;
@@ -619,6 +677,7 @@ TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPl
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuContinue = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuStart = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuExit = nullptr;
+AudioPlayer<Mix_Music> *Game::menuMusic = nullptr;
 TTF_Font *Game::menuFont = nullptr;
 TTF_Font *Game::titleFont = nullptr;
 bool Game::menuFontsLoaded = false;

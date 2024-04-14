@@ -60,12 +60,6 @@ private:
 
 // Options States
 private:
-	enum MenuOptionsStates
-	{
-		DEACTIVATED = 0,
-		ACTIVATED,
-		HOVERED
-	};
 
 // Main Menu
 private:	
@@ -78,9 +72,9 @@ private:
 	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuContinue;
 	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuStart;
 	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuExit;
+	static AudioPlayer<Mix_Music> *menuMusic;
 	static bool menuFontsLoaded;
 	static bool haveElementsLoaded;
-	
 	
 // Gameplay
 private:

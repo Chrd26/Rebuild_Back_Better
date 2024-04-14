@@ -69,6 +69,7 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 	# Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
 	file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
 	file(GLOB MENU_LIGHT_UP_SOUND "audio/menulightup/lightup.wav")
+	file(GLOB MENU_MUSIC "audio/music/onceuponatime.mp3")
 	
 	# Create Executable
 	add_executable(${PROJECT_NAME} MACOSX_BUNDLE
@@ -78,7 +79,13 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 				./src/gatherer.h ./src/fighter.h
 				./src/menuoptionsstructure.h ./src/audioplayer.h
 				./src/audioplayer.cpp
-				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND})
+				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND}
+				${MENU_MUSIC})
+				
+	# Add menu
+	file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MENU_MUSIC} )
+	get_filename_component(FILE_PATH "${GET_REL_PATH}" DIRECTORY)
+	set_property(SOURCE "${MENU_MUSIC}" PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${FILE_PATH}")
 				
 				
 	# Add menu light up to the .app bundle
