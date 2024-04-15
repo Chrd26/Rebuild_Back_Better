@@ -2,6 +2,9 @@
 
 // Music
 template<>
+int AudioPlayer<Mix_Music>::result = 0;
+
+template<>
 AudioPlayer<Mix_Music>::AudioPlayer(std::string fileLocation)
 {
 	auto getFile = std::async(std::launch::async, Mix_LoadMUS, fileLocation.c_str());
@@ -37,6 +40,9 @@ void AudioPlayer<Mix_Music>::StopAudio(int timeToFadeOut)
 }
 
 // Sound Effect
+template<>
+int AudioPlayer<Mix_Chunk>::result = 0;
+
 template<>
 AudioPlayer<Mix_Chunk>::AudioPlayer(std::string fileLocation)
 {

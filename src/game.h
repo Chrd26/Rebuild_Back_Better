@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include "player.h"
 #include "thief.h"
@@ -8,9 +8,13 @@
 #include <iostream>
 #include <string>
 #include <cerrno>
+#ifdef __APPLE__
 #include <cpplocate/cpplocate.h>
+#endif
 #include "menuoptionsstructure.h"
 #include <future>
+#include <thread>
+#include <chrono>
 
 #define LEFT_MOUSE_BUTTON 1
 #define RIGHT_MOUSE_BUTTON 4
@@ -37,7 +41,9 @@ private:
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
     static bool Initialise();
+	#ifdef __APPLE__
 	static const std::string execpath;
+	#endif
 	
 // Basic Components
 private:
