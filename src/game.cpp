@@ -435,7 +435,6 @@ Game::Game()
 				if (!menuMusic->plays)
 				{
 					menuMusic->PlayAudio(-1, 0);
-					std::cout << "Play Music" << std::endl;
 				}
 				
 				LoadMainMenu();
@@ -578,7 +577,6 @@ Game::~Game()
 		delete(menuMusic);
 		menuMusic = nullptr;
 	}
-	
 	Mix_CloseAudio();
 	TTF_Quit();
 }
@@ -647,8 +645,8 @@ void Game::DestroyMainMenu()
 	menuFontsLoaded = false;
 	haveElementsLoaded = false;
 	
-	menuMusic->StopAudio(2000);
-	delete(menuMusic);
+	menuMusic->StopAudio(200);
+	menuMusic->plays = false;
 	
 }
 
