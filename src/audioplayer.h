@@ -2,19 +2,20 @@
 #include <string>
 #include <iostream>
 #include <future>
-
+#include <chrono>
+#include <thread>
 // Read more on audio
 // https://wiki.libsdl.org/SDL3_mixer/CategoryAPI
 template<typename T>
 class AudioPlayer
 {
 	T* 	audioFile;
-	int result;
+	static int result;
 	
 public:
 	AudioPlayer(std::string fileLocation);
 	~AudioPlayer();
 	void PlayAudio(int loops, int fadeInTime);
-	void StopAudio(int timeToFadeOut);
+	static void StopAudio(int timeToFadeOut);
 	bool plays;
 };

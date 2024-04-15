@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\audioplayer.h" />
     <ClInclude Include="..\src\fighter.h" />
     <ClInclude Include="..\src\game.h" />
     <ClInclude Include="..\src\gameobjects.h" />
@@ -28,6 +29,7 @@
     <ClInclude Include="..\src\thief.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\audioplayer.cpp" />
     <ClCompile Include="..\src\game.cpp" />
     <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>

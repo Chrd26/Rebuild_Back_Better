@@ -224,7 +224,16 @@ Game::Game()
 				
 				if (mouseState == LEFT_MOUSE_BUTTON && menuStart->IsMouseHovering(mouseX, mouseY))
 				{
-					DestroyMainMenu();
+					
+					std::thread t1 (DestroyMainMenu);
+
+					std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+					if (t1.joinable())
+					{
+						t1.join();
+					}
+
 					break;
 				}
 				
@@ -370,7 +379,7 @@ Game::Game()
 					menuFontsLoaded = true;
 				}
 				
-								if (menuTitle == nullptr)
+				if (menuTitle == nullptr)
 				{
 					menuTitle = new TextElement<	SDL_Surface, 
 													SDL_Texture, 
@@ -394,7 +403,7 @@ Game::Game()
 																				windowHeight * 0.4, 
 																				menuFont, 
 																				renderer,
-																				execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
+																				"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav");
 				}
 				
 				if (menuStart == nullptr)
@@ -408,7 +417,7 @@ Game::Game()
 																				windowHeight * 0.5, 
 																				menuFont, 
 																				renderer,
-																				execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
+																				"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav");
 				}
 				
 				if (menuExit == nullptr)
@@ -422,12 +431,12 @@ Game::Game()
 																			windowHeight * 0.6, 
 																			menuFont, 
 																			renderer,
-																			execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
+																			"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav");
 				}
 				
 				if (menuMusic == nullptr)
 				{
-					menuMusic = new AudioPlayer<Mix_Music>(execpath + std::string("/Contents/Resources/audio/music/onceuponatime.mp3"));
+					menuMusic = new AudioPlayer<Mix_Music>("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/Music/menumusic/onceuponatime.mp3");
 				}	
 				
 				#endif	
@@ -435,20 +444,28 @@ Game::Game()
 				if (!menuMusic->plays)
 				{
 					menuMusic->PlayAudio(-1, 0);
-					std::cout << "Play Music" << std::endl;
 				}
-				
+}				
 				LoadMainMenu();
 				break;
 				
 			case GAMEPLAY:
 				if (!gameplayFontsLoaded)
 				{
-				
+
+				#ifdef _APPLE__
 					auto getMenuFont = std::async(	std::launch::async, 
 													LoadFont, 
 													execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
 													100);
+				#endif	
+
+				#ifdef _WIN64
+					auto getMenuFont = std::async(std::launch::async,
+						LoadFont,
+						"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/CfArpineDemoRegular-q2Zr2.ttf",
+						100);
+				#endif
 												  
 					getMenuFont.wait();											  
 					menuFont = getMenuFont.get();
@@ -578,7 +595,6 @@ Game::~Game()
 		delete(menuMusic);
 		menuMusic = nullptr;
 	}
-	
 	Mix_CloseAudio();
 	TTF_Quit();
 }
@@ -619,8 +635,14 @@ bool Game::Initialise()
 		return false;	
 	}
 	
+	#ifdef __APPLE__
 	renderer = SDL_CreateRenderer(window, nullptr, 
 								  SDL_RENDERER_ACCELERATED);
+	#endif
+
+	#ifdef _WIN64
+		renderer = SDL_CreateRenderer(window, nullptr, 0);
+	#endif
 								  
 	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 	//std::cout << "Window Width: " << windowWidth << std::endl;
@@ -647,8 +669,16 @@ void Game::DestroyMainMenu()
 	menuFontsLoaded = false;
 	haveElementsLoaded = false;
 	
-	menuMusic->StopAudio(2000);
-	delete(menuMusic);
+	std::thread t2(menuMusic->StopAudio, 500);
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
+	if (t2.joinable())
+	{
+		t2.join();
+	}
+
+	menuMusic->plays = false;
 	
 }
 
