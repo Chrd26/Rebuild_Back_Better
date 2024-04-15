@@ -63,17 +63,11 @@ find_package(cpplocate REQUIRED CONFIG REQUIRED COMPONENTS cpplocate)
 find_package(SDL3_mixer REQUIRED CONFIG REQUIRED COMPONENTS SDL3_mixer)
 
 
-if (CMAKE_SYSTEM_NAME MATCHES Darwin)
-	message("Building MacOS Version")
-	# Add resource files
-	# Read more on adding files https://stackoverflow.com/questions/41121000/cmake-os-x-bundle-recursively-copy-directory-to-resources
-	file(GLOB_RECURSE FONT_SOURCES "fonts/*.ttf")
-	file(GLOB MENU_LIGHT_UP_SOUND "audio/menulightup/lightup.wav")
-	file(GLOB MENU_MUSIC "audio/music/onceuponatime.mp3")
+
+message("Building MacOS Version")
 	
-	# Create Executable
-	add_executable(${PROJECT_NAME} MACOSX_BUNDLE
-				./src/main.cpp ./src/game.h 
+# Create Executable
+add_executable(${PROJECT_NAME} ./src/main.cpp ./src/game.h 
 				./src/game.cpp ./src/gameobjects.h 
 				./src/player.h ./src/thief.h 
 				./src/gatherer.h ./src/fighter.h
@@ -82,36 +76,6 @@ if (CMAKE_SYSTEM_NAME MATCHES Darwin)
 				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND}
 				${MENU_MUSIC})
 				
-	# Add menu
-	file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MENU_MUSIC} )
-	get_filename_component(FILE_PATH "${GET_REL_PATH}" DIRECTORY)
-	set_property(SOURCE "${MENU_MUSIC}" PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${FILE_PATH}")
-				
-				
-	# Add menu light up to the .app bundle
-	file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MENU_LIGHT_UP_SOUND} )
-	get_filename_component(FILE_PATH "${GET_REL_PATH}" DIRECTORY)
-	set_property(SOURCE "${MENU_LIGHT_UP_SOUND}" PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${FILE_PATH}")
-				
-	#individually set the file's path properties
-
-	foreach(FONT_FILE ${FONT_SOURCES})
-
-	# Get the folder and the file name
-	file(RELATIVE_PATH RES_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${FONT_FILE})
-  
-	# keep only the name of the folder
-	get_filename_component(NEW_FILE_PATH ${RES_PATH} DIRECTORY)
-
-	# Add the FONT_FILE into the NEW_FILE_PATH folder
-	set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH}")
-
-	endforeach(FONT_FILE)
-	
-	# Code from here: https://stackoverflow.com/questions/17070101/why-i-cannot-link-the-mac-framework-file-with-cmake
-	target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Foundation")
-	
-endif()
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
 target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::cpplocate)
