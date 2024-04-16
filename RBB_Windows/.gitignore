@@ -5,7 +5,7 @@ builds/*
 commands/*
 fonts/*
 build/
-Audio/*
+audio/*
 RBB_Windows/modules
 RBB_Windows/modules/SDL
 ../Resources/
