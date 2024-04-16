@@ -172,6 +172,8 @@ Game::Game()
 			}
 		}	
 		
+		//std::cout << SDL_GetError() << std::endl;
+		
 		SDL_PumpEvents();
 		// Getting keyboard or mouse states are better for real time
 		// input detection it is also useful for keeping 
@@ -604,7 +606,6 @@ Game::Game()
 		endTick = SDL_GetTicks();
 		frameTime += (endTick - startTick)/1000;
 	}
-	
 	SDL_Quit();
 }
 
@@ -722,8 +723,8 @@ bool Game::Initialise()
     // Create Window
     window = SDL_CreateWindow("Rebuild Back Better",
 							  SCREEN_WIDTH, SCREEN_HEIGHT,
-							  SDL_WINDOW_FULLSCREEN);
-							  
+							  SDL_WINDOW_FULLSCREEN|SDL_WINDOW_OPENGL);
+	
 	// Set window position
 	int windowPOSOutput = SDL_SetWindowPosition(window,
 												SDL_WINDOWPOS_CENTERED,
@@ -742,6 +743,10 @@ bool Game::Initialise()
 	#endif
 
 	#ifdef _WIN64
+		renderer = SDL_CreateRenderer(window, nullptr, 0);
+	#endif
+	
+	#ifdef __linux__
 		renderer = SDL_CreateRenderer(window, nullptr, 0);
 	#endif
 								  
