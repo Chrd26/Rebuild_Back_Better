@@ -249,9 +249,9 @@ Game::Game()
 				// Load using async for faster loading times
 				// Read More:
 				// https://stackoverflow.com/questions/30810305/confusion-about-threads-launched-by-stdasync-with-stdlaunchasync-parameter
+				#ifdef __APPLE__
 				if (!menuFontsLoaded)
 				{
-					#ifdef __APPLE__
 					auto getTitleFont = std::async(std::launch::async, LoadFont, 
 												   execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
 										           150);	
@@ -441,6 +441,98 @@ Game::Game()
 				
 				#endif	
 				
+				#ifdef __linux__
+				if (!menuFontsLoaded)
+				{
+					auto getTitleFont = std::async(std::launch::async, LoadFont, 
+												   std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/fonts/ArianaVioleta-dz2K.ttf"),
+										           250);	
+				
+					auto getMenuFont = std::async(std::launch::async, LoadFont,
+										          std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+												  100);
+					getTitleFont.wait();
+					getMenuFont.wait();
+												  
+					titleFont = getTitleFont.get();
+					menuFont = getMenuFont.get();					 
+					
+					if (titleFont == nullptr)
+					{
+						std::cout << "Title font has not loaded" << std::endl;
+						exit(-1);
+					}
+					
+					if (menuFont == nullptr)
+					{
+						std::cout << "Menu font has not loaded" << std::endl;
+						exit(-1);
+					}
+					
+					menuFontsLoaded = true;
+				}
+				
+				if (menuTitle == nullptr)
+				{
+					menuTitle = new TextElement<	SDL_Surface, 
+													SDL_Texture, 
+													SDL_Color, 
+													TTF_Font,
+													 SDL_Renderer, 
+													 AudioPlayer<Mix_Chunk>>(	windowWidth *0.245, 
+																				windowHeight * 0.08, 
+																				titleFont, 
+																				renderer);
+				}
+				
+				if (menuContinue == nullptr)
+				{
+					menuContinue = new TextElement<	SDL_Surface, 
+													SDL_Texture, 
+													SDL_Color,
+													TTF_Font, 
+													SDL_Renderer, 
+													AudioPlayer<Mix_Chunk>>(	windowWidth *0.4, 
+																				windowHeight * 0.4, 
+																				menuFont, 
+																				renderer,
+																				"/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav");
+				}
+				
+				if (menuStart == nullptr)
+				{
+					menuStart = new TextElement<	SDL_Surface, 
+													SDL_Texture, 
+													SDL_Color, 
+													TTF_Font, 
+													SDL_Renderer, 
+													AudioPlayer<Mix_Chunk>>(	windowWidth *0.428, 
+																				windowHeight * 0.5, 
+																				menuFont, 
+																				renderer,
+																				"/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav");
+				}
+				
+				if (menuExit == nullptr)
+				{
+					menuExit = new TextElement<	SDL_Surface, 
+												SDL_Texture, 
+												SDL_Color, 
+												TTF_Font, 
+												SDL_Renderer, 
+												AudioPlayer<Mix_Chunk>>(	windowWidth *0.436, 
+																			windowHeight * 0.6, 
+																			menuFont, 
+																			renderer,
+																			"/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav");
+				}
+				
+				if (menuMusic == nullptr)
+				{
+					menuMusic = new AudioPlayer<Mix_Music>("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/music/menumusic/onceuponatime.mp3");
+				}			
+				#endif
+				
 				if (!menuMusic->plays)
 				{
 					menuMusic->PlayAudio(-1, 0);
@@ -466,6 +558,15 @@ Game::Game()
 						"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/CfArpineDemoRegular-q2Zr2.ttf",
 						100);
 				#endif
+
+				#ifdef __linux__
+					auto getMenuFont = std::async(std::launch::async,
+						LoadFont,
+						"/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/fonts/CfArpineDemoRegular-q2Zr2.ttf",
+						100);
+				#endif
+				
+				
 												  
 					getMenuFont.wait();											  
 					menuFont = getMenuFont.get();
@@ -508,6 +609,8 @@ Game::Game()
 }
 
 
+
+
 // Passing by Reference
 // https://www.ibm.com/docs/en/zos/2.4.0?topic=calls-pass-by-reference-c-only
 TTF_Font *Game::LoadFont(std::string urlToFont, unsigned int fontSize)
@@ -534,8 +637,7 @@ void Game::LoadMainMenu()
 	menuExit->isEnabled = true;	
 }
 
-Game::~Game()
-{
+Game::~Game(){
 	SDL_DestroyWindow(window);
 	window = nullptr;
 	
@@ -650,6 +752,7 @@ bool Game::Initialise()
 	//std::cout << execpath << std::endl;					  
 
     return true;
+
 }
 
 void Game::DestroyMainMenu()
