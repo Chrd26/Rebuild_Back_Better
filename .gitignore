@@ -5,7 +5,7 @@ builds/*
 commands/*
 fonts/*
 build/
-Audio/*
+audio/*
 
 !graphics/.gitkeep
 !tests/.gitkeep
