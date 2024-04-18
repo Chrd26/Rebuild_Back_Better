@@ -404,12 +404,12 @@ void Game::LoadMainMenu()
 		#endif
 			
 		#ifdef _WIN64
-		menuContinue = LoadTextElement(	menuFont, execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+		menuContinue = LoadTextElement(	menuFont, execpath + std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav"),
 										windowWidth, windowHeight, 0.4, 0.4);
 		#endif
 			
 		#ifdef __linux__
-		menuContinue = LoadTextElement(	menuFont, execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+		menuContinue = LoadTextElement(	menuFont, execpath + std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav"),
 										windowWidth, windowHeight, 0.4, 0.4);
 		#endif
 			
@@ -425,12 +425,12 @@ void Game::LoadMainMenu()
 		#endif
 			
 		#ifdef _WIN64
-		menuStart = LoadTextElement(	menuFont, execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+		menuStart = LoadTextElement(	menuFont, execpath + std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav"),
 										windowWidth, windowheight, 0.428, 0.5);
 		#endif
 			
 		#ifdef __linux__
-		menuStart = LoadTextElement(	menuFont, execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+		menuStart = LoadTextElement(	menuFont, execpath + std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav"),
 										windowWidth, windowheight, 0.428, 0.5);
 		#endif
 			
@@ -445,12 +445,12 @@ void Game::LoadMainMenu()
 		#endif
 			
 		#ifdef _WIN64
-		menuExit = LoadTextElement(	menuFont, execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+		menuExit = LoadTextElement(	menuFont, execpath + std::string("/C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav"),
 									windowWidth, windowheight, 0.436, 0.6);
 		#endif
 			
 		#ifdef __linux__
-		menuExit = LoadTextElement(	menuFont, execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+		menuExit = LoadTextElement(	menuFont, execpath + std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav"),
 									windowWidth, windowheight, 0.436, 0.6);
 		#endif	
 			
