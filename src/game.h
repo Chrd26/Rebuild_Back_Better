@@ -1,5 +1,4 @@
 #include <SDL3/SDL.h>
-#include <SDL3_image/SDL_image.h>
 #include "player.h"
 #include "thief.h"
 #include "gatherer.h"
@@ -53,6 +52,7 @@ private:
 	static double endTick;
 	static double frameTime;
 	static unsigned int seconds;
+	static Player<std::string> *player;
 	
 // Methods
 private:

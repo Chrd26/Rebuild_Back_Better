@@ -1,5 +1,6 @@
 // Game Objects Abstractions
 #pragma once
+#include <SDL3_image/SDL_image.h>
 
 
 // When using template classes, it is also important to
@@ -8,7 +9,6 @@
 // class Player: public Entity<P> 
 
 
-template<typename T>
 class Entity
 {
 public:
@@ -16,8 +16,6 @@ public:
 	unsigned int damage;
 	unsigned int resourceLoad;
 	unsigned int level;
-	
-	T upgradesApplied;
 };
 
 class Upgrade

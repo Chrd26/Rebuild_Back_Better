@@ -364,7 +364,6 @@ void Game::LoadMainMenu()
 		LoadMenuFonts(	execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
 						execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"));
 						
-		
 		#endif
 		
 		#ifdef _WIN64
@@ -433,7 +432,6 @@ void Game::LoadMainMenu()
 		menuStart = LoadTextElement(	menuFont, execpath + std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav"),
 										windowWidth, windowheight, 0.428, 0.5);
 		#endif
-			
 			
 	}
 	
@@ -685,6 +683,14 @@ TextElement<SDL_Surface, SDL_Texture, SDL_Color,
 														font, 
 														renderer);													
 }
+
+template<>
+bool Player<std::string>::LoadPlayerImages(std::string location)
+{
+	return true;
+}
+
+
 // Initialisation
 SDL_Window *Game::window = nullptr;
 double Game::startTick = 0;
@@ -708,6 +714,7 @@ TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPl
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuContinue = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuStart = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuExit = nullptr;
+Player<std::string> *Game::player = nullptr;
 AudioPlayer<Mix_Music> *Game::menuMusic = nullptr;
 TTF_Font *Game::menuFont = nullptr;
 TTF_Font *Game::titleFont = nullptr;
