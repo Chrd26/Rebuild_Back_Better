@@ -1,5 +1,4 @@
 #include <SDL3/SDL.h>
-#include <SDL3_image/SDL_image.h>
 #include "player.h"
 #include "thief.h"
 #include "gatherer.h"
@@ -53,6 +52,7 @@ private:
 	static double endTick;
 	static double frameTime;
 	static unsigned int seconds;
+	static Player<std::string, SDL_Surface, SDL_Renderer> *player;
 	
 // Methods
 private:
@@ -74,12 +74,37 @@ private:
 	
 	static TTF_Font *menuFont;
 	
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuTitle;
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuContinue;
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuStart;
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuExit;
+	static TextElement<	SDL_Surface, SDL_Texture, 
+						SDL_Color, TTF_Font, 
+						SDL_Renderer, 
+						AudioPlayer<Mix_Chunk>> *menuTitle;
+	static TextElement<	SDL_Surface, SDL_Texture, 
+						SDL_Color, TTF_Font, SDL_Renderer, 
+						AudioPlayer<Mix_Chunk>> *menuContinue;
+	static TextElement<	SDL_Surface, SDL_Texture, 
+						SDL_Color, TTF_Font, 
+						SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuStart;
+	static TextElement<	SDL_Surface, SDL_Texture, 
+						SDL_Color, TTF_Font, SDL_Renderer, 
+						AudioPlayer<Mix_Chunk>> *menuExit;
+						
 	static AudioPlayer<Mix_Music> *menuMusic;
 	static bool menuFontsLoaded;
+	static void LoadMenuFonts(	std::string path1, std::string path2);
+	static TextElement <	SDL_Surface, SDL_Texture, 
+							SDL_Color, TTF_Font, 
+							SDL_Renderer, 
+							AudioPlayer<Mix_Chunk>> *LoadTextElement(	TTF_Font *font, int inputWindowWidth, 
+																		int inputWindowHeight, float posX, 
+																		float posY	);
+										
+	static TextElement<	SDL_Surface, SDL_Texture,
+						SDL_Color, TTF_Font,
+						SDL_Renderer,
+						AudioPlayer<Mix_Chunk>> *LoadTextElement(	TTF_Font *font,	std::string audioPath,
+																	int inputWindowWidth, 
+																	int inputWindowHeight, float posX, 
+																	float posY	);
 	static bool haveElementsLoaded;
 	
 // Gameplay

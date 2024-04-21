@@ -30,7 +30,8 @@ long_line_column=72
 [files]
 current_page=1
 FILE_NAME_0=930;CMake;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FRebuild_Back_Better%2FCMakeLists.txt;0;4
-FILE_NAME_1=16601;C++;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgame.cpp;0;4
+FILE_NAME_1=4575;C++;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgame.cpp;0;4
+FILE_NAME_2=548;C++;0;EUTF-8;1;1;0;%2Fhome%2Fvmware-ubuntu%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgame.h;0;4
 
 [VTE]
 last_dir=/home/vmware-ubuntu/Desktop/Rebuild_Back_Better
