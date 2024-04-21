@@ -1,6 +1,43 @@
 #include "game.h"
 
 template<>
+bool Player<std::string, SDL_Surface, SDL_Renderer>::LoadPlayerImages(std::string location)
+{
+	cursorImage = IMG_Load(location.c_str());
+	
+	if (cursorImage == nullptr)
+	{
+		return false;
+	}
+	return true;
+}
+
+template<>
+void Player<std::string, SDL_Surface, SDL_Renderer>::ShowDefaultCursor(SDL_Renderer *renderer)
+{
+	SDL_Surface *convertImage = SDL_ConvertSurface(cursorImage, cursorImage->format);
+	
+	if (convertImage == nullptr)
+	{
+		std::cout << "Failed to create default cursor ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	SDL_Texture *defaultcursorTexture = SDL_CreateTextureFromSurface(renderer, convertImage);
+	
+	const SDL_FRect defaultCursorHolder = {	static_cast<float>(x), 
+											static_cast<float>(y), 
+											static_cast<float>(convertImage->w/50), 
+											static_cast<float>(convertImage->h/50)};
+											 	
+	
+	SDL_RenderTexture(renderer, defaultcursorTexture, nullptr, &defaultCursorHolder);	
+	SDL_DestroyTexture(defaultcursorTexture);
+	SDL_DestroySurface(convertImage);
+}
+
+template<>
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::~TextElement()
 {
 	delete(sfxPlayer);
@@ -50,9 +87,7 @@ void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, Au
 	
 	fontColor = titleColor;
 
-	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
-											content.c_str(),
-											fontColor);
+	SDL_Surface *optionSurface = TTF_RenderText_Solid(font, content.c_str(), fontColor);
 	if (optionSurface == nullptr)
 	{
 		std::cout << "Failed to create option surface ";
@@ -246,287 +281,23 @@ Game::Game()
 					}
 				}
 				
-				// Load using async for faster loading times
-				// Read More:
-				// https://stackoverflow.com/questions/30810305/confusion-about-threads-launched-by-stdasync-with-stdlaunchasync-parameter
+				LoadMainMenu();
+				
 				#ifdef __APPLE__
-				if (!menuFontsLoaded)
-				{
-					auto getTitleFont = std::async(std::launch::async, LoadFont, 
-												   execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
-										           150);	
-				
-					auto getMenuFont = std::async(std::launch::async, LoadFont, 
-										          execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
-												  60);
-					getTitleFont.wait();
-					getMenuFont.wait();								  
-					titleFont = getTitleFont.get();
-					menuFont = getMenuFont.get();
-												 
-					
-					if (titleFont == nullptr)
-					{
-						std::cout << "Title font has not loaded" << std::endl;
-						exit(-1);
-					}
-					
-					if (menuFont == nullptr)
-					{
-						std::cout << "Menu font has not loaded" << std::endl;
-						exit(-1);
-					}
-					
-					menuFontsLoaded = true;
-				}
-
-				
-				if (menuTitle == nullptr)
-				{
-					menuTitle = new TextElement<	SDL_Surface, 
-													SDL_Texture, 
-													SDL_Color, 
-													TTF_Font,
-													 SDL_Renderer, 
-													 AudioPlayer<Mix_Chunk>>(	windowWidth *0.245, 
-																				windowHeight * 0.08, 
-																				titleFont, 
-																				renderer);
-				}
-				
-				if (menuContinue == nullptr)
-				{
-					menuContinue = new TextElement<	SDL_Surface, 
-													SDL_Texture, 
-													SDL_Color,
-													TTF_Font, 
-													SDL_Renderer, 
-													AudioPlayer<Mix_Chunk>>(	windowWidth *0.4, 
-																				windowHeight * 0.4, 
-																				menuFont, 
-																				renderer,
-																				execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
-				}
-				
-				if (menuStart == nullptr)
-				{
-					menuStart = new TextElement<	SDL_Surface, 
-													SDL_Texture, 
-													SDL_Color, 
-													TTF_Font, 
-													SDL_Renderer, 
-													AudioPlayer<Mix_Chunk>>(	windowWidth *0.428, 
-																				windowHeight * 0.5, 
-																				menuFont, 
-																				renderer,
-																				execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
-				}
-				
-				if (menuExit == nullptr)
-				{
-					menuExit = new TextElement<	SDL_Surface, 
-												SDL_Texture, 
-												SDL_Color, 
-												TTF_Font, 
-												SDL_Renderer, 
-												AudioPlayer<Mix_Chunk>>(	windowWidth *0.436, 
-																			windowHeight * 0.6, 
-																			menuFont, 
-																			renderer,
-																			execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"));
-				}
-				
 				if (menuMusic == nullptr)
 				{
 					menuMusic = new AudioPlayer<Mix_Music>(execpath + std::string("/Contents/Resources/audio/music/onceuponatime.mp3"));
-				}	
+				}
+				#endif	
 				
-				
-				#endif
-
-				// Use __WIN64 when using MSVC
-				// Use __MINGW32__ when using mingw
 				#ifdef _WIN64
-				if (!menuFontsLoaded)
-				{
-					// Use __WIN64 when using MSVC
-					// Use __MINGW32__ when using mingw
-					auto getTitleFont = std::async(std::launch::async, LoadFont, 
-												   std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/ArianaVioleta-dz2K.ttf"),
-										           250);	
-				
-					auto getMenuFont = std::async(std::launch::async, LoadFont,
-										          std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
-												  100);
-					getTitleFont.wait();
-					getMenuFont.wait();
-												  
-					titleFont = getTitleFont.get();
-					menuFont = getMenuFont.get();					 
-					
-					if (titleFont == nullptr)
-					{
-						std::cout << "Title font has not loaded" << std::endl;
-						exit(-1);
-					}
-					
-					if (menuFont == nullptr)
-					{
-						std::cout << "Menu font has not loaded" << std::endl;
-						exit(-1);
-					}
-					
-					menuFontsLoaded = true;
-				}
-				
-				if (menuTitle == nullptr)
-				{
-					menuTitle = new TextElement<	SDL_Surface, 
-													SDL_Texture, 
-													SDL_Color, 
-													TTF_Font,
-													 SDL_Renderer, 
-													 AudioPlayer<Mix_Chunk>>(	windowWidth *0.245, 
-																				windowHeight * 0.08, 
-																				titleFont, 
-																				renderer);
-				}
-				
-				if (menuContinue == nullptr)
-				{
-					menuContinue = new TextElement<	SDL_Surface, 
-													SDL_Texture, 
-													SDL_Color,
-													TTF_Font, 
-													SDL_Renderer, 
-													AudioPlayer<Mix_Chunk>>(	windowWidth *0.4, 
-																				windowHeight * 0.4, 
-																				menuFont, 
-																				renderer,
-																				"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav");
-				}
-				
-				if (menuStart == nullptr)
-				{
-					menuStart = new TextElement<	SDL_Surface, 
-													SDL_Texture, 
-													SDL_Color, 
-													TTF_Font, 
-													SDL_Renderer, 
-													AudioPlayer<Mix_Chunk>>(	windowWidth *0.428, 
-																				windowHeight * 0.5, 
-																				menuFont, 
-																				renderer,
-																				"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav");
-				}
-				
-				if (menuExit == nullptr)
-				{
-					menuExit = new TextElement<	SDL_Surface, 
-												SDL_Texture, 
-												SDL_Color, 
-												TTF_Font, 
-												SDL_Renderer, 
-												AudioPlayer<Mix_Chunk>>(	windowWidth *0.436, 
-																			windowHeight * 0.6, 
-																			menuFont, 
-																			renderer,
-																			"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav");
-				}
-				
 				if (menuMusic == nullptr)
 				{
 					menuMusic = new AudioPlayer<Mix_Music>("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/Music/menumusic/onceuponatime.mp3");
 				}	
-				
-				#endif	
+				#endif
 				
 				#ifdef __linux__
-				if (!menuFontsLoaded)
-				{
-					auto getTitleFont = std::async(std::launch::async, LoadFont, 
-												   std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/fonts/ArianaVioleta-dz2K.ttf"),
-										           250);	
-				
-					auto getMenuFont = std::async(std::launch::async, LoadFont,
-										          std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
-												  100);
-					getTitleFont.wait();
-					getMenuFont.wait();
-												  
-					titleFont = getTitleFont.get();
-					menuFont = getMenuFont.get();					 
-					
-					if (titleFont == nullptr)
-					{
-						std::cout << "Title font has not loaded" << std::endl;
-						exit(-1);
-					}
-					
-					if (menuFont == nullptr)
-					{
-						std::cout << "Menu font has not loaded" << std::endl;
-						exit(-1);
-					}
-					
-					menuFontsLoaded = true;
-				}
-				
-				if (menuTitle == nullptr)
-				{
-					menuTitle = new TextElement<	SDL_Surface, 
-													SDL_Texture, 
-													SDL_Color, 
-													TTF_Font,
-													 SDL_Renderer, 
-													 AudioPlayer<Mix_Chunk>>(	windowWidth *0.245, 
-																				windowHeight * 0.08, 
-																				titleFont, 
-																				renderer);
-				}
-				
-				if (menuContinue == nullptr)
-				{
-					menuContinue = new TextElement<	SDL_Surface, 
-													SDL_Texture, 
-													SDL_Color,
-													TTF_Font, 
-													SDL_Renderer, 
-													AudioPlayer<Mix_Chunk>>(	windowWidth *0.4, 
-																				windowHeight * 0.4, 
-																				menuFont, 
-																				renderer,
-																				"/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav");
-				}
-				
-				if (menuStart == nullptr)
-				{
-					menuStart = new TextElement<	SDL_Surface, 
-													SDL_Texture, 
-													SDL_Color, 
-													TTF_Font, 
-													SDL_Renderer, 
-													AudioPlayer<Mix_Chunk>>(	windowWidth *0.428, 
-																				windowHeight * 0.5, 
-																				menuFont, 
-																				renderer,
-																				"/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav");
-				}
-				
-				if (menuExit == nullptr)
-				{
-					menuExit = new TextElement<	SDL_Surface, 
-												SDL_Texture, 
-												SDL_Color, 
-												TTF_Font, 
-												SDL_Renderer, 
-												AudioPlayer<Mix_Chunk>>(	windowWidth *0.436, 
-																			windowHeight * 0.6, 
-																			menuFont, 
-																			renderer,
-																			"/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav");
-				}
-				
 				if (menuMusic == nullptr)
 				{
 					menuMusic = new AudioPlayer<Mix_Music>("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/music/menumusic/onceuponatime.mp3");
@@ -538,35 +309,32 @@ Game::Game()
 					menuMusic->PlayAudio(-1, 0);
 				}
 								
-				LoadMainMenu();
 				break;
 				
 			case GAMEPLAY:
 				if (!gameplayFontsLoaded)
 				{
 
-				#ifdef __APPLE__
+					#ifdef __APPLE__
 					auto getMenuFont = std::async(	std::launch::async, 
 													LoadFont, 
 													execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
 													100);
-				#endif	
+					#endif	
 
-				#ifdef _WIN64
-					auto getMenuFont = std::async(std::launch::async,
-						LoadFont,
-						"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/CfArpineDemoRegular-q2Zr2.ttf",
-						100);
-				#endif
+					#ifdef _WIN64
+					auto getMenuFont = std::async(	std::launch::async,
+													LoadFont,
+													"C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/CfArpineDemoRegular-q2Zr2.ttf",
+													100);
+					#endif
 
-				#ifdef __linux__
-					auto getMenuFont = std::async(std::launch::async,
-						LoadFont,
-						"/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/fonts/CfArpineDemoRegular-q2Zr2.ttf",
-						100);
-				#endif
-				
-				
+					#ifdef __linux__
+					auto getMenuFont = std::async(	std::launch::async,
+													LoadFont,
+													"/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/fonts/CfArpineDemoRegular-q2Zr2.ttf",
+													100);
+					#endif	
 												  
 					getMenuFont.wait();											  
 					menuFont = getMenuFont.get();
@@ -577,21 +345,21 @@ Game::Game()
 						exit(-1);
 					}
 					
-					gameplayFontsLoaded = true;
-				}
+						gameplayFontsLoaded = true;
+					}
 				
-				if (menuExit == nullptr)
-				{
-					testingGameplayText = new TextElement<	SDL_Surface, 
-															SDL_Texture, 
-															SDL_Color, 
-															TTF_Font, 
-															SDL_Renderer,
-															AudioPlayer<Mix_Chunk>>(	windowWidth *0.3, 	
-																						windowHeight * 0.15, 
-																						menuFont, 
-																						renderer);
-				}
+					if (menuExit == nullptr)
+					{
+						testingGameplayText = new TextElement<	SDL_Surface, 
+																SDL_Texture, 
+																SDL_Color, 
+																TTF_Font, 
+																SDL_Renderer,
+																AudioPlayer<Mix_Chunk>>(	windowWidth *0.3, 	
+																							windowHeight * 0.15, 
+																							menuFont, 
+																							renderer);
+					}
 					
 				LoadGameplayElements();
 				break;
@@ -599,6 +367,10 @@ Game::Game()
 			case PAUSED:
 				break;
 		}
+		player->x = mouseX;
+		player->y = mouseY;
+		player->ShowDefaultCursor(renderer);
+		
 		SDL_RenderPresent(renderer);
 		//Ending tick
 		endTick = SDL_GetTicks();
@@ -627,7 +399,102 @@ TTF_Font *Game::LoadFont(std::string urlToFont, unsigned int fontSize)
 
 void Game::LoadMainMenu()
 {
-	// Add Title
+	if (!menuFontsLoaded)
+	{
+		#ifdef __APPLE__
+		LoadMenuFonts(	execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
+						execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"));
+						
+		#endif
+		
+		#ifdef _WIN64
+		LoadMenuFonts(	std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/ArianaVioleta-dz2K.ttf"),
+						std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"));
+		#endif
+		
+		#ifdef __linux__
+		LoadMenuFonts( 	std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/fonts/ArianaVioleta-dz2K.ttf")
+						std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/fonts/CfArpineDemoRegular-q2Zr2.ttf"));
+		#endif
+		
+		menuFontsLoaded = true;
+	}
+	
+	if (menuTitle == nullptr)
+	{
+		#ifdef __APPLE__
+		menuTitle = LoadTextElement(titleFont, windowWidth, windowHeight, 0.245, 0.08);
+		#endif
+			
+		#ifdef _WIN64
+		menuTitle = LoadTextElement(titleFont, windowWidth, windowHeight, 0.245, 0.08);
+		#endif
+			
+		#ifdef __linux__
+		menuTitle = LoadTextElement(titleFont, windowWidth, windowHeight, 0.45, 0.08);
+		#endif
+
+	}
+		
+	if (menuContinue == nullptr)
+	{
+		#ifdef __APPLE__
+		menuContinue = LoadTextElement(	menuFont, execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+										windowWidth, windowHeight, 0.4, 0.4);
+		#endif
+			
+		#ifdef _WIN64
+		menuContinue = LoadTextElement(	menuFont, execpath + std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav"),
+										windowWidth, windowHeight, 0.4, 0.4);
+		#endif
+			
+		#ifdef __linux__
+		menuContinue = LoadTextElement(	menuFont, execpath + std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav"),
+										windowWidth, windowHeight, 0.4, 0.4);
+		#endif
+			
+			
+		
+	}
+		
+	if (menuStart == nullptr)
+	{
+		#ifdef __APPLE__
+		menuStart = LoadTextElement(	menuFont, execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+										windowWidth, windowHeight, 0.428, 0.5);
+		#endif
+			
+		#ifdef _WIN64
+		menuStart = LoadTextElement(	menuFont, execpath + std::string("C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav"),
+										windowWidth, windowheight, 0.428, 0.5);
+		#endif
+			
+		#ifdef __linux__
+		menuStart = LoadTextElement(	menuFont, execpath + std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav"),
+										windowWidth, windowheight, 0.428, 0.5);
+		#endif
+			
+	}
+	
+	if (menuExit == nullptr)
+	{
+		#ifdef __APPLE__
+		menuExit = LoadTextElement(	menuFont, execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+									windowWidth, windowHeight, 0.436, 0.6);
+		#endif
+			
+		#ifdef _WIN64
+		menuExit = LoadTextElement(	menuFont, execpath + std::string("/C:/Users/chris/Desktop/Rebuild_Back_Better/resources/audio/menulightup/lightup.wav"),
+									windowWidth, windowheight, 0.436, 0.6);
+		#endif
+			
+		#ifdef __linux__
+		menuExit = LoadTextElement(	menuFont, execpath + std::string("/home/vmware-ubuntu/Desktop/Rebuild_Back_Better/audio/menulightup/lightup.wav"),
+									windowWidth, windowheight, 0.436, 0.6);
+		#endif	
+			
+	}
+	
 	menuTitle->CreateTextElement("Rebuild Back Better");	
 	menuContinue->CreateTextElement("Continue", mouseX, mouseY);
 	menuContinue->isEnabled = false;
@@ -696,8 +563,13 @@ Game::~Game(){
 		delete(menuMusic);
 		menuMusic = nullptr;
 	}
+	
+	delete(player);
+	player = nullptr;
+	
 	Mix_CloseAudio();
 	TTF_Quit();
+	IMG_Quit();
 }
 
 bool Game::Initialise()
@@ -744,15 +616,40 @@ bool Game::Initialise()
 	#ifdef _WIN64
 		renderer = SDL_CreateRenderer(window, nullptr, 0);
 	#endif
-								  
-	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
-	//std::cout << "Window Width: " << windowWidth << std::endl;
-	//std::cout << "Window Height: " << windowHeight << std::endl;	
 	
-	//std::cout << execpath << std::endl;					  
+	#ifdef __linux__
+		renderer = SDL_CreateRenderer(window, nullptr, 0);
+	#endif
+								  
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);		
+	
+	int sdlImageVal = IMG_Init(IMG_INIT_PNG);
+	
+	if (sdlImageVal == 0)
+	{
+		std::cout << "Failed to initialise sdl image ";
+		std::cout << IMG_GetError() << std::endl;
+		return false;
+	}
+	
+	player = new Player<std::string, SDL_Surface, SDL_Renderer>;
+	player->LoadPlayerImages(execpath + std::string("/Contents/Resources/graphics/Player/cursor_main.png"));
+	
+	if (player->cursorImage == nullptr)
+	{
+		std::cout << "Failed to load cursor image ";
+		std::cout << IMG_GetError() << std::endl;
+	}
+	
+	int getSDLHideCursorVal = SDL_HideCursor();
+	
+	if (getSDLHideCursorVal != 0)
+	{
+		std::cout << "Failed to hide cursor";
+		std::cout << SDL_GetError() << std::endl;
+	}		  
 
     return true;
-
 }
 
 void Game::DestroyMainMenu()
@@ -789,6 +686,75 @@ void Game::LoadGameplayElements()
 	testingGameplayText->CreateTextElement("GAMEPLAY");
 }
 
+// Load using async for faster loading times
+// Read More:
+// https://stackoverflow.com/questions/30810305/confusion-about-threads-launched-by-stdasync-with-stdlaunchasync-parameter
+void Game::LoadMenuFonts(std::string path1, std::string path2)
+{
+	auto getTitleFont = std::async(	std::launch::async, LoadFont, 
+									path1,
+									150);	
+				
+	auto getMenuFont = std::async(	std::launch::async, LoadFont, 
+									path2,
+									60);
+										
+	getTitleFont.wait();
+	getMenuFont.wait();								  
+	titleFont = getTitleFont.get();
+	menuFont = getMenuFont.get();
+												 
+	if (titleFont == nullptr)
+	{
+		std::cout << "Title font has not loaded" << std::endl;
+		exit(-1);
+	}
+					
+	if (menuFont == nullptr)
+	{
+		std::cout << "Menu font has not loaded" << std::endl;
+		exit(-1);
+	}
+					
+	menuFontsLoaded = true;
+}
+
+TextElement<SDL_Surface, SDL_Texture, 
+			SDL_Color, TTF_Font, 
+			SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::LoadTextElement(	TTF_Font *font, std::string audioPath,
+																			int inputWindowWidth, 
+																			int inputWindowHeight, float posX, 
+																			float posY	)
+{
+	return new TextElement<	SDL_Surface, 
+										SDL_Texture, 
+										SDL_Color,
+										TTF_Font, 
+										SDL_Renderer, 
+										AudioPlayer<Mix_Chunk>>(	inputWindowWidth * posX, 
+															inputWindowHeight * posY, 
+															font, 
+															renderer,
+															audioPath);
+}
+
+TextElement<SDL_Surface, SDL_Texture, SDL_Color, 
+			TTF_Font, SDL_Renderer,
+			AudioPlayer<Mix_Chunk>> *Game::LoadTextElement(	TTF_Font *font, int inputWindowWidth, 
+															int inputWindowHeight, float posX, 
+															float posY	)
+{
+	return new TextElement<		SDL_Surface, 
+								SDL_Texture, 
+								SDL_Color, 
+								TTF_Font,
+								SDL_Renderer, 
+								AudioPlayer<Mix_Chunk>>(windowWidth * posX, 
+														windowHeight * posY, 
+														font, 
+														renderer);													
+}
+
 
 // Initialisation
 SDL_Window *Game::window = nullptr;
@@ -813,6 +779,7 @@ TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPl
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuContinue = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuStart = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuExit = nullptr;
+Player<std::string, SDL_Surface, SDL_Renderer> *Game::player = nullptr;
 AudioPlayer<Mix_Music> *Game::menuMusic = nullptr;
 TTF_Font *Game::menuFont = nullptr;
 TTF_Font *Game::titleFont = nullptr;
