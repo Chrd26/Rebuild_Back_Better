@@ -1,4 +1,38 @@
 #include "game.h"
+Player<std::string, SDL_Surface> *Player::cursorImage = nullptr;
+
+template<>
+bool Player<std::string, SDL_Surface>::LoadPlayerImages(std::string location)
+{
+	SDL_Surface *cursorImage = IMG_Load(location.c_str());
+	
+	if (cursorImage == nullptr)
+	{
+		return false;
+	}
+	return true;
+}
+
+template<>
+static void Player<SDL_Surface>::ShowDefaultCursor()
+{
+	SDL_Texture *defaultCursor = SDL_ConvertSurface(cursorImage, SDL_PixelFormat);
+	
+	if (defaultCursor == nullptr)
+	{
+		std::cout << "Failed to create default cursor ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	const SDL_FRect defaultCursorHolder = {	x, y, 
+											static_cast<float>(optionSurface->w), 
+											static_cast<float>(optionSurface->h)};
+											 	
+	
+	SDL_RenderTexture(renderer, defaultCursor, nullptr, &defaultCursorHolder);	
+	SDL_DestroyTexture(defaultCursor);
+}
 
 template<>
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::~TextElement()
@@ -522,8 +556,13 @@ Game::~Game(){
 		delete(menuMusic);
 		menuMusic = nullptr;
 	}
+	
+	delete(player);
+	player = nullptr;
+	
 	Mix_CloseAudio();
 	TTF_Quit();
+	IMG_Quit();
 }
 
 bool Game::Initialise()
@@ -575,7 +614,25 @@ bool Game::Initialise()
 		renderer = SDL_CreateRenderer(window, nullptr, 0);
 	#endif
 								  
-	SDL_GetWindowSize(window, &windowWidth, &windowHeight);				  
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);		
+	
+	int sdlImageVal = IMG_Init(IMG_INIT_PNG);
+	
+	if (sdlImageVal == 0)
+	{
+		std::cout << "Failed to initialise sdl image ";
+		std::cout << IMG_GetError() << std::endl;
+		return false;
+	}
+	
+	player = new Player<std::string, SDL_SURFACE>;
+	player->LoadPlayerImages("/Contents/Resources/graphics/Player/cursor_main.png");
+	
+	if (cursorImage == nullptr)
+	{
+		std::cout << "Failed to load cursor image ";
+		std::cout << IMG_GetError() << std::endl;
+	}		  
 
     return true;
 }
@@ -632,7 +689,6 @@ void Game::LoadMenuFonts(std::string path1, std::string path2)
 	titleFont = getTitleFont.get();
 	menuFont = getMenuFont.get();
 												 
-					
 	if (titleFont == nullptr)
 	{
 		std::cout << "Title font has not loaded" << std::endl;
@@ -684,12 +740,6 @@ TextElement<SDL_Surface, SDL_Texture, SDL_Color,
 														renderer);													
 }
 
-template<>
-bool Player<std::string>::LoadPlayerImages(std::string location)
-{
-	return true;
-}
-
 
 // Initialisation
 SDL_Window *Game::window = nullptr;
@@ -714,7 +764,7 @@ TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPl
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuContinue = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuStart = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuExit = nullptr;
-Player<std::string> *Game::player = nullptr;
+Player<std::string, SDL_Surface> *Game::player = nullptr;
 AudioPlayer<Mix_Music> *Game::menuMusic = nullptr;
 TTF_Font *Game::menuFont = nullptr;
 TTF_Font *Game::titleFont = nullptr;

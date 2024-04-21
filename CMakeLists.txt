@@ -107,13 +107,13 @@ file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${LEAF_IMAGE} )
 get_filename_component(FILE_PATH "${GET_REL_PATH}" DIRECTORY)
 set_property(SOURCE "${LEAF_IMAGE}" PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${FILE_PATH}")
 				
-# Add menu
+# Add Menu Music
 file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MENU_MUSIC} )
 get_filename_component(FILE_PATH "${GET_REL_PATH}" DIRECTORY)
 set_property(SOURCE "${MENU_MUSIC}" PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${FILE_PATH}")
 				
 				
-# Add menu light up to the .app bundle
+# Add menu light sfx
 file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MENU_LIGHT_UP_SOUND} )
 get_filename_component(FILE_PATH "${GET_REL_PATH}" DIRECTORY)
 set_property(SOURCE "${MENU_LIGHT_UP_SOUND}" PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${FILE_PATH}")
