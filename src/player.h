@@ -1,16 +1,13 @@
 #pragma once
 #include "gameobject.h"
 
-template<typename STRING, typename SURFACE>
+template<typename STRING, typename SURFACE, typename RENDERER>
 class Player: public Entity
 {	
-private:
-	static SURFACE *cursorImage
-
 public:
-	static bool LoadPlayerImages(STRING location);
-	static void ShowDefaultCursor();
-	static void ShowInteractableCursor();
-	static void ShowCanAttackCursor();
-	static void SetCursorPosition();
+	SURFACE *cursorImage;
+	bool LoadPlayerImages(STRING location);
+	void ShowDefaultCursor(RENDERER *renderer);
+	void ShowInteractableCursor();
+	void ShowCanAttackCursor();
 };

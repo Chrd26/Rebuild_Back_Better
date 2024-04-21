@@ -52,7 +52,7 @@ private:
 	static double endTick;
 	static double frameTime;
 	static unsigned int seconds;
-	static Player<std::string> *player;
+	static Player<std::string, SDL_Surface, SDL_Renderer> *player;
 	
 // Methods
 private:

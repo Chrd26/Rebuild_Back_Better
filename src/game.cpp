@@ -1,10 +1,9 @@
 #include "game.h"
-Player<std::string, SDL_Surface> *Player::cursorImage = nullptr;
 
 template<>
-bool Player<std::string, SDL_Surface>::LoadPlayerImages(std::string location)
+bool Player<std::string, SDL_Surface, SDL_Renderer>::LoadPlayerImages(std::string location)
 {
-	SDL_Surface *cursorImage = IMG_Load(location.c_str());
+	cursorImage = IMG_Load(location.c_str());
 	
 	if (cursorImage == nullptr)
 	{
@@ -14,24 +13,28 @@ bool Player<std::string, SDL_Surface>::LoadPlayerImages(std::string location)
 }
 
 template<>
-static void Player<SDL_Surface>::ShowDefaultCursor()
+void Player<std::string, SDL_Surface, SDL_Renderer>::ShowDefaultCursor(SDL_Renderer *renderer)
 {
-	SDL_Texture *defaultCursor = SDL_ConvertSurface(cursorImage, SDL_PixelFormat);
+	SDL_Surface *convertImage = SDL_ConvertSurface(cursorImage, cursorImage->format);
 	
-	if (defaultCursor == nullptr)
+	if (convertImage == nullptr)
 	{
 		std::cout << "Failed to create default cursor ";
 		std::cout << SDL_GetError() << std::endl;
 		exit(-1);
 	}
 	
-	const SDL_FRect defaultCursorHolder = {	x, y, 
-											static_cast<float>(optionSurface->w), 
-											static_cast<float>(optionSurface->h)};
+	SDL_Texture *defaultcursorTexture = SDL_CreateTextureFromSurface(renderer, convertImage);
+	
+	const SDL_FRect defaultCursorHolder = {	static_cast<float>(x), 
+											static_cast<float>(y), 
+											static_cast<float>(convertImage->w/50), 
+											static_cast<float>(convertImage->h/50)};
 											 	
 	
-	SDL_RenderTexture(renderer, defaultCursor, nullptr, &defaultCursorHolder);	
-	SDL_DestroyTexture(defaultCursor);
+	SDL_RenderTexture(renderer, defaultcursorTexture, nullptr, &defaultCursorHolder);	
+	SDL_DestroyTexture(defaultcursorTexture);
+	SDL_DestroySurface(convertImage);
 }
 
 template<>
@@ -364,6 +367,10 @@ Game::Game()
 			case PAUSED:
 				break;
 		}
+		player->x = mouseX;
+		player->y = mouseY;
+		player->ShowDefaultCursor(renderer);
+		
 		SDL_RenderPresent(renderer);
 		//Ending tick
 		endTick = SDL_GetTicks();
@@ -625,13 +632,21 @@ bool Game::Initialise()
 		return false;
 	}
 	
-	player = new Player<std::string, SDL_SURFACE>;
-	player->LoadPlayerImages("/Contents/Resources/graphics/Player/cursor_main.png");
+	player = new Player<std::string, SDL_Surface, SDL_Renderer>;
+	player->LoadPlayerImages(execpath + std::string("/Contents/Resources/graphics/Player/cursor_main.png"));
 	
-	if (cursorImage == nullptr)
+	if (player->cursorImage == nullptr)
 	{
 		std::cout << "Failed to load cursor image ";
 		std::cout << IMG_GetError() << std::endl;
+	}
+	
+	int getSDLHideCursorVal = SDL_HideCursor();
+	
+	if (getSDLHideCursorVal != 0)
+	{
+		std::cout << "Failed to hide cursor";
+		std::cout << SDL_GetError() << std::endl;
 	}		  
 
     return true;
@@ -764,7 +779,7 @@ TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPl
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuContinue = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuStart = nullptr;
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuExit = nullptr;
-Player<std::string, SDL_Surface> *Game::player = nullptr;
+Player<std::string, SDL_Surface, SDL_Renderer> *Game::player = nullptr;
 AudioPlayer<Mix_Music> *Game::menuMusic = nullptr;
 TTF_Font *Game::menuFont = nullptr;
 TTF_Font *Game::titleFont = nullptr;

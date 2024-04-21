@@ -16,6 +16,7 @@ public:
 	unsigned int damage;
 	unsigned int resourceLoad;
 	unsigned int level;
+	int x, y;
 };
 
 class Upgrade
