@@ -789,7 +789,9 @@ float Game::mouseX = 0;
 float Game::mouseY = 0;
 #ifdef __APPLE__
 const std::string Game::execpath = cpplocate::getBundlePath();
-#elif __WIN64__
+#elif _WIN64
+//constexpr std::string Game::execpath = cpplocate::getExecutablePath();
+#elif __linux__
 //constexpr std::string Game::execpath = cpplocate::getExecutablePath();
 #endif
 
@@ -807,4 +809,4 @@ bool Game::haveElementsLoaded = false;
 
 // Gameplay Properties
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::testingGameplayText = nullptr;
-bool Game::gameplayFontsLoaded = false;
+boolGame::gameplayFontsLoaded = false;
