@@ -73,7 +73,8 @@ file(GLOB MENU_MUSIC "audio/music/onceuponatime.mp3")
 file(GLOB DEFAULT_CURSOR "graphics/Player/cursor_main.png")
 file(GLOB ATTACK_CURSOR "graphics/Player/sword_cursor.png")
 file(GLOB ENVIROMENT_BACKGROUND "graphics/Enviroment/Game Environt Alternative Sky.jpg")
-file (GLOB LEAF_IMAGE "graphics/Interface/leaf.png")
+file(GLOB LEAF_IMAGE "graphics/Interface/leaf.png")
+file(GLOB INTERACTABLE_CURSOR "graphics/Player/interactable_cursor.png")
 
 # Create Executable
 add_executable(	${PROJECT_NAME} MACOSX_BUNDLE 
@@ -85,7 +86,12 @@ add_executable(	${PROJECT_NAME} MACOSX_BUNDLE
 				./src/audioplayer.cpp
 				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND}
 				${MENU_MUSIC} ${DEFAULT_CURSOR} ${ATTACK_CURSOR}
-				${ENVIROMENT_BACKGROUND} ${LEAF_IMAGE})
+				${ENVIROMENT_BACKGROUND} ${LEAF_IMAGE} ${INTERACTABLE_CURSOR})
+				
+#Add Interactable Cursor
+file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${INTERACTABLE_CURSOR} )
+get_filename_component(FILE_PATH "${GET_REL_PATH}" DIRECTORY)
+set_property(SOURCE "${INTERACTABLE_CURSOR}" PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${FILE_PATH}")
 				
 #Add Default Cursor
 file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${DEFAULT_CURSOR} )
