@@ -15,11 +15,11 @@ bool Player<std::string, SDL_Surface, SDL_Renderer>::LoadPlayerImages(	std::stri
 }
 
 template<>
-void Player<std::string, SDL_Surface, SDL_Renderer>::ShowCursor(SDL_Renderer *renderer, bool hovering)
+void Player<std::string, SDL_Surface, SDL_Renderer>::ShowCursor(SDL_Renderer *renderer, bool interactive)
 {
 	SDL_Surface *convertImage = nullptr;
 	int imageSizeDivisionValue = 0;
-	if (!hovering)
+	if (!interactive)
 	{
 		convertImage = SDL_ConvertSurface(defaultCursorImage, defaultCursorImage->format);
 		imageSizeDivisionValue = 50;
@@ -809,4 +809,4 @@ bool Game::haveElementsLoaded = false;
 
 // Gameplay Properties
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::testingGameplayText = nullptr;
-boolGame::gameplayFontsLoaded = false;
+bool Game::gameplayFontsLoaded = false;

@@ -8,7 +8,7 @@ public:
 	SURFACE *defaultCursorImage;
 	SURFACE *interatacbleCursorImage;
 	bool LoadPlayerImages(STRING locationImage1, STRING locationImage2);
-	void ShowCursor(RENDERER *renderer, bool hovering);
+	void ShowCursor(RENDERER *renderer, bool interactive);
 	void ShowInteractableCursor();
 	void ShowCanAttackCursor();
 };
