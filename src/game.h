@@ -10,7 +10,7 @@
 #ifdef __APPLE__
 #include <cpplocate/cpplocate.h>
 #endif
-#include "menuoptionsstructure.h"
+#include "text.h"
 #include <future>
 #include <thread>
 #include <chrono>
@@ -28,6 +28,7 @@ public:
     ~Game();
 
 // Game State
+	static int currentState
 	enum GameState
 	{
 		MAIN_MENU = 0,
@@ -39,7 +40,7 @@ public:
 private:
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
-    static bool Initialise();
+  static bool Initialise();
 	#ifdef __APPLE__
 	static const std::string execpath;
 	#endif
@@ -52,6 +53,8 @@ private:
 	static double endTick;
 	static double frameTime;
 	static unsigned int seconds;
+	static int keyPress;
+	static int second;
 	static Player<std::string, SDL_Surface, SDL_Renderer> *player;
 	
 // Methods
@@ -67,45 +70,6 @@ private:
 // Options States
 private:
 
-// Main Menu
-private:	
-	static TTF_Font *titleFont;
-	static void LoadMainMenu();
-	
-	static TTF_Font *menuFont;
-	
-	static TextElement<	SDL_Surface, SDL_Texture, 
-						SDL_Color, TTF_Font, 
-						SDL_Renderer, 
-						AudioPlayer<Mix_Chunk>> *menuTitle;
-	static TextElement<	SDL_Surface, SDL_Texture, 
-						SDL_Color, TTF_Font, SDL_Renderer, 
-						AudioPlayer<Mix_Chunk>> *menuContinue;
-	static TextElement<	SDL_Surface, SDL_Texture, 
-						SDL_Color, TTF_Font, 
-						SDL_Renderer, AudioPlayer<Mix_Chunk>> *menuStart;
-	static TextElement<	SDL_Surface, SDL_Texture, 
-						SDL_Color, TTF_Font, SDL_Renderer, 
-						AudioPlayer<Mix_Chunk>> *menuExit;
-						
-	static AudioPlayer<Mix_Music> *menuMusic;
-	static bool menuFontsLoaded;
-	static void LoadMenuFonts(	std::string path1, std::string path2);
-	static TextElement <	SDL_Surface, SDL_Texture, 
-							SDL_Color, TTF_Font, 
-							SDL_Renderer, 
-							AudioPlayer<Mix_Chunk>> *LoadTextElement(	TTF_Font *font, int inputWindowWidth, 
-																		int inputWindowHeight, float posX, 
-																		float posY	);
-										
-	static TextElement<	SDL_Surface, SDL_Texture,
-						SDL_Color, TTF_Font,
-						SDL_Renderer,
-						AudioPlayer<Mix_Chunk>> *LoadTextElement(	TTF_Font *font,	std::string audioPath,
-																	int inputWindowWidth, 
-																	int inputWindowHeight, float posX, 
-																	float posY	);
-	static bool haveElementsLoaded;
 	
 // Gameplay
 private:

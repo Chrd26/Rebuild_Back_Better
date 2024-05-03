@@ -49,34 +49,6 @@ void Player<std::string, SDL_Surface, SDL_Renderer>::ShowCursor(SDL_Renderer *re
 }
 
 template<>
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::~TextElement()
-{
-	delete(sfxPlayer);
-}
-
-template<>
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::TextElement(float inputX, float inputY,
-																		TTF_Font *inputFont, SDL_Renderer *inputRender,
-																		std::string getAudioPath): sfxPlayer {new AudioPlayer<Mix_Chunk>(getAudioPath)}
-{
-	x = inputX;
-	y = inputY;
-	font = inputFont;
-	renderer = inputRender;
-	hasSoundPlayed = false;
-}
-
-template<>
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::TextElement(float inputX, float inputY,
-																		TTF_Font *inputFont, SDL_Renderer *inputRender) : sfxPlayer {nullptr}
-{
-	x = inputX;
-	y = inputY;
-	font = inputFont;
-	renderer = inputRender;
-}
-
-template<>
 bool TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::IsMouseHovering(float inputMouseX, float inputMouseY)
 {
 	if (inputMouseX >= x && inputMouseX <= x + width)
@@ -130,133 +102,9 @@ void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, Au
 	optionTexture = nullptr;	
 }	
 
-template<>
-void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::CreateTextElement(std::string content, 
-																					        float getMouseX, 
-																					        float getMouseY)
-{
-	SDL_Color fontColor;
-	
-	if (IsMouseHovering(getMouseX, getMouseY) && isEnabled)
-	{
-		fontColor = hoverOption;
-				
-		if (!hasSoundPlayed)
-		{
-			sfxPlayer->PlayAudio(0, 0);
-			hasSoundPlayed = true;
-		}
-	}
-	else if (isEnabled)
-	{
-		fontColor = notHovered;
-		hasSoundPlayed = false;
-	}
-	else
-	{
-		fontColor = disabledOption;
-	}
-	
-	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
-											content.c_str(),
-											fontColor);
-	if (optionSurface == nullptr)
-	{
-		std::cout << "Failed to create option surface ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	SDL_Texture *optionTexture = SDL_CreateTextureFromSurface(renderer, optionSurface);
-	
-	if (optionTexture == nullptr)
-	{
-		std::cout << "Failed to create option texture ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	width = optionSurface->w;
-	height = optionSurface->h;
-	
-	const SDL_FRect optionHolder = {x, y, 
-									static_cast<float>(optionSurface->w), 
-									static_cast<float>(optionSurface->h)}; 	
-	
-	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
-	
-	SDL_DestroySurface(optionSurface);
-	optionSurface = nullptr;
-	SDL_DestroyTexture(optionTexture);
-	optionTexture = nullptr;	
-}
-
 Game::Game()
 {
-    if (!Initialise())
-    {
-        exit(-1);
-    }
-    
-    SDL_Event events;
-  
-    Uint32 mouseState;
-    int keyPress = 0;
-    const Uint8 *keyboardState;
-    bool quit = false;
-    
-    while(!quit)
-    {
-		// Beggining tick
-		startTick = SDL_GetTicks();
-		while(SDL_PollEvent(&events))
-		{
-			switch(events.type)
-			{
-				case SDL_EVENT_QUIT:
-					quit = true;
-			}
-		}	
-		
-		SDL_PumpEvents();
-		// Getting keyboard or mouse states are better for real time
-		// input detection it is also useful for keeping 
-		// keys pressed for a long time.
-		// Read more about that here: 
-		// https://discourse.libsdl.org/t/polling-events-vs-get-keyboardstate/39050/5
-		mouseState = SDL_GetMouseState(&mouseX, &mouseY);
-		keyboardState = SDL_GetKeyboardState(&keyPress);
-		
-		if (mouseState == LEFT_MOUSE_BUTTON)
-		{
-			std::cout << "Pressed Button: " << mouseState << std::endl;
-			std::cout << "Mouse X: " << mouseX << "Mouse Y: " << mouseY << std::endl;		
-		}
-		
-		if (mouseState == RIGHT_MOUSE_BUTTON)
-		{
-			std::cout << "Pressed the left button" << std::endl;
-		}
-		
-		if (frameTime >= 1)
-		{
-			std::cout << seconds++ << std::endl;
-			frameTime = 0;
-		}
-		
-		if (keyboardState[SDL_SCANCODE_F])
-		{
-			std::cout << "F button has been pressed" << std::endl;
-			std::cout << keyPress << std::endl;
-		}
-		
-		// Rendering
-		SDL_SetRenderDrawColor(renderer,
-								 0x00, 0x00,
-								 0x00, 0X00);
-		SDL_RenderClear(renderer);
-		
-		// Render stuff based on current state
+
 		switch (currentGameState)
 		{
 			case MAIN_MENU:

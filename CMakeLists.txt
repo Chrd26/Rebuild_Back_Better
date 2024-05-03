@@ -82,7 +82,7 @@ add_executable(	${PROJECT_NAME} MACOSX_BUNDLE
 				./src/game.cpp ./src/gameobject.h 
 				./src/player.h ./src/thief.h 
 				./src/gatherer.h ./src/fighter.h
-				./src/menuoptionsstructure.h ./src/audioplayer.h
+				./src/text.h ./src/audioplayer.h
 				./src/audioplayer.cpp
 				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND}
 				${MENU_MUSIC} ${DEFAULT_CURSOR} ${ATTACK_CURSOR}

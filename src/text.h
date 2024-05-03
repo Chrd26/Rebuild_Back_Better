@@ -1,8 +1,9 @@
 #pragma once
-#include <SDL3_ttf/SDL_ttf.h>
-#include <memory>
+#include <SDL3_ttf/SDL_ttf>
+#include <SDL3/SDL3>
+#include <iostream>
+#include "audioplayer"
 
-template<typename S, typename T, typename C, typename F, typename R, typename AUD>
 struct TextElement
 {	
 	float x, y;
@@ -11,13 +12,11 @@ struct TextElement
 	bool isEnabled;
 	bool hasSoundPlayed;
 	std::string content;
-	F *font;
-	R *renderer;
-	C notHovered = {0xbb, 0xbb, 0xbb};
-	C disabledOption = {0xAA, 0xAA, 0xAA};
-	C hoverOption = {0xE0, 0xAA, 0x95};
-	C titleColor = {0xE0, 0xAA, 0x95};
-	AUD *sfxPlayer;
+	TTF_Font *font;
+	SDL_Color notHovered = {0xbb, 0xbb, 0xbb};
+	SDL_Color disabledOption = {0xAA, 0xAA, 0xAA};
+	SDL_Color hoverOption = {0xE0, 0xAA, 0x95};
+	SDL_Color titleColor = {0xE0, 0xAA, 0x95};
 	
 	TextElement(float inputX, float inputY, F *inputFont, R *inputRender, std::string getAudioPath);
 	TextElement(float inputX, float inputY, F *inputFont, R *inputRender);
