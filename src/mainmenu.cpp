@@ -8,4 +8,16 @@ AudioPlayer *MainMenu::selectionSFX = nullptr;
 AudioPlayer *MainMenu::backgroundMusic = nullptr;
 bool MainMenu::haveElementsLoaded = false;
 
+MainMenu::MainMenu()
+{
+	
+}
+
+
+MainMenu::~MainMenu()
+{
+	
+}
+
+
 

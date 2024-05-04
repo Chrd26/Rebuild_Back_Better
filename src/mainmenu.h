@@ -23,4 +23,8 @@ class MainMenu
 																				int inputWindowHeight, float posX, 
 																				float posY	);
 	static bool haveElementsLoaded;
+	
+public:
+	MainMenu();
+	~MainMenu();
 };

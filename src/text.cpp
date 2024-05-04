@@ -1,8 +1,6 @@
 #include "text"
-
-template<>
-TextElement::TextElement(	float inputX, float inputY,
-													TTF_Font *inputFont, SDL_Renderer *inputRender,
+TextElement::TextElement(	float inputX, float inputY, TTF_Font *inputFont, 
+													SDL_Renderer *inputRender, 
 													std::string getAudioPath): sfxPlayer {new AudioPlayer(getAudioPath)}
 {
 	x = inputX;
@@ -11,10 +9,7 @@ TextElement::TextElement(	float inputX, float inputY,
 	renderer = inputRender;
 	hasSoundPlayed = false;
 }
-
-template<>
-TextElement::TextElement(	float inputX, float inputY,
-													TTF_Font *inputFont, 
+TextElement::TextElement(	float inputX, float inputY, TTF_Font *inputFont, 
 													SDL_Renderer *inputRender) : sfxPlayer {nullptr}
 {
 	x = inputX;
@@ -27,11 +22,7 @@ TextElement::~TextElement()
 {
 	delete(sfxPlayer);
 }
-
-template<>
-void TextElement::CreateTextElement(	std::string content, 
-																			float getMouseX, 
-																			float getMouseY)
+void TextElement::CreateTextElement(	std::string content,  float getMouseX,  float getMouseY)
 {
 	SDL_Color fontColor;
 	
@@ -83,10 +74,67 @@ void TextElement::CreateTextElement(	std::string content,
 	
 	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
 	
+	
+	if (sfxPlayer != nullptr)
+	{
+		delete(sfxPlayer);
+	}
 	SDL_DestroySurface(optionSurface);
 	optionSurface = nullptr;
 	SDL_DestroyTexture(optionTexture);
 	optionTexture = nullptr;	
 }
+
+bool TextElement::IsMouseHovering(float inputMouseX, float inputMouseY)
+{
+	if (inputMouseX >= x && inputMouseX <= x + width)
+	{
+		if (inputMouseY >= y && inputMouseY <= y + height)
+		{
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+// Non-intearctive
+void TextElement::CreateTextElement(std::string content)
+{
+	SDL_Color fontColor;
+	
+	fontColor = titleColor;
+
+	SDL_Surface *optionSurface = TTF_RenderText_Solid(font, content.c_str(), fontColor);
+	if (optionSurface == nullptr)
+	{
+		std::cout << "Failed to create option surface ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	SDL_Texture *optionTexture = SDL_CreateTextureFromSurface(renderer, optionSurface);
+	
+	if (optionTexture == nullptr)
+	{
+		std::cout << "Failed to create option texture ";
+		std::cout << SDL_GetError() << std::endl;
+		exit(-1);
+	}
+	
+	width = optionSurface->w;
+	height = optionSurface->h;
+	
+	const SDL_FRect optionHolder = {x, y, 
+									static_cast<float>(optionSurface->w), 
+									static_cast<float>(optionSurface->h)}; 	
+	
+	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
+	
+	SDL_DestroySurface(optionSurface);
+	optionSurface = nullptr;
+	SDL_DestroyTexture(optionTexture);
+	optionTexture = nullptr;	
+}	
 
 

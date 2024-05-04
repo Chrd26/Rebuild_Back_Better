@@ -1,5 +1,6 @@
 #pragma once
 #include "gameobject.h"
+#include <SDL3/SDL.h>
 
 template<typename STRING, typename SURFACE, typename RENDERER>
 class Player: public Entity

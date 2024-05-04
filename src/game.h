@@ -56,26 +56,6 @@ private:
 	static int keyPress;
 	static int second;
 	static Player<std::string, SDL_Surface, SDL_Renderer> *player;
-	
-// Methods
-private:
-    static TTF_Font* LoadFont(std::string urlToFont, 
-							 unsigned int fontSize);
-	static void DestroyMainMenu();
-
-// OS specific Stuff
-private:
-
-
-// Options States
-private:
-
-	
-// Gameplay
-private:
-	static void LoadGameplayElements();
-	static TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *testingGameplayText;
-	static bool gameplayFontsLoaded;
 };
 
 // Cool stuff to read about timestep and time for physics and timers

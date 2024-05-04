@@ -1,107 +1,5 @@
 #include "game.h"
 
-template<>
-bool Player<std::string, SDL_Surface, SDL_Renderer>::LoadPlayerImages(	std::string locationImage1, 
-																																				std::string locationImage2)
-{
-	defaultCursorImage = IMG_Load(locationImage1.c_str());
-	interatacbleCursorImage = IMG_Load(locationImage2.c_str());
-	
-	if (defaultCursorImage == nullptr || interatacbleCursorImage == nullptr)
-	{
-		return false;
-	}
-	return true;
-}
-
-template<>
-void Player<std::string, SDL_Surface, SDL_Renderer>::ShowCursor(SDL_Renderer *renderer, bool interactive)
-{
-	SDL_Surface *convertImage = nullptr;
-	int imageSizeDivisionValue = 0;
-	if (!interactive)
-	{
-		convertImage = SDL_ConvertSurface(defaultCursorImage, defaultCursorImage->format);
-		imageSizeDivisionValue = 50;
-	}else
-	{
-		convertImage = SDL_ConvertSurface(interatacbleCursorImage, defaultCursorImage->format);
-		imageSizeDivisionValue = 40;
-	}
-	if (convertImage == nullptr)
-	{
-		std::cout << "Failed to create default cursor ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	SDL_Texture *defaultCursorTexture = SDL_CreateTextureFromSurface(renderer, convertImage);
-	
-	const SDL_FRect defaultCursorHolder = {	static_cast<float>(x), 
-											static_cast<float>(y), 
-											static_cast<float>(convertImage->w/imageSizeDivisionValue), 
-											static_cast<float>(convertImage->h/imageSizeDivisionValue)};
-											 	
-	
-	SDL_RenderTexture(renderer, defaultCursorTexture, nullptr, &defaultCursorHolder);	
-	SDL_DestroyTexture(defaultCursorTexture);
-	SDL_DestroySurface(convertImage);
-}
-
-template<>
-bool TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::IsMouseHovering(float inputMouseX, float inputMouseY)
-{
-	if (inputMouseX >= x && inputMouseX <= x + width)
-	{
-		if (inputMouseY >= y && inputMouseY <= y + height)
-		{
-			return true;
-		}
-	}
-	
-	return false;
-}
-
-// Non-intearctive
-template<>
-void TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>>::CreateTextElement(std::string content)
-{
-	SDL_Color fontColor;
-	
-	fontColor = titleColor;
-
-	SDL_Surface *optionSurface = TTF_RenderText_Solid(font, content.c_str(), fontColor);
-	if (optionSurface == nullptr)
-	{
-		std::cout << "Failed to create option surface ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	SDL_Texture *optionTexture = SDL_CreateTextureFromSurface(renderer, optionSurface);
-	
-	if (optionTexture == nullptr)
-	{
-		std::cout << "Failed to create option texture ";
-		std::cout << SDL_GetError() << std::endl;
-		exit(-1);
-	}
-	
-	width = optionSurface->w;
-	height = optionSurface->h;
-	
-	const SDL_FRect optionHolder = {x, y, 
-									static_cast<float>(optionSurface->w), 
-									static_cast<float>(optionSurface->h)}; 	
-	
-	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
-	
-	SDL_DestroySurface(optionSurface);
-	optionSurface = nullptr;
-	SDL_DestroyTexture(optionTexture);
-	optionTexture = nullptr;	
-}	
-
 Game::Game()
 {
 
@@ -521,19 +419,7 @@ bool Game::Initialise()
 
 void Game::DestroyMainMenu()
 {
-	currentGameState = GAMEPLAY;
-	TTF_CloseFont(titleFont);
-	TTF_CloseFont(menuFont);
-	delete(menuTitle);
-	menuTitle = nullptr;
-	delete(menuStart);
-	menuStart = nullptr;
-	delete(menuContinue);
-	menuContinue = nullptr;
-	delete(menuExit);
-	menuExit = nullptr;
-	menuFontsLoaded = false;
-	haveElementsLoaded = false;
+	// Fade out music and destroy menu
 	
 	std::thread t2(menuMusic->StopAudio, 500);
 
@@ -546,11 +432,6 @@ void Game::DestroyMainMenu()
 
 	menuMusic->plays = false;
 	
-}
-
-void Game::LoadGameplayElements()
-{
-	testingGameplayText->CreateTextElement("GAMEPLAY");
 }
 
 // Load using async for faster loading times
@@ -650,11 +531,3 @@ TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPl
 TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::menuExit = nullptr;
 Player<std::string, SDL_Surface, SDL_Renderer> *Game::player = nullptr;
 AudioPlayer<Mix_Music> *Game::menuMusic = nullptr;
-TTF_Font *Game::menuFont = nullptr;
-TTF_Font *Game::titleFont = nullptr;
-bool Game::menuFontsLoaded = false;
-bool Game::haveElementsLoaded = false;
-
-// Gameplay Properties
-TextElement<SDL_Surface, SDL_Texture, SDL_Color, TTF_Font, SDL_Renderer, AudioPlayer<Mix_Chunk>> *Game::testingGameplayText = nullptr;
-bool Game::gameplayFontsLoaded = false;

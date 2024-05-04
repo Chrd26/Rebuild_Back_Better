@@ -1,6 +1,6 @@
 #pragma once
-#include <SDL3_ttf/SDL_ttf>
-#include <SDL3/SDL3>
+#include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3/SDL3.h>
 #include <iostream>
 #include "audioplayer"
 
