@@ -1,4 +1,6 @@
+#pragma once
 #include "text.h"
+#include "audioplayer.h"
 
 class MainMenu
 {	

@@ -1,16 +1,12 @@
 #include <SDL3/SDL.h>
 #include "player.h"
-#include "thief.h"
-#include "gatherer.h"
-#include "fighter.h"
-#include "audioplayer.h"
+#include "mainmenu.h"
 #include <iostream>
 #include <string>
 #include <cerrno>
 #ifdef __APPLE__
 #include <cpplocate/cpplocate.h>
 #endif
-#include "text.h"
 #include <future>
 #include <thread>
 #include <chrono>
