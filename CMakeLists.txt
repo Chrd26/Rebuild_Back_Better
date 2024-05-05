@@ -80,7 +80,7 @@ file(GLOB INTERACTABLE_CURSOR "graphics/Player/interactable_cursor.png")
 add_executable(	${PROJECT_NAME} MACOSX_BUNDLE 
 				./src/main.cpp ./src/audioplayer.h ./src/audioplayer.cpp ./src/fighter.h
 				./src/game.h ./src/game.cpp ./src/gameobject.h ./src/gatherer.h ./src/main.cpp
-				./src/mainmenu.h ./src/mainmenu.h ./src/player.h ./src/player.cpp ./src/text.h
+				./src/mainmenu.h ./src/mainmenu.cpp ./src/player.h ./src/player.cpp ./src/text.h
 				./src/text.cpp ./src/text.h ./src/thief.h
 				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND}
 				${MENU_MUSIC} ${DEFAULT_CURSOR} ${ATTACK_CURSOR}

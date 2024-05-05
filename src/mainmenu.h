@@ -14,8 +14,10 @@ class MainMenu
 	static TextElement *menuStart;
 	static TextElement *menuExit;
 
-	static AudioPlayer<Mix_Music> *backgroundMusic;
+	static AudioPlayer<Mix_Music> *menuMusic;
 	static AudioPlayer<Mix_Chunk> *selectionSFX;
+	
+	static SDL_Renderer *renderer;
 	
 	static TextElement *LoadTextElement(	TTF_Font *font, int inputWindowWidth, 
 																				int inputWindowHeight, float posX, 
@@ -27,11 +29,13 @@ class MainMenu
 																				float posY	);
 																				
 	static TTF_Font *LoadFont(std::string urlToFont, unsigned int fontSize);
+	static void DisplayMainMenu(float mX, float mY);
 	static void DestroyMainMenu();
 	static void DisplayMainMenu();
 	static bool hasMenuLoaded;
 	
 public:
-	MainMenu(std::string path1, std::string path2);
+	MainMenu(	std::string &font1Path, std::string &font2Path, 
+						std::string &sfxPath, int width, int height, SDL_Renderer *inputRenderer);
 	~MainMenu();
 };

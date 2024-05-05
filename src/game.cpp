@@ -108,7 +108,7 @@ int Game::second = 0;
 MainMenu *Game::mainmenu = nullptr;
 bool Game::loadedMenu = false;
 #ifdef __APPLE__
-const std::string Game::getBundlePath = cpplocate::getBundlePath();
+const std::string Game::execpath = cpplocate::getBundlePath();
 #elif _WIN64
 //constexpr std::string Game::execpath = cpplocate::getExecutablePath();
 #elif __linux__

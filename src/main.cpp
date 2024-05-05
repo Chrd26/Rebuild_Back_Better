@@ -71,10 +71,12 @@ int main()
 			case MAIN_MENU:
 				if (!Game::loadedMenu)
 				{
-					Game::mainmenu = new MainMenu(	Game::execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
-																					Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
-																					Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
-																					windowWidth, windowHeight);
+					std::string generateFont1Path = Game::execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf");
+					std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
+					std::string generateSFXPath = Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav");
+					
+					Game::mainmenu = new MainMenu(	generateFont1Path, generateFont2Path, generateSFXPath,
+																					Game::windowWidth, Game::windowHeight, Game::renderer);
 					Game::loadedMenu = true;
 				}
 				

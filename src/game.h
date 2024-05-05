@@ -28,7 +28,7 @@ public:
 	static int currentState;
 
 // Game Initialisation
-private:
+public:
 	#ifdef __APPLE__
 	static const std::string execpath;
 	#endif
@@ -49,7 +49,7 @@ public:
 	static Player *player;
 	
 // Main Menu
-private:
+public:
 	static bool loadedMenu;
 	static MainMenu *mainmenu;
 };

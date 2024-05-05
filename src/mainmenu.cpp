@@ -4,21 +4,20 @@ TextElement *MainMenu::menuTitle = nullptr;
 TextElement *MainMenu::menuContinue = nullptr;
 TextElement *MainMenu::menuStart = nullptr;
 TextElement *MainMenu::menuExit = nullptr;
-AudioPlayer *MainMenu::selectionSFX = nullptr;
-AudioPlayer *MainMenu::backgroundMusic = nullptr;
+AudioPlayer<Mix_Chunk> *MainMenu::selectionSFX = nullptr;
+AudioPlayer<Mix_Music> *MainMenu::menuMusic = nullptr;
 TTF_Font *MainMenu::titleFont = nullptr;
 TTF_Font *MainMenu::menuFont = nullptr;
 bool MainMenu::hasMenuLoaded = false;
-std::string MainMenu::font1Location;
-std::string MainMenu::font2Location;
+SDL_Renderer *MainMenu::renderer = nullptr;
 
-MainMenu::MainMenu(	std::string font1Path, std::string font2Path, 
-										std::string sfxPath, int width, int height)
+MainMenu::MainMenu(	std::string &font1Path, std::string &font2Path, 
+										std::string &sfxPath, int width, int height, SDL_Renderer *inputRenderer)
 {
 	// Load Main Menu elements
-	
-	auto getTitlefont = std::async(std::launch::async, LoadFont, path1, 150);
-	auto getMenuFont = std::async(std::launch::async, LoadFont, path2, 60);
+	renderer = inputRenderer;
+	auto getTitlefont = std::async(std::launch::async, LoadFont, font1Path, 150);
+	auto getMenuFont = std::async(std::launch::async, LoadFont, font2Path, 60);
 	
 	getTitlefont.wait();
 	getMenuFont.wait();
@@ -31,14 +30,10 @@ MainMenu::MainMenu(	std::string font1Path, std::string font2Path,
 		exit(-1);
 	}
 	
-	menuTitle = LoadTextElement(menuFont, windowWidth, windowHeight, 0.245, 0.08);
-	menuContinue = LoadTextElement(	titleFont, sfxPath, windowWidth, 
-																	windowHeight, 0.4, 0.4);
-	menuStart = LoadTextElement(	titleFont, sfxPath, windowWidth, windowHeight,
-																0.428, 0.5);
-	menuExit = LoadTextElement(	menuFont, sfxPath, windowWidth, windowHeight,
-															0.436, 0.6);
-	
+	menuTitle = LoadTextElement(menuFont, width, height, 0.245, 0.08);
+	menuContinue = LoadTextElement(	titleFont, sfxPath, width, height, 0.4, 0.4);
+	menuStart = LoadTextElement(	titleFont, sfxPath, width, height, 0.428, 0.5);
+	menuExit = LoadTextElement(	menuFont, sfxPath, width, height, 0.436, 0.6);
 	menuContinue->isEnabled = false;
 	menuStart->isEnabled = true;
 	menuExit->isEnabled = true;
@@ -54,6 +49,7 @@ MainMenu::~MainMenu()
 	
 	TTF_CloseFont(titleFont);
 	TTF_CloseFont(menuFont);
+	SDL_DestroyRenderer(renderer);
 }
 
 TTF_Font *MainMenu::LoadFont(std::string urlToFont, unsigned int fontSize)
@@ -68,7 +64,7 @@ TTF_Font *MainMenu::LoadFont(std::string urlToFont, unsigned int fontSize)
 	return font;
 }
 
-void MainMenu::DisplayMainMenu(mX, mY)
+void MainMenu::DisplayMainMenu(float mX, float mY)
 {
 	menuTitle->CreateTextElement("Rebuild Back Better");	
 	menuContinue->CreateTextElement("Continue", mX, mY);
@@ -79,17 +75,17 @@ void MainMenu::DisplayMainMenu(mX, mY)
 	menuExit->isEnabled = true;	
 }
 
-TextElement	*Game::LoadTextElement(	TTF_Font *font, std::string audioPath,	int inputWindowWidth, 
+TextElement	*MainMenu::LoadTextElement(	TTF_Font *font, std::string audioPath,	int inputWindowWidth, 
 																		int inputWindowHeight, float posX, float posY)
 {
 	return new TextElement(	inputWindowWidth * posX, inputWindowHeight * posY, font, 
 													renderer, audioPath);
 }
 
-TextElement *Game::LoadTextElement(	TTF_Font *font, int inputWindowWidth, int inputWindowHeight, 
-									float posX, float posY	)
+TextElement *MainMenu::LoadTextElement(	TTF_Font *font, int inputWindowWidth, int inputWindowHeight, 
+																				float posX, float posY	)
 {
-	return new TextElement(windowWidth * posX, windowHeight * posY, font, renderer);													
+	return new TextElement(inputWindowWidth * posX, inputWindowHeight * posY, font, renderer);													
 }
 
 void MainMenu::DestroyMainMenu()
