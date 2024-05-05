@@ -47,6 +47,11 @@ public:
 	static int keyPress;
 	static int second;
 	static Player *player;
+	
+// Main Menu
+private:
+	static bool loadedMenu;
+	static MainMenu *mainmenu;
 };
 
 // Cool stuff to read about timestep and time for physics and timers

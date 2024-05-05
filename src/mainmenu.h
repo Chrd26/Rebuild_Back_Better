@@ -3,6 +3,7 @@
 #include "audioplayer.h"
 #include <future>
 #include <SDL3_image/SDL_image.h>
+#include <cpplocate/cpplocate.h>
 
 class MainMenu
 {	
@@ -12,7 +13,6 @@ class MainMenu
 	static TextElement *menuContinue;
 	static TextElement *menuStart;
 	static TextElement *menuExit;
-	
 
 	static AudioPlayer<Mix_Music> *backgroundMusic;
 	static AudioPlayer<Mix_Chunk> *selectionSFX;
@@ -32,6 +32,6 @@ class MainMenu
 	static bool hasMenuLoaded;
 	
 public:
-	MainMenu();
+	MainMenu(std::string path1, std::string path2);
 	~MainMenu();
 };

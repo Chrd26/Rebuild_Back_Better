@@ -69,6 +69,15 @@ int main()
 		switch(Game::currentGameState)
 		{
 			case MAIN_MENU:
+				if (!Game::loadedMenu)
+				{
+					Game::mainmenu = new MainMenu(	Game::execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf"),
+																					Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf"),
+																					Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav"),
+																					windowWidth, windowHeight);
+					Game::loadedMenu = true;
+				}
+				
 				break;
 			
 			case GAMEPLAY:

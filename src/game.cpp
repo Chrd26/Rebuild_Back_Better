@@ -85,8 +85,10 @@ bool Game::Initialise()
 		std::cout << SDL_GetError() << std::endl;
 		return false;
 	}		  
+	
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 
-    return true;
+  return true;
 }
 
 // Initialisation
@@ -103,8 +105,10 @@ float Game::mouseY = 0;
 int Game::currentGameState = 0;
 Player *Game::player = nullptr;
 int Game::second = 0;
+MainMenu *Game::mainmenu = nullptr;
+bool Game::loadedMenu = false;
 #ifdef __APPLE__
-const std::string Game::execpath = cpplocate::getBundlePath();
+const std::string Game::getBundlePath = cpplocate::getBundlePath();
 #elif _WIN64
 //constexpr std::string Game::execpath = cpplocate::getExecutablePath();
 #elif __linux__

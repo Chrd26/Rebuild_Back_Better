@@ -9,8 +9,11 @@ AudioPlayer *MainMenu::backgroundMusic = nullptr;
 TTF_Font *MainMenu::titleFont = nullptr;
 TTF_Font *MainMenu::menuFont = nullptr;
 bool MainMenu::hasMenuLoaded = false;
+std::string MainMenu::font1Location;
+std::string MainMenu::font2Location;
 
-MainMenu::MainMenu(std::string path1, std::String path2)
+MainMenu::MainMenu(	std::string font1Path, std::string font2Path, 
+										std::string sfxPath, int width, int height)
 {
 	// Load Main Menu elements
 	
@@ -28,12 +31,29 @@ MainMenu::MainMenu(std::string path1, std::String path2)
 		exit(-1);
 	}
 	
+	menuTitle = LoadTextElement(menuFont, windowWidth, windowHeight, 0.245, 0.08);
+	menuContinue = LoadTextElement(	titleFont, sfxPath, windowWidth, 
+																	windowHeight, 0.4, 0.4);
+	menuStart = LoadTextElement(	titleFont, sfxPath, windowWidth, windowHeight,
+																0.428, 0.5);
+	menuExit = LoadTextElement(	menuFont, sfxPath, windowWidth, windowHeight,
+															0.436, 0.6);
 	
+	menuContinue->isEnabled = false;
+	menuStart->isEnabled = true;
+	menuExit->isEnabled = true;
 }
 
 MainMenu::~MainMenu()
 {
 	// Destroy all
+	delete(menuContinue);
+	delete(menuExit);
+	delete(menuStart);
+	delete(menuTitle);
+	
+	TTF_CloseFont(titleFont);
+	TTF_CloseFont(menuFont);
 }
 
 TTF_Font *MainMenu::LoadFont(std::string urlToFont, unsigned int fontSize)
