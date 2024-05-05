@@ -1,7 +1,8 @@
-#include "text"
+#include "text.h"
+
 TextElement::TextElement(	float inputX, float inputY, TTF_Font *inputFont, 
 													SDL_Renderer *inputRender, 
-													std::string getAudioPath): sfxPlayer {new AudioPlayer(getAudioPath)}
+													std::string getAudioPath): sfxPlayer {new AudioPlayer<Mix_Chunk>(getAudioPath)}
 {
 	x = inputX;
 	y = inputY;
@@ -22,6 +23,7 @@ TextElement::~TextElement()
 {
 	delete(sfxPlayer);
 }
+
 void TextElement::CreateTextElement(	std::string content,  float getMouseX,  float getMouseY)
 {
 	SDL_Color fontColor;

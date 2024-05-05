@@ -2,13 +2,6 @@
 #pragma once
 #include <SDL3_image/SDL_image.h>
 
-
-// When using template classes, it is also important to
-// add a template typename when a class inherits the template class
-// template<typename P>
-// class Player: public Entity<P> 
-
-
 class Entity
 {
 public:

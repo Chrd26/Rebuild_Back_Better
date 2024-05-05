@@ -1,3 +1,4 @@
+#pragma once
 #include <SDL3_mixer/SDL_mixer.h>
 #include <string>
 #include <iostream>
@@ -6,6 +7,7 @@
 #include <thread>
 // Read more on audio
 // https://wiki.libsdl.org/SDL3_mixer/CategoryAPI
+template<typename T>
 class AudioPlayer
 {
 	T* 	audioFile;

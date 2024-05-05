@@ -1,15 +1,16 @@
 #pragma once
 #include "gameobject.h"
 #include <SDL3/SDL.h>
+#include <string>
+#include <iostream>
 
-template<typename STRING, typename SURFACE, typename RENDERER>
 class Player: public Entity
 {	
 public:
-	SURFACE *defaultCursorImage;
-	SURFACE *interatacbleCursorImage;
-	bool LoadPlayerImages(STRING locationImage1, STRING locationImage2);
-	void ShowCursor(RENDERER *renderer, bool interactive);
+	SDL_Surface *defaultCursorImage;
+	SDL_Surface *interatacbleCursorImage;
+	bool LoadPlayerImages(std::string locationImage1, std::string locationImage2);
+	void ShowCursor(SDL_Renderer *renderer, bool interactive);
 	void ShowInteractableCursor();
 	void ShowCanAttackCursor();
 };

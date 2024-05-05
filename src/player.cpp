@@ -1,6 +1,5 @@
 #include "player.h"
 
-template<>
 bool Player::LoadPlayerImages(std::string locationImage1, std::string locationImage2)
 {
 	defaultCursorImage = IMG_Load(locationImage1.c_str());
@@ -13,7 +12,6 @@ bool Player::LoadPlayerImages(std::string locationImage1, std::string locationIm
 	return true;
 }
 
-template<>
 void Player::ShowCursor(SDL_Renderer *renderer, bool interactive)
 {
 	SDL_Surface *convertImage = nullptr;

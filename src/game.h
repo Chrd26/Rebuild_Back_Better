@@ -24,25 +24,20 @@ public:
     ~Game();
 
 // Game State
-	static int currentState
-	enum GameState
-	{
-		MAIN_MENU = 0,
-		GAMEPLAY,
-		PAUSED
-	};
+public:
+	static int currentState;
 
 // Game Initialisation
 private:
-	static SDL_Window *window;
-	static SDL_Renderer *renderer;
-  static bool Initialise();
 	#ifdef __APPLE__
 	static const std::string execpath;
 	#endif
 	
 // Basic Components
-private:
+public:
+	static SDL_Window *window;
+	static SDL_Renderer *renderer;
+  static bool Initialise();
 	static float mouseX, mouseY;
 	static int currentGameState, windowWidth, windowHeight;
 	static double startTick;
@@ -51,7 +46,7 @@ private:
 	static unsigned int seconds;
 	static int keyPress;
 	static int second;
-	static Player<std::string, SDL_Surface, SDL_Renderer> *player;
+	static Player *player;
 };
 
 // Cool stuff to read about timestep and time for physics and timers
