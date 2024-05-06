@@ -1,4 +1,6 @@
 #include "game.h"
+#include <thread>
+#include <chrono>
 
 enum GameState
 {
@@ -9,7 +11,6 @@ enum GameState
 
 int main()
 {
-  std::cout << "Initialise" << std::endl;
   if (!Game::Initialise())
   {
 		exit(EXIT_FAILURE);
@@ -34,6 +35,39 @@ int main()
 			{
 				case SDL_EVENT_QUIT:
 					quit = true;
+					break;
+				case SDL_EVENT_MOUSE_BUTTON_UP:
+					if (mouseState == LEFT_MOUSE_BUTTON)
+					{
+						if (Game::mainmenu->menuContinue->isHovering && Game::mainmenu->menuContinue->isEnabled)
+						{
+							std::cout << "Continue Game" << std::endl;
+							break;
+						}
+						
+						if (Game::mainmenu->menuStart->isHovering)
+						{	
+							std::thread t1(Game::mainmenu->menuMusic->StopAudio, 1000);
+							std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+							
+							if (t1.joinable())
+							{
+								t1.join();
+							}
+							
+							delete(Game::mainmenu);
+							Game::currentGameState = GAMEPLAY;
+							
+							break;
+						}
+						
+						if (Game::mainmenu->menuExit->isHovering)
+						{
+							quit = true;
+							break;
+						}
+					}
+					break;
 			}			
 		}
 		
@@ -100,9 +134,17 @@ int main()
 		Game::player->x = Game::mouseX;
 		Game::player->y = Game::mouseY;
 		
-		bool hovering = Game::HoveringStatus(	Game::mainmenu->menuStart->isHovering,
-																					Game::mainmenu->menuContinue->isEnabled && Game::mainmenu->menuContinue->isHovering,
-																					Game::mainmenu->menuExit->isHovering);
+		
+		bool hovering = false;
+		
+		
+		if (Game::mainmenu != nullptr)
+		{
+			
+			hovering = Game::HoveringStatus(	Game::mainmenu->menuStart->isHovering,
+																				Game::mainmenu->menuContinue->isEnabled && Game::mainmenu->menuContinue->isHovering,
+																				Game::mainmenu->menuExit->isHovering);																		
+		}
 		
 		if (hovering)
 		{

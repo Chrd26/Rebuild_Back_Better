@@ -45,6 +45,7 @@ MainMenu::MainMenu(	std::string &font1Path, std::string &font2Path,
 MainMenu::~MainMenu()
 {
 	// Destroy all
+	
 	delete(menuContinue);
 	delete(menuExit);
 	delete(menuStart);
@@ -54,7 +55,6 @@ MainMenu::~MainMenu()
 	
 	TTF_CloseFont(titleFont);
 	TTF_CloseFont(menuFont);
-	SDL_DestroyRenderer(renderer);
 }
 
 TTF_Font *MainMenu::LoadFont(std::string urlToFont, unsigned int fontSize)
@@ -88,23 +88,6 @@ TextElement *MainMenu::LoadTextElement(	TTF_Font *font, int inputWindowWidth, in
 																				float posX, float posY	)
 {
 	return new TextElement(inputWindowWidth * posX, inputWindowHeight * posY, font, renderer);													
-}
-
-void MainMenu::DestroyMainMenu()
-{
-	// Fade out music and destroy menu
-	
-	std::thread t2(menuMusic->StopAudio, 500);
-
-	std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
-	if (t2.joinable())
-	{
-		t2.join();
-	}
-
-	menuMusic->plays = false;
-	
 }
 
 

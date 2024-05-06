@@ -16,9 +16,11 @@ public:
 	static TextElement *menuStart;
 	static TextElement *menuExit;
 
-private:
+public:
 	static AudioPlayer<Mix_Music> *menuMusic;
 	static AudioPlayer<Mix_Chunk> *selectionSFX;
+	
+private:
 	
 	static SDL_Renderer *renderer;
 	
@@ -32,7 +34,6 @@ private:
 																				float posY	);
 																				
 	static TTF_Font *LoadFont(std::string urlToFont, unsigned int fontSize);
-	static void DestroyMainMenu();
 	static bool hasMenuLoaded;
 	
 public:

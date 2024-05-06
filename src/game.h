@@ -22,11 +22,6 @@ class Game
 public:
     Game();
     ~Game();
-
-// Game State
-public:
-	static int currentState;
-
 // Game Initialisation
 public:
 	#ifdef __APPLE__
