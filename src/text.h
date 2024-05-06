@@ -11,6 +11,7 @@ struct TextElement
 	float width, height;
 	bool isEnabled;
 	bool hasSoundPlayed;
+	bool isHovering;
 	std::string content;
 	SDL_Renderer *renderer;
 	AudioPlayer<Mix_Chunk> *sfxPlayer;

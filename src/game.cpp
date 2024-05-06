@@ -1,5 +1,27 @@
 #include "game.h"
 
+bool Game::HoveringStatus(	bool startHovering, 
+														bool continueHovering,
+														bool exitHovering)
+{
+	if (startHovering)
+	{
+		return true;
+	}
+	
+	if (continueHovering)
+	{
+		return true;
+	}
+	
+	if (exitHovering)
+	{
+		return true;
+	}
+	
+	return false;
+}
+
 Game::~Game(){
 	Mix_CloseAudio();
 	TTF_Quit();

@@ -24,11 +24,12 @@ TextElement::~TextElement()
 	delete(sfxPlayer);
 }
 
-void TextElement::CreateTextElement(	std::string content,  float getMouseX,  float getMouseY)
+void TextElement::CreateTextElement(std::string content,  float getMouseX,  float getMouseY)
 {
 	SDL_Color fontColor;
+	isHovering = IsMouseHovering(getMouseX, getMouseY);
 	
-	if (IsMouseHovering(getMouseX, getMouseY) && isEnabled)
+	if (isHovering && isEnabled)
 	{
 		fontColor = hoverOption;
 				
@@ -51,6 +52,7 @@ void TextElement::CreateTextElement(	std::string content,  float getMouseX,  flo
 	SDL_Surface *optionSurface = TTF_RenderText_Solid(font,
 											content.c_str(),
 											fontColor);
+	
 	if (optionSurface == nullptr)
 	{
 		std::cout << "Failed to create option surface ";
@@ -76,11 +78,6 @@ void TextElement::CreateTextElement(	std::string content,  float getMouseX,  flo
 	
 	SDL_RenderTexture(renderer, optionTexture, nullptr, &optionHolder);		
 	
-	
-	if (sfxPlayer != nullptr)
-	{
-		delete(sfxPlayer);
-	}
 	SDL_DestroySurface(optionSurface);
 	optionSurface = nullptr;
 	SDL_DestroyTexture(optionTexture);

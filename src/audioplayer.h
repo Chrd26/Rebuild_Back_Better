@@ -14,7 +14,7 @@ class AudioPlayer
 	static int result;
 	
 public:
-	AudioPlayer(std::string fileLocation);
+	AudioPlayer(std::string &fileLocation);
 	~AudioPlayer();
 	void PlayAudio(int loops, int fadeInTime);
 	static void StopAudio(int timeToFadeOut);

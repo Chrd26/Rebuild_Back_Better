@@ -9,7 +9,7 @@ enum GameState
 
 int main()
 {
-    
+  std::cout << "Initialise" << std::endl;
   if (!Game::Initialise())
   {
 		exit(EXIT_FAILURE);
@@ -24,6 +24,10 @@ int main()
 	while(!quit)
 	{
 		Game::startTick = SDL_GetTicks();
+		
+		SDL_SetRenderDrawColor(Game::renderer, 0x00, 0x00, 0x00, 0X00);
+		SDL_RenderClear(Game::renderer);
+		
 		while(SDL_PollEvent(&events))
 		{
 			switch(events.type)
@@ -74,11 +78,15 @@ int main()
 					std::string generateFont1Path = Game::execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf");
 					std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
 					std::string generateSFXPath = Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav");
+					std::string generateMenuMusicPath = Game::execpath + std::string("/Contents/Resources/audio/music/onceuponatime.mp3");
 					
 					Game::mainmenu = new MainMenu(	generateFont1Path, generateFont2Path, generateSFXPath,
-																					Game::windowWidth, Game::windowHeight, Game::renderer);
+																					generateMenuMusicPath, Game::windowWidth, 
+																					Game::windowHeight, Game::renderer);
 					Game::loadedMenu = true;
 				}
+				
+				Game::mainmenu->DisplayMainMenu(Game::mouseX, Game::mouseY);
 				
 				break;
 			
@@ -89,9 +97,22 @@ int main()
 				break;
 		}
 		
-		SDL_SetRenderDrawColor(Game::renderer, 0x00, 0x00, 0x00, 0X00);
-		SDL_RenderClear(Game::renderer);
+		Game::player->x = Game::mouseX;
+		Game::player->y = Game::mouseY;
 		
+		bool hovering = Game::HoveringStatus(	Game::mainmenu->menuStart->isHovering,
+																					Game::mainmenu->menuContinue->isEnabled && Game::mainmenu->menuContinue->isHovering,
+																					Game::mainmenu->menuExit->isHovering);
+		
+		if (hovering)
+		{
+			Game::player->ShowCursor(Game::renderer, true);
+		}else
+		{
+			Game::player->ShowCursor(Game::renderer, false);
+		}
+		
+		SDL_RenderPresent(Game::renderer);
 		Game::endTick = SDL_GetTicks();
 		Game::frameTime += (Game::endTick - Game::startTick)/1000;
 	}

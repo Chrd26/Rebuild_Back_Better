@@ -52,6 +52,9 @@ public:
 public:
 	static bool loadedMenu;
 	static MainMenu *mainmenu;
+	static bool HoveringStatus(	bool startHovering, 
+															bool continueHovering,
+															bool exitHovering);
 };
 
 // Cool stuff to read about timestep and time for physics and timers

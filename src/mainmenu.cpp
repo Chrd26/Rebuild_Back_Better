@@ -12,12 +12,14 @@ bool MainMenu::hasMenuLoaded = false;
 SDL_Renderer *MainMenu::renderer = nullptr;
 
 MainMenu::MainMenu(	std::string &font1Path, std::string &font2Path, 
-										std::string &sfxPath, int width, int height, SDL_Renderer *inputRenderer)
+										std::string &sfxPath, std::string &musicPath,
+										int width, int height, SDL_Renderer *inputRenderer)
 {
 	// Load Main Menu elements
 	renderer = inputRenderer;
 	auto getTitlefont = std::async(std::launch::async, LoadFont, font1Path, 150);
 	auto getMenuFont = std::async(std::launch::async, LoadFont, font2Path, 60);
+	menuMusic = new AudioPlayer<Mix_Music>(musicPath);
 	
 	getTitlefont.wait();
 	getMenuFont.wait();
@@ -30,9 +32,10 @@ MainMenu::MainMenu(	std::string &font1Path, std::string &font2Path,
 		exit(-1);
 	}
 	
-	menuTitle = LoadTextElement(menuFont, width, height, 0.245, 0.08);
-	menuContinue = LoadTextElement(	titleFont, sfxPath, width, height, 0.4, 0.4);
-	menuStart = LoadTextElement(	titleFont, sfxPath, width, height, 0.428, 0.5);
+	menuMusic->PlayAudio(-1, 0);
+	menuTitle = LoadTextElement(titleFont, width, height, 0.245, 0.08);
+	menuContinue = LoadTextElement(	menuFont, sfxPath, width, height, 0.4, 0.4);
+	menuStart = LoadTextElement(	menuFont, sfxPath, width, height, 0.428, 0.5);
 	menuExit = LoadTextElement(	menuFont, sfxPath, width, height, 0.436, 0.6);
 	menuContinue->isEnabled = false;
 	menuStart->isEnabled = true;
@@ -46,6 +49,8 @@ MainMenu::~MainMenu()
 	delete(menuExit);
 	delete(menuStart);
 	delete(menuTitle);
+	delete(selectionSFX);
+	delete(menuMusic);
 	
 	TTF_CloseFont(titleFont);
 	TTF_CloseFont(menuFont);
@@ -68,11 +73,8 @@ void MainMenu::DisplayMainMenu(float mX, float mY)
 {
 	menuTitle->CreateTextElement("Rebuild Back Better");	
 	menuContinue->CreateTextElement("Continue", mX, mY);
-	menuContinue->isEnabled = false;
 	menuStart->CreateTextElement("Start", mX, mY);
-	menuStart->isEnabled = true;
 	menuExit->CreateTextElement("Exit", mX, mY);		
-	menuExit->isEnabled = true;	
 }
 
 TextElement	*MainMenu::LoadTextElement(	TTF_Font *font, std::string audioPath,	int inputWindowWidth, 
