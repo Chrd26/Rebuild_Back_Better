@@ -29,13 +29,6 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=1029;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmain.cpp;0;2
-FILE_NAME_1=450;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.h;0;2
-FILE_NAME_2=284;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;2
-FILE_NAME_3=984;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmainmenu.h;0;2
-FILE_NAME_4=1816;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmainmenu.cpp;0;2
-FILE_NAME_5=1317;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Faudioplayer.cpp;0;4
-FILE_NAME_6=455;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Faudioplayer.h;0;4
 
 [VTE]
 last_dir=/Users/chrisd
