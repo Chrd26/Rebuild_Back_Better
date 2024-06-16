@@ -9,7 +9,7 @@ audio/*
 
 !graphics/.gitkeep
 !tests/.gitkeep
-!builds/.gitkeep
+!build/.gitkeep
 !commands/.gitkeep
 !fonts/.gitkeep
 !audio/.gitkeep
