@@ -88,6 +88,7 @@ void MainMenu::DisplayMainMenu(float mX, float mY, float width, float height)
     }
     
     SDL_Texture *backgroundImageTexture = SDL_CreateTextureFromSurface(renderer, convertSurface);
+    SDL_SetTextureColorMod(backgroundImageTexture,100, 100, 100);
     const SDL_FRect backgroundImageHolder = {0, 0, width, height};
     SDL_RenderTexture(renderer, backgroundImageTexture, nullptr, &backgroundImageHolder);
     SDL_DestroySurface(convertSurface);

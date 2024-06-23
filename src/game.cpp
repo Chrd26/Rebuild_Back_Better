@@ -65,7 +65,7 @@ bool Game::Initialise()
 	}
 	
 	#ifdef __APPLE__
-	renderer = SDL_CreateRenderer(window, "metal", 0);
+	renderer = SDL_CreateRenderer(window, "opengl", 0);
 	#endif
 
 	#ifdef _WIN64
