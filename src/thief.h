@@ -1,8 +1,7 @@
 #pragma once
-#include "gameobjects.h"
+#include "gameobject.h"
 
-template<typename T>
-class Thief: public Entity<T>
+class Thief: public Entity
 {
 	
 };
