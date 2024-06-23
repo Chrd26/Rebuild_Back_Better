@@ -4,12 +4,12 @@ builds/*
 .DS_Store
 commands/*
 fonts/*
-build/
+build/*
 Audio/*
 
 !graphics/.gitkeep
 !tests/.gitkeep
-!builds/.gitkeep
+!build/.gitkeep
 !commands/.gitkeep
 !fonts/.gitkeep
 !audio/.gitkeep
