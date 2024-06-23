@@ -23,23 +23,22 @@ public:
 private:
 	
 	static SDL_Renderer *renderer;
-	
-	static TextElement *LoadTextElement(	TTF_Font *font, int inputWindowWidth, 
-																				int inputWindowHeight, float posX, 
-																				float posY	);
+	static TextElement *LoadTextElement(TTF_Font *font, int inputWindowWidth, 
+                                        int inputWindowHeight, float posX, 
+										float posY);
 										
-	static TextElement *LoadTextElement(	TTF_Font *font,	std::string audioPath,
-																				int inputWindowWidth, 
-																				int inputWindowHeight, float posX, 
-																				float posY	);
+	static TextElement *LoadTextElement(TTF_Font *font,	std::string audioPath, int inputWindowWidth, 
+										int inputWindowHeight, float posX, float posY);
 																				
 	static TTF_Font *LoadFont(std::string urlToFont, unsigned int fontSize);
 	static bool hasMenuLoaded;
+    static SDL_Surface *backgroundImage; 
 	
 public:
-	MainMenu(	std::string &font1Path, std::string &font2Path, 
-						std::string &sfxPath, std::string &musicPath, 
-						int width, int height, SDL_Renderer *inputRenderer);
+	MainMenu(   std::string &font1Path, std::string &font2Path, 
+                std::string &sfxPath, std::string &musicPath, 
+				int width, int height, SDL_Renderer *inputRenderer,
+                std::string bgImageLocation);
 	~MainMenu();
-	static void DisplayMainMenu(float mX, float mY);
+	static void DisplayMainMenu(float mX, float mY, float width, float height);
 };

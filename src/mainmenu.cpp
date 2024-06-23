@@ -10,29 +10,36 @@ TTF_Font *MainMenu::titleFont = nullptr;
 TTF_Font *MainMenu::menuFont = nullptr;
 bool MainMenu::hasMenuLoaded = false;
 SDL_Renderer *MainMenu::renderer = nullptr;
+SDL_Surface *MainMenu::backgroundImage = nullptr;
 
 MainMenu::MainMenu(	std::string &font1Path, std::string &font2Path, 
 										std::string &sfxPath, std::string &musicPath,
-										int width, int height, SDL_Renderer *inputRenderer)
+										int width, int height, SDL_Renderer *inputRenderer,
+                                        std::string bgImageLocation)
 {
 	// Load Main Menu elements
 	renderer = inputRenderer;
 	auto getTitlefont = std::async(std::launch::async, LoadFont, font1Path, 150);
 	auto getMenuFont = std::async(std::launch::async, LoadFont, font2Path, 60);
+    auto getImage = std::async(std::launch::async, IMG_Load, bgImageLocation.c_str());
 	menuMusic = new AudioPlayer<Mix_Music>(musicPath);
-	
+
 	getTitlefont.wait();
 	getMenuFont.wait();
+    getImage.wait();
 	titleFont = getTitlefont.get();
 	menuFont = getMenuFont.get();
+    backgroundImage = getImage.get();
 	
-	if (titleFont == nullptr || menuFont == nullptr)
+	if (titleFont == nullptr || menuFont == nullptr || backgroundImage == nullptr)
 	{
-		std::cout << "Menu fonts have not loaded" << std::endl;
+		std::cout << "Menu Elements have not loaded properly" << std::endl;
+        std::cout << IMG_GetError() << std::endl;
+        std::cout << SDL_GetError() << std::endl;
 		exit(-1);
 	}
 	
-	menuMusic->PlayAudio(-1, 0);
+	menuMusic->PlayAudio(-1, 500);
 	menuTitle = LoadTextElement(titleFont, width, height, 0.245, 0.08);
 	menuContinue = LoadTextElement(	menuFont, sfxPath, width, height, 0.4, 0.4);
 	menuStart = LoadTextElement(	menuFont, sfxPath, width, height, 0.428, 0.5);
@@ -55,6 +62,7 @@ MainMenu::~MainMenu()
 	
 	TTF_CloseFont(titleFont);
 	TTF_CloseFont(menuFont);
+    SDL_DestroySurface(backgroundImage);
 }
 
 TTF_Font *MainMenu::LoadFont(std::string urlToFont, unsigned int fontSize)
@@ -69,16 +77,31 @@ TTF_Font *MainMenu::LoadFont(std::string urlToFont, unsigned int fontSize)
 	return font;
 }
 
-void MainMenu::DisplayMainMenu(float mX, float mY)
+void MainMenu::DisplayMainMenu(float mX, float mY, float width, float height)
 {
+    // Show background image
+    SDL_Surface *convertSurface = SDL_ConvertSurface(backgroundImage, backgroundImage->format);
+
+    if (convertSurface == nullptr)
+    {
+        std::cout << "Failed to load background image" << std::endl;
+    }
+    
+    SDL_Texture *backgroundImageTexture = SDL_CreateTextureFromSurface(renderer, convertSurface);
+    const SDL_FRect backgroundImageHolder = {0, 0, width, height};
+    SDL_RenderTexture(renderer, backgroundImageTexture, nullptr, &backgroundImageHolder);
+    SDL_DestroySurface(convertSurface);
+    SDL_DestroyTexture(backgroundImageTexture);
+
 	menuTitle->CreateTextElement("Rebuild Back Better");	
 	menuContinue->CreateTextElement("Continue", mX, mY);
 	menuStart->CreateTextElement("Start", mX, mY);
 	menuExit->CreateTextElement("Exit", mX, mY);		
 }
 
-TextElement	*MainMenu::LoadTextElement(	TTF_Font *font, std::string audioPath,	int inputWindowWidth, 
-																		int inputWindowHeight, float posX, float posY)
+TextElement	*MainMenu::LoadTextElement(	TTF_Font *font, std::string audioPath, 
+                                        int inputWindowWidth, int inputWindowHeight, 
+                                        float posX, float posY)
 {
 	return new TextElement(	inputWindowWidth * posX, inputWindowHeight * posY, font, 
 													renderer, audioPath);

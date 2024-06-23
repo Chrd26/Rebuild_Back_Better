@@ -1,6 +1,6 @@
 [editor]
 line_wrapping=false
-line_break_column=72
+line_break_column=78
 auto_continue_multiline=true
 
 [file_prefs]
@@ -20,30 +20,24 @@ indent_mode=2
 [project]
 name=Rebuild Back Better
 base_path=/Users/chrisd/Desktop/Rebuild Back Better
-description=
-file_patterns=
 
 [long line marker]
 long_line_behaviour=1
-long_line_column=72
+long_line_column=100
 
 [files]
-current_page=0
+current_page=4
+FILE_NAME_0=7736;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2FCMakeLists.txt;0;4
+FILE_NAME_1=313;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmain.cpp;0;4
+FILE_NAME_2=2553;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmainmenu.cpp;0;4
+FILE_NAME_3=247;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fmainmenu.h;0;4
+FILE_NAME_4=1349;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild%20Back%20Better%2Fsrc%2Fgame.cpp;0;4
 
 [VTE]
 last_dir=/Users/chrisd
 
-[build-menu]
-CMakeFT_00_LB=Update CMake
-CMakeFT_00_CM=cmake -S . -B builds
-CMakeFT_00_WD=/Users/chrisd/Desktop/Rebuild Back Better
-CMakeFT_01_LB=Build Project
-CMakeFT_01_CM=cmake --build builds
-CMakeFT_01_WD=/Users/chrisd/Desktop/Rebuild Back Better
-filetypes=CMake;
-
 [prjorg]
-expanded_paths=/Users/chrisd/Desktop/Rebuild Back Better/src;
+expanded_paths=/Users/chrisd/Desktop/Rebuild Back Better/build;/Users/chrisd/Desktop/Rebuild Back Better/src;
 source_patterns=*.c;*.C;*.cpp;*.cxx;*.c++;*.cc;*.m;
 header_patterns=*.h;*.H;*.hpp;*.hxx;*.h++;*.hh;
 ignored_dirs_patterns=.*;CVS;

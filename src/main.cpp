@@ -19,8 +19,8 @@ int main()
 	SDL_Event events;
 	bool quit = false;
 	Uint32 mouseState;
-  int keyPress = 0;
-  const Uint8 *keyboardState;
+    int keyPress = 0;
+    const Uint8 *keyboardState;
 	
 	while(!quit)
 	{
@@ -113,14 +113,17 @@ int main()
 					std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
 					std::string generateSFXPath = Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav");
 					std::string generateMenuMusicPath = Game::execpath + std::string("/Contents/Resources/audio/music/onceuponatime.mp3");
+                    std::string generateBackgroundImagePath = Game::execpath + std::string("/Contents/Resources/graphics/enviroment/Main_Menu_Environment.jpg");
 					
-					Game::mainmenu = new MainMenu(	generateFont1Path, generateFont2Path, generateSFXPath,
-																					generateMenuMusicPath, Game::windowWidth, 
-																					Game::windowHeight, Game::renderer);
+					Game::mainmenu = new MainMenu(	generateFont1Path, generateFont2Path, 
+                                                    generateSFXPath, generateMenuMusicPath, 
+                                                    Game::windowWidth, Game::windowHeight, 
+                                                    Game::renderer, generateBackgroundImagePath);
 					Game::loadedMenu = true;
 				}
 				
-				Game::mainmenu->DisplayMainMenu(Game::mouseX, Game::mouseY);
+				Game::mainmenu->DisplayMainMenu(Game::mouseX, Game::mouseY, 
+                                                Game::windowWidth, Game::windowHeight);
 				
 				break;
 			

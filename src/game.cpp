@@ -1,8 +1,7 @@
 #include "game.h"
 
-bool Game::HoveringStatus(	bool startHovering, 
-														bool continueHovering,
-														bool exitHovering)
+bool Game::HoveringStatus(	bool startHovering, bool continueHovering,
+							bool exitHovering)
 {
 	if (startHovering)
 	{
@@ -66,8 +65,7 @@ bool Game::Initialise()
 	}
 	
 	#ifdef __APPLE__
-	renderer = SDL_CreateRenderer(window, nullptr, 
-								  SDL_RENDERER_ACCELERATED);
+	renderer = SDL_CreateRenderer(window, "metal", 0);
 	#endif
 
 	#ifdef _WIN64
