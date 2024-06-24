@@ -26,6 +26,19 @@ Game::~Game(){
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
+	
+	if (gameplay != nullptr)
+	{
+		delete(gameplay);
+		gameplay = nullptr;
+	}
+	
+	if (mainMenu != nullptr)
+	{
+		delete(mainMenu);
+		mainMenu = nullptr;
+	}
+
 }
 
 bool Game::Initialise()
@@ -125,8 +138,9 @@ float Game::mouseY = 0;
 int Game::currentGameState = 0;
 Player *Game::player = nullptr;
 int Game::second = 0;
-MainMenu *Game::mainmenu = nullptr;
+MainMenu *Game::mainMenu = nullptr;
 bool Game::loadedMenu = false;
+PauseMenu *Game::pauseMenu = nullptr;
 #ifdef __APPLE__
 const std::string Game::execpath = cpplocate::getBundlePath();
 #elif _WIN64

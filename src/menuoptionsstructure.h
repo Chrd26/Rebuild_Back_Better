@@ -1,4 +1,5 @@
 #pragma once
+#include "pausemenu.h"
 
 template<typename S, typename T, typename C, typename F, typename R>
 struct TextElement

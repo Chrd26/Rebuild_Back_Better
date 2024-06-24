@@ -39,15 +39,15 @@ int main()
 				case SDL_EVENT_MOUSE_BUTTON_UP:
 					if (mouseState == LEFT_MOUSE_BUTTON)
 					{
-						if (Game::mainmenu->menuContinue->isHovering && Game::mainmenu->menuContinue->isEnabled)
+						if (Game::mainMenu->menuContinue->isHovering && Game::mainMenu->menuContinue->isEnabled)
 						{
 							std::cout << "Continue Game" << std::endl;
 							break;
 						}
 						
-						if (Game::mainmenu->menuStart->isHovering)
+						if (Game::mainMenu->menuStart->isHovering)
 						{	
-							std::thread t1(Game::mainmenu->menuMusic->StopAudio, 1000);
+							std::thread t1(Game::mainMenu->menuMusic->StopAudio, 1000);
 							std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 							
 							if (t1.joinable())
@@ -55,17 +55,34 @@ int main()
 								t1.join();
 							}
 							
-							delete(Game::mainmenu);
+							delete(Game::mainMenu);
+							std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
+							Game::pauseMenu = new PauseMenu(generateFont2Path);
 							Game::currentGameState = GAMEPLAY;
 							
 							break;
 						}
 						
-						if (Game::mainmenu->menuExit->isHovering)
+						if (Game::mainMenu->menuExit->isHovering)
 						{
 							quit = true;
 							break;
 						}
+					}
+					
+					if (keyboardState[SDL_SCANCODE_ESCAPE] && Game::currentGameState == GAMEPLAY)
+					{
+						if (!Game::pauseMenu->isPaused)
+						{
+							Game::pauseMenu->DisplayPauseMenu(	Game::mouseX, Game::mouseY, 
+																Game::windowWidth, Game::windowHeight, 
+																Game::renderer);
+							break;
+						}else
+						{
+							Game::pauseMenu->isPaused = false;
+							break;
+						}				
 					}
 					break;
 			}			
@@ -115,19 +132,24 @@ int main()
 					std::string generateMenuMusicPath = Game::execpath + std::string("/Contents/Resources/audio/music/onceuponatime.mp3");
                     std::string generateBackgroundImagePath = Game::execpath + std::string("/Contents/Resources/graphics/enviroment/Main_Menu_Environment.jpg");
 					
-					Game::mainmenu = new MainMenu(	generateFont1Path, generateFont2Path, 
+					Game::mainMenu = new MainMenu(	generateFont1Path, generateFont2Path, 
                                                     generateSFXPath, generateMenuMusicPath, 
                                                     Game::windowWidth, Game::windowHeight, 
                                                     Game::renderer, generateBackgroundImagePath);
 					Game::loadedMenu = true;
 				}
 				
-				Game::mainmenu->DisplayMainMenu(Game::mouseX, Game::mouseY, 
+				Game::mainMenu->DisplayMainMenu(Game::mouseX, Game::mouseY, 
                                                 Game::windowWidth, Game::windowHeight);
 				
 				break;
 			
 			case GAMEPLAY:
+				if (Game::pauseMenu->isPaused)
+				{
+					Game::pauseMenu->DisplayPauseMenu(	Game::mouseX, Game::mouseY, Game::windowWidth,
+														Game::windowHeight, Game::renderer);
+				}
 				break;
 			
 			case PAUSED:
@@ -141,12 +163,12 @@ int main()
 		bool hovering = false;
 		
 		
-		if (Game::mainmenu != nullptr)
+		if (Game::mainMenu != nullptr)
 		{
 			
-			hovering = Game::HoveringStatus(	Game::mainmenu->menuStart->isHovering,
-																				Game::mainmenu->menuContinue->isEnabled && Game::mainmenu->menuContinue->isHovering,
-																				Game::mainmenu->menuExit->isHovering);																		
+			hovering = Game::HoveringStatus(	Game::mainMenu->menuStart->isHovering,
+												Game::mainMenu->menuContinue->isEnabled && Game::mainMenu->menuContinue->isHovering,
+												Game::mainMenu->menuExit->isHovering);																		
 		}
 		
 		if (hovering)

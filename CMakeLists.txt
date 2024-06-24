@@ -82,6 +82,7 @@ add_executable(	${PROJECT_NAME} MACOSX_BUNDLE
 				./src/game.h ./src/game.cpp ./src/gameobject.h ./src/gatherer.h ./src/main.cpp
 				./src/mainmenu.h ./src/mainmenu.cpp ./src/player.h ./src/player.cpp ./src/text.h
 				./src/text.cpp ./src/text.h ./src/thief.h
+				./src/pausemenu.h ./src/pausemenu.cpp
 				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND}
 				${MENU_MUSIC} ${DEFAULT_CURSOR} ${ATTACK_CURSOR}
                 ${GAMEPLAY_ENVIRONMENT_BACKGROUND} ${LEAF_IMAGE} ${INTERACTABLE_CURSOR}

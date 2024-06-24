@@ -1,6 +1,7 @@
 #include <SDL3/SDL.h>
 #include "player.h"
 #include "mainmenu.h"
+#include "pausemenu.h"
 #include <iostream>
 #include <string>
 #include <cerrno>
@@ -32,7 +33,7 @@ public:
 public:
 	static SDL_Window *window;
 	static SDL_Renderer *renderer;
-  static bool Initialise();
+	static bool Initialise();
 	static float mouseX, mouseY;
 	static int currentGameState, windowWidth, windowHeight;
 	static double startTick;
@@ -46,10 +47,12 @@ public:
 // Main Menu
 public:
 	static bool loadedMenu;
-	static MainMenu *mainmenu;
-	static bool HoveringStatus(	bool startHovering, 
-															bool continueHovering,
-															bool exitHovering);
+	static MainMenu *mainMenu;
+	static bool HoveringStatus(	bool startHovering, bool continueHovering,bool exitHovering);
+
+// Gameplay
+public:
+	Gameplay *gameplay;
 };
 
 // Cool stuff to read about timestep and time for physics and timers
