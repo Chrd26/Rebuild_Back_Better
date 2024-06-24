@@ -16,7 +16,7 @@ struct PauseMenu
 	{
 		CONTINUE = 0,
 		SAVE,
-		QUIT TO MAIN MENU
+		QUITTOMAINMENU
 	};
 	
 	PauseMenu(std::string pathToFont);

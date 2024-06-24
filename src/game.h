@@ -1,7 +1,7 @@
 #include <SDL3/SDL.h>
 #include "player.h"
 #include "mainmenu.h"
-#include "pausemenu.h"
+#include "gameplay.h"
 #include <iostream>
 #include <string>
 #include <cerrno>
@@ -52,7 +52,7 @@ public:
 
 // Gameplay
 public:
-	Gameplay *gameplay;
+	static Gameplay *gameplay;
 };
 
 // Cool stuff to read about timestep and time for physics and timers

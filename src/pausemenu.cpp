@@ -36,7 +36,7 @@ void PauseMenu::DisplayPauseMenu(	float getMouseX, float getMouseY,
 									SDL_Renderer *getRenderer)
 {
 	// darken background
-	SDL_SetRenderDrawColor(getRenderer, 0x00, 0x00, 0x00, 0x99);
+	SDL_SetRenderDrawColor(getRenderer, 0x00, 0x00, 0x00, 0xAA);
 	SDL_FRect backgroundRect = {0, 0, static_cast<float>(windowWidth), 
 								static_cast<float>(windowHeight)};
 	SDL_RenderFillRect(getRenderer, &backgroundRect);

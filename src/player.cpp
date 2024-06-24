@@ -2,8 +2,8 @@
 
 bool Player::LoadPlayerImages(std::string locationImage1, std::string locationImage2)
 {
-	auto getDefaultCursorImage = std::async(std::async::launch, IMG_Load, locationImage1.c_str());
-	auto getInteractableCursorImage = std::async(std::async::launch, IMG_Load, locationImage2.c_str());
+	auto getDefaultCursorImage = std::async(std::launch::async, IMG_Load, locationImage1.c_str());
+	auto getInteractableCursorImage = std::async(std::launch::async, IMG_Load, locationImage2.c_str());
 	
 	getDefaultCursorImage.wait();
 	getInteractableCursorImage.wait();

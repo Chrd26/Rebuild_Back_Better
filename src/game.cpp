@@ -79,6 +79,9 @@ bool Game::Initialise()
 	
 	#ifdef __APPLE__
 	renderer = SDL_CreateRenderer(window, "opengl", 0);
+	// Enable blend mode for transparency in basic
+	// gemotries
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	#endif
 
 	#ifdef _WIN64
@@ -140,7 +143,7 @@ Player *Game::player = nullptr;
 int Game::second = 0;
 MainMenu *Game::mainMenu = nullptr;
 bool Game::loadedMenu = false;
-PauseMenu *Game::pauseMenu = nullptr;
+Gameplay *Game::gameplay = nullptr;
 #ifdef __APPLE__
 const std::string Game::execpath = cpplocate::getBundlePath();
 #elif _WIN64

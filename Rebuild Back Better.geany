@@ -28,15 +28,10 @@ long_line_behaviour=1
 long_line_column=100
 
 [files]
-current_page=1
-FILE_NAME_0=113;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgameplay.h;0;4
-FILE_NAME_1=270;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgameplay.cpp;0;4
-FILE_NAME_2=465;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fplayer.cpp;0;4
-FILE_NAME_3=114;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fplayer.h;0;4
-FILE_NAME_4=12;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fpausemenu.h;0;4
-FILE_NAME_5=1120;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgame.h;0;4
-FILE_NAME_6=490;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgame.cpp;0;4
-FILE_NAME_7=1412;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fmain.cpp;0;4
+current_page=2
+FILE_NAME_0=1121;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fmain.cpp;0;4
+FILE_NAME_1=932;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fpausemenu.cpp;0;4
+FILE_NAME_2=1571;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgame.cpp;0;4
 
 [VTE]
 last_dir=/Users/chrisd

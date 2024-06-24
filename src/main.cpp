@@ -25,6 +25,12 @@ int main()
 	while(!quit)
 	{
 		Game::startTick = SDL_GetTicks();
+		// Getting keyboard or mouse states are better for real time
+		// input detection it is also useful for keeping  keys pressed for a long time.
+		// Read more about that here:  
+		// https://discourse.libsdl.org/t/polling-events-vs-get-keyboardstate/39050/5
+		mouseState = SDL_GetMouseState(&Game::mouseX, &Game::mouseY);
+		keyboardState = SDL_GetKeyboardState(&keyPress);
 		
 		SDL_SetRenderDrawColor(Game::renderer, 0x00, 0x00, 0x00, 0X00);
 		SDL_RenderClear(Game::renderer);
@@ -35,6 +41,23 @@ int main()
 			{
 				case SDL_EVENT_QUIT:
 					quit = true;
+					break;
+					
+				case SDL_EVENT_KEY_UP:
+					
+					if (events.key.keysym.sym == SDLK_ESCAPE && Game::currentGameState == GAMEPLAY)
+					{
+						std::cout << "Pause" << std::endl;
+						if (!Game::gameplay->pauseMenu->isPaused)
+						{
+							Game::gameplay->pauseMenu->isPaused = true;
+						}else
+						{
+							Game::gameplay->pauseMenu->isPaused = false;
+							break;
+						}				
+					}
+					
 					break;
 				case SDL_EVENT_MOUSE_BUTTON_UP:
 					if (mouseState == LEFT_MOUSE_BUTTON)
@@ -57,7 +80,8 @@ int main()
 							
 							delete(Game::mainMenu);
 							std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
-							Game::pauseMenu = new PauseMenu(generateFont2Path);
+							std::string generateBackgroundImagePath = Game::execpath + std::string("/Contents/Resources/graphics/enviroment/Game_Enviroment_Alternative Sky.jpg");
+							Game::gameplay = new Gameplay(generateFont2Path, generateBackgroundImagePath);
 							Game::currentGameState = GAMEPLAY;
 							
 							break;
@@ -70,33 +94,11 @@ int main()
 						}
 					}
 					
-					if (keyboardState[SDL_SCANCODE_ESCAPE] && Game::currentGameState == GAMEPLAY)
-					{
-						if (!Game::pauseMenu->isPaused)
-						{
-							Game::pauseMenu->DisplayPauseMenu(	Game::mouseX, Game::mouseY, 
-																Game::windowWidth, Game::windowHeight, 
-																Game::renderer);
-							break;
-						}else
-						{
-							Game::pauseMenu->isPaused = false;
-							break;
-						}				
-					}
 					break;
 			}			
 		}
 		
 		SDL_PumpEvents();
-		
-		// Getting keyboard or mouse states are better for real time
-		// input detection it is also useful for keeping  keys pressed for a long time.
-		// Read more about that here:  
-		// https://discourse.libsdl.org/t/polling-events-vs-get-keyboardstate/39050/5
-		mouseState = SDL_GetMouseState(&Game::mouseX, &Game::mouseY);
-		keyboardState = SDL_GetKeyboardState(&keyPress);
-		
 		
 		if (mouseState == LEFT_MOUSE_BUTTON)
 		{
@@ -145,10 +147,12 @@ int main()
 				break;
 			
 			case GAMEPLAY:
-				if (Game::pauseMenu->isPaused)
+				Game::gameplay->ShowBackground(Game::windowWidth, Game::windowHeight, Game::renderer);
+				
+				if (Game::gameplay->pauseMenu->isPaused)
 				{
-					Game::pauseMenu->DisplayPauseMenu(	Game::mouseX, Game::mouseY, Game::windowWidth,
-														Game::windowHeight, Game::renderer);
+					Game::gameplay->pauseMenu->DisplayPauseMenu(	Game::mouseX, Game::mouseY, Game::windowWidth,
+																	Game::windowHeight, Game::renderer);
 				}
 				break;
 			

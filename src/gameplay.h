@@ -4,16 +4,21 @@
 #include <iostream>
 #include <string>
 #include <future>
+#include <SDL3_image/SDL_image.h>
 
-class Gameplay()
+class Gameplay
 {
+public:
+	Gameplay(std::string menuFontLocation, std::string backgroundLocation);
+	~Gameplay();
 private:
 	static int backgroundHeight, backgroundWidth;
-	static PauseMenu *pauseMenu;
 	static SDL_Surface *gameplayBackground;
+	
 public:
-	Gameplay(std::string menuFontLocation), std::string backgroundLocation;
-	~Gameplay();
-	bool ShowBackground(int getWidth, int getHeight);
+	static PauseMenu *pauseMenu;
+public:
+
+	static void ShowBackground(int getWidth, int getHeight, SDL_Renderer *getRenderer);
 	
 };
