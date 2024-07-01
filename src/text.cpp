@@ -29,7 +29,7 @@ void TextElement::CreateTextElement(std::string content,  float getMouseX,  floa
 	SDL_Color fontColor;
 	isHovering = IsMouseHovering(getMouseX, getMouseY);
 	
-	if (isHovering && isEnabled)
+	if (isHovering && isEnabled )
 	{
 		fontColor = hoverOption;
 				

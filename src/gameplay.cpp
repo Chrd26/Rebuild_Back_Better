@@ -5,9 +5,11 @@ int Gameplay::backgroundWidth = 0;
 SDL_Surface *Gameplay::gameplayBackground = nullptr;
 PauseMenu *Gameplay::pauseMenu = nullptr;
 
-Gameplay::Gameplay(std::string menuFontLocation, std::string backgroundLocation)
+Gameplay::Gameplay(	std::string menuFontLocation, std::string backgroundLocation, 
+					std::string pathToAudio, int windowWidth, int windowHeight, 
+					SDL_Renderer *getRenderer)
 {
-	pauseMenu = new PauseMenu(menuFontLocation);
+	pauseMenu = new PauseMenu(menuFontLocation, pathToAudio, windowWidth, windowHeight, getRenderer);
 	
 	auto getImageBackground = std::async(std::launch::async, IMG_Load, backgroundLocation.c_str());
 	getImageBackground.wait();
@@ -24,9 +26,9 @@ void Gameplay::ShowBackground(int getWidth, int getHeight, SDL_Renderer *getRend
 {
 	SDL_Surface *convert = SDL_ConvertSurface(gameplayBackground, gameplayBackground->format);
 	SDL_Texture *backgroundImageTexture = SDL_CreateTextureFromSurface(getRenderer, convert);
-	const SDL_FRect backgroundHolder = {0, 0, 
+	const SDL_FRect backgroundHolder = {0, static_cast<float>(getHeight * 0.05), 
 										static_cast<float>(getWidth), 
-										static_cast<float>(getHeight)};
+										static_cast<float>(getHeight * 0.8)};
 	SDL_RenderTexture(getRenderer, backgroundImageTexture, nullptr, &backgroundHolder);
 	
 	SDL_DestroySurface(convert);

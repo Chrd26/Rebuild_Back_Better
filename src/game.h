@@ -48,7 +48,6 @@ public:
 public:
 	static bool loadedMenu;
 	static MainMenu *mainMenu;
-	static bool HoveringStatus(	bool startHovering, bool continueHovering,bool exitHovering);
 
 // Gameplay
 public:

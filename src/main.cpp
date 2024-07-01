@@ -81,7 +81,13 @@ int main()
 							delete(Game::mainMenu);
 							std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
 							std::string generateBackgroundImagePath = Game::execpath + std::string("/Contents/Resources/graphics/enviroment/Game_Enviroment_Alternative Sky.jpg");
-							Game::gameplay = new Gameplay(generateFont2Path, generateBackgroundImagePath);
+							std::string generateMenuSfxPath = Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav");
+							Game::gameplay = new Gameplay(	generateFont2Path,
+															generateBackgroundImagePath,
+															generateMenuSfxPath,
+															Game::windowWidth,
+															Game::windowHeight, 
+															Game::renderer);
 							Game::currentGameState = GAMEPLAY;
 							
 							break;
@@ -91,6 +97,19 @@ int main()
 						{
 							quit = true;
 							break;
+						}
+						
+						if (Game::currentGameState == GAMEPLAY && Game::gameplay->pauseMenu->isPaused)
+						{
+							if (Game::gameplay->pauseMenu->pauseMenuContinue->isHovering)
+							{
+								Game::gameplay->pauseMenu->isPaused = false;
+							}
+							else if (Game::gameplay->pauseMenu->pauseMenuExitGame->isHovering)
+							{
+								quit = true;
+								break;
+							}
 						}
 					}
 					
@@ -130,12 +149,12 @@ int main()
 				{
 					std::string generateFont1Path = Game::execpath + std::string("/Contents/Resources/fonts/ArianaVioleta-dz2K.ttf");
 					std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
-					std::string generateSFXPath = Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav");
+					std::string generateMenuSfxPath = Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav");
 					std::string generateMenuMusicPath = Game::execpath + std::string("/Contents/Resources/audio/music/onceuponatime.mp3");
                     std::string generateBackgroundImagePath = Game::execpath + std::string("/Contents/Resources/graphics/enviroment/Main_Menu_Environment.jpg");
 					
 					Game::mainMenu = new MainMenu(	generateFont1Path, generateFont2Path, 
-                                                    generateSFXPath, generateMenuMusicPath, 
+                                                    generateMenuSfxPath, generateMenuMusicPath, 
                                                     Game::windowWidth, Game::windowHeight, 
                                                     Game::renderer, generateBackgroundImagePath);
 					Game::loadedMenu = true;
@@ -163,22 +182,42 @@ int main()
 		Game::player->x = Game::mouseX;
 		Game::player->y = Game::mouseY;
 		
-		
-		bool hovering = false;
-		
-		
-		if (Game::mainMenu != nullptr)
+		if (Game::currentGameState == MAIN_MENU)
 		{
 			
-			hovering = Game::HoveringStatus(	Game::mainMenu->menuStart->isHovering,
-												Game::mainMenu->menuContinue->isEnabled && Game::mainMenu->menuContinue->isHovering,
-												Game::mainMenu->menuExit->isHovering);																		
+			if (Game::mainMenu->menuStart->isHovering)
+			{
+				Game::player->ShowCursor(Game::renderer, true);
+			}
+			else if (Game::mainMenu->menuContinue->isEnabled && Game::mainMenu->menuContinue->isHovering)
+			{
+				Game::player->ShowCursor(Game::renderer, true);
+			}
+			else if (Game::mainMenu->menuExit->isHovering)
+			{
+				Game::player->ShowCursor(Game::renderer, true);
+			}else
+			{
+				Game::player->ShowCursor(Game::renderer, false);
+			}																	
 		}
 		
-		if (hovering)
+		if (Game::currentGameState == GAMEPLAY && Game::gameplay->pauseMenu->isPaused)
 		{
-			Game::player->ShowCursor(Game::renderer, true);
-		}else
+			if (Game::gameplay->pauseMenu->pauseMenuContinue->isHovering)
+			{
+				Game::player->ShowCursor(Game::renderer, true);
+			}
+			else if (Game::gameplay->pauseMenu->pauseMenuExitGame->isHovering)
+			{
+				Game::player->ShowCursor(Game::renderer, true);
+			}
+			else
+			{
+				Game::player->ShowCursor(Game::renderer, false);
+			}
+		}
+		else if (Game::currentGameState == GAMEPLAY)
 		{
 			Game::player->ShowCursor(Game::renderer, false);
 		}

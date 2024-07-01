@@ -9,7 +9,9 @@
 class Gameplay
 {
 public:
-	Gameplay(std::string menuFontLocation, std::string backgroundLocation);
+	Gameplay(	std::string menuFontLocation, std::string backgroundLocation, 
+				std::string pathToAudio, int windowWidth, int windowHeight, 
+				SDL_Renderer *getRenderer);
 	~Gameplay();
 private:
 	static int backgroundHeight, backgroundWidth;
