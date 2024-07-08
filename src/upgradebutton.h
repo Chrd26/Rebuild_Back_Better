@@ -1,0 +1,23 @@
+#include <SDL3/SDL.h>
+#include <SDL3_image/SDL_image.h
+#include <iostream>
+#include <string>
+#include <future>
+
+class UpgradeButton
+{
+private:
+	int x, y;
+	float width, height;
+	SDL_Surface *upgradeButtonImageDefault;
+	SDL_Surface *upgradeButtonImageHovered;
+	SDL_Surface *upgradeButtonImageClicked;
+	SDL_Renderer *renderer
+
+public:
+	UpgradeButton(	std::string defaultImageLocation, std::string hoveredImageLocation,	
+					SDL_Renderer *getRenderer, int windowWidth, int windowHeight);
+	~UpgradeButton();
+	bool IsButtonHovered(int getMouseX, int getMouseY);
+	void DisplayButton(int mouseX, int mouseY, bool isButtonClicked);
+};

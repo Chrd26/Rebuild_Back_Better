@@ -7,7 +7,6 @@ bool Player::LoadPlayerImages(std::string locationImage1, std::string locationIm
 	
 	getDefaultCursorImage.wait();
 	getInteractableCursorImage.wait();
-	
 	defaultCursorImage =  getDefaultCursorImage.get();
 	interatacbleCursorImage = getInteractableCursorImage.get();
 	
@@ -15,6 +14,7 @@ bool Player::LoadPlayerImages(std::string locationImage1, std::string locationIm
 	{
 		return false;
 	}
+	
 	return true;
 }
 
@@ -38,15 +38,15 @@ void Player::ShowCursor(SDL_Renderer *renderer, bool interactive)
 		exit(-1);
 	}
 	
-	SDL_Texture *defaultCursorTexture = SDL_CreateTextureFromSurface(renderer, convertImage);
+	SDL_Texture *cursorTexture = SDL_CreateTextureFromSurface(renderer, convertImage);
 	
-	const SDL_FRect defaultCursorHolder = {	static_cast<float>(x), 
-											static_cast<float>(y), 
-											static_cast<float>(convertImage->w/imageSizeDivisionValue), 
-											static_cast<float>(convertImage->h/imageSizeDivisionValue)};
+	const SDL_FRect cursorHolder = {	static_cast<float>(x), 
+										static_cast<float>(y), 
+										static_cast<float>(convertImage->w/imageSizeDivisionValue), 
+										static_cast<float>(convertImage->h/imageSizeDivisionValue)};
 											 	
 	
-	SDL_RenderTexture(renderer, defaultCursorTexture, nullptr, &defaultCursorHolder);	
-	SDL_DestroyTexture(defaultCursorTexture);
+	SDL_RenderTexture(renderer, cursorTexture, nullptr, &cursorHolder);	
+	SDL_DestroyTexture(cursorTexture);
 	SDL_DestroySurface(convertImage);
 }

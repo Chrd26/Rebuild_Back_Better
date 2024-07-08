@@ -82,6 +82,7 @@ int main()
 							std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
 							std::string generateBackgroundImagePath = Game::execpath + std::string("/Contents/Resources/graphics/enviroment/Game_Enviroment_Alternative Sky.jpg");
 							std::string generateMenuSfxPath = Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav");
+							std::string generateUpgradeButtonDefaultPath = Game::execpath + std::string("");
 							Game::gameplay = new Gameplay(	generateFont2Path,
 															generateBackgroundImagePath,
 															generateMenuSfxPath,

@@ -75,6 +75,7 @@ file(GLOB GAMEPLAY_ENVIRONMENT_BACKGROUND "./graphics/enviroment/Game_Enviroment
 file(GLOB LEAF_IMAGE "./graphics/player/leaf.png")
 file(GLOB INTERACTABLE_CURSOR "./graphics/player/interactable_cursor.png")
 file(GLOB MENU_ENVIRONMENT_BACKGROUND "./graphics/enviroment/Main_Menu_Environment.jpg")
+file(GLOB UPGRADE_BUTTON_IMAGES "./graphics/interface/*.png")
 
 # Create Executable
 add_executable(	${PROJECT_NAME} MACOSX_BUNDLE 
