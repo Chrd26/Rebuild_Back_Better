@@ -13,7 +13,8 @@ UpgradeButton *Gameplay::summonWorkers = nullptr;
 Gameplay::Gameplay(	std::string menuFontLocation, std::string backgroundLocation, 
 					std::string pathToAudio, int windowWidth, int windowHeight, 
 					SDL_Renderer *getRenderer, std::string defaultUpgradedButtonImageLocation,
-					std::string hoveredUpgradeButtonImageLocation)
+					std::string hoveredUpgradeButtonImageLocation,
+					std::string clickedUpgradeButtonImageLocation)
 {
 	pauseMenu = new PauseMenu(menuFontLocation, pathToAudio, windowWidth, windowHeight, getRenderer);
 	
