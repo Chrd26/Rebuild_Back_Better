@@ -27,3 +27,10 @@ Upgrades::~Upgrades()
 	//delete(summonFighters);
 	delete(summonWorkers);
 }
+
+void Upgrades::ShowUpgradeButtons(int _x, int _y, bool _isClicked)
+{
+	summonFighters->DisplayButton(_x, _y, _isClicked);
+}
+
+

@@ -82,9 +82,9 @@ int main()
 							std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
 							std::string generateBackgroundImagePath = Game::execpath + std::string("/Contents/Resources/graphics/enviroment/Game_Enviroment_Alternative_Sky.jpg");
 							std::string generateMenuSfxPath = Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav");
-							std::string generateUpgradeButtonDefaultPath = Game::execpath + std::string("/Contentes/Resources/graphics/interface/UpgradeButton.png");
-							std::string generateUpgradeButtonHoveredPath = Game::execpath + std::string("/Contentes/Resources/graphics/interface/UpgradeButtonClicked.png");
-							std::string generateUpgradeButtonClickedPath = Game::execpath + std::string("/Contentes/Resources/graphics/interface/UpgradeButtonLightUp.png");
+							std::string generateUpgradeButtonDefaultPath = Game::execpath + std::string("/Contents/Resources/graphics/interface/UpgradeButton.png");
+							std::string generateUpgradeButtonHoveredPath = Game::execpath + std::string("/Contents/Resources/graphics/interface/UpgradeButtonClicked.png");
+							std::string generateUpgradeButtonClickedPath = Game::execpath + std::string("/Contents/Resources/graphics/interface/UpgradeButtonLightUp.png");
 							Game::gameplay = new Gameplay(	generateFont2Path,
 															generateBackgroundImagePath,
 															generateMenuSfxPath,
@@ -115,6 +115,7 @@ int main()
 							else if (Game::gameplay->pauseMenu->pauseMenuExitGame->isHovering)
 							{
 								quit = true;
+								std::cout << "exit" << std::endl;
 								break;
 							}
 						}
@@ -180,6 +181,8 @@ int main()
 					Game::gameplay->pauseMenu->DisplayPauseMenu(	Game::mouseX, Game::mouseY, Game::windowWidth,
 																	Game::windowHeight, Game::renderer);
 				}
+				
+				Game::gameplay->upgrades->ShowUpgradeButtons(Game::mouseX, Game::mouseY, false);
 				break;
 			
 			case PAUSED:

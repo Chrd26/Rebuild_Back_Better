@@ -24,7 +24,12 @@ UpgradeButton::UpgradeButton(	std::string defaultImageLocation, std::string hove
 	upgradeButtonImageDefault = loadDefaultImage.get();
 	upgradeButtonImageHovered = loadHoveredImage.get();	
 	upgradeButtonImageClicked = loadClickedImage.get();
-		
+	
+	if (upgradeButtonImageClicked == nullptr || upgradeButtonImageDefault == nullptr || upgradeButtonImageHovered == nullptr)
+	{
+		std::cout << "Failed to load a button" << std::endl;
+		exit(-1);
+	}
 	
 	width = static_cast<float>(windowWidth) * 0.1;
 	height = static_cast<float>(windowHeight) * 0.1;						
@@ -55,7 +60,11 @@ void UpgradeButton::DisplayButton(int mouseX, int mouseY, bool isButtonClicked)
 	const SDL_FRect buttonImageHolder = {	static_cast<float>(x),
 											static_cast<float>(y),
 											width,
-											height};					
+											height};		
+											
+	SDL_RenderTexture(renderer, buttonImageTexture, nullptr, &buttonImageHolder);
+	SDL_DestroyTexture(buttonImageTexture);
+	SDL_DestroySurface(convertedImage);			
 }
 
 UpgradeButton::~UpgradeButton()
