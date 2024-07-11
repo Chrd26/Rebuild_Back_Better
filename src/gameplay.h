@@ -5,7 +5,7 @@
 #include <string>
 #include <future>
 #include <SDL3_image/SDL_image.h>
-#include "upgradebutton.h"
+#include "upgradegrid.h"
 
 class Gameplay
 {
@@ -14,7 +14,7 @@ public:
 				std::string pathToAudio, int windowWidth, int windowHeight, 
 				SDL_Renderer *getRenderer, std::string defaultUpgradedButtonImageLocation,
 				std::string hoveredUpgradeButtonImageLocation, 
-				std::string clickedUpgradeButtonImageLocatiom);
+				std::string clickedUpgradeButtonImageLocation);
 	~Gameplay();
 private:
 	static int backgroundHeight, backgroundWidth;
@@ -24,12 +24,7 @@ public:
 	static PauseMenu *pauseMenu;
 public:
 	static void ShowBackground(int getWidth, int getHeight, SDL_Renderer *getRenderer);
-
-private:
-	static UpgradeButton *upgradeWorkers;
-	static UpgradeButton *summonWorkers;
-	static UpgradeButton *upgradeFighters;
-	static UpgradeButton *summonFighters;
-	static UpgradeButton *upgradeCursor;
+public:
+	static Upgrades *upgrades;
 	
 };

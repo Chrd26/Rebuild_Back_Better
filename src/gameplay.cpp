@@ -4,11 +4,8 @@ int Gameplay::backgroundHeight = 0;
 int Gameplay::backgroundWidth = 0;
 SDL_Surface *Gameplay::gameplayBackground = nullptr;
 PauseMenu *Gameplay::pauseMenu = nullptr;
-UpgradeButton *Gameplay::upgradeCursor = nullptr;
-UpgradeButton *Gameplay::upgradeFighters = nullptr;
-UpgradeButton *Gameplay::upgradeWorkers = nullptr;
-UpgradeButton *Gameplay::summonFighters = nullptr;
-UpgradeButton *Gameplay::summonWorkers = nullptr;
+Upgrades *Gameplay::upgrades = nullptr;
+
 
 Gameplay::Gameplay(	std::string menuFontLocation, std::string backgroundLocation, 
 					std::string pathToAudio, int windowWidth, int windowHeight, 
@@ -17,18 +14,25 @@ Gameplay::Gameplay(	std::string menuFontLocation, std::string backgroundLocation
 					std::string clickedUpgradeButtonImageLocation)
 {
 	pauseMenu = new PauseMenu(menuFontLocation, pathToAudio, windowWidth, windowHeight, getRenderer);
-	
 	auto getImageBackground = std::async(std::launch::async, IMG_Load, backgroundLocation.c_str());
 	getImageBackground.wait();
 	gameplayBackground = getImageBackground.get();
+	
+	upgrades = new Upgrades(defaultUpgradedButtonImageLocation, 
+							hoveredUpgradeButtonImageLocation,
+							clickedUpgradeButtonImageLocation,
+							windowWidth,
+							windowHeight,
+							windowWidth * 0.5,
+							windowHeight * 0.8,
+							2,
+							getRenderer	);
 }
 
 Gameplay::~Gameplay()
 {
 	SDL_DestroySurface(gameplayBackground);
-	delete(upgradeCursor);
-	delete(upgradeFighters);
-	delete(upgradeWorkers);
+	delete(upgrades);
 }
 
 void Gameplay::ShowBackground(int getWidth, int getHeight, SDL_Renderer *getRenderer)

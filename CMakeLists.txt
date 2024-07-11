@@ -71,7 +71,7 @@ file(GLOB MENU_LIGHT_UP_SOUND "./audio/menulightup/lightup.wav")
 file(GLOB MENU_MUSIC "./audio/music/onceuponatime.mp3")
 file(GLOB DEFAULT_CURSOR "./graphics/player/cursor_main.png")
 file(GLOB ATTACK_CURSOR "./graphics/player/sword_cursor.png")
-file(GLOB GAMEPLAY_ENVIRONMENT_BACKGROUND "./graphics/enviroment/Game_Enviroment_Alternative Sky.jpg") 
+file(GLOB GAMEPLAY_ENVIRONMENT_BACKGROUND "./graphics/enviroment/Game_Enviroment_Alternative_Sky.jpg") 
 file(GLOB LEAF_IMAGE "./graphics/player/leaf.png")
 file(GLOB INTERACTABLE_CURSOR "./graphics/player/interactable_cursor.png")
 file(GLOB MENU_ENVIRONMENT_BACKGROUND "./graphics/enviroment/Main_Menu_Environment.jpg")
@@ -84,11 +84,13 @@ add_executable(	${PROJECT_NAME} MACOSX_BUNDLE
 				./src/mainmenu.h ./src/mainmenu.cpp ./src/player.h ./src/player.cpp ./src/text.h
 				./src/text.cpp ./src/text.h ./src/thief.h
 				./src/pausemenu.h ./src/pausemenu.cpp
+				./src/upgradebutton.h ./src/upgradebutton.cpp
+				./src/upgradegrid.h ./src/upgradegrid.cpp
 				./src/gameplay.h ./src/gameplay.cpp
 				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND}
 				${MENU_MUSIC} ${DEFAULT_CURSOR} ${ATTACK_CURSOR}
                 ${GAMEPLAY_ENVIRONMENT_BACKGROUND} ${LEAF_IMAGE} ${INTERACTABLE_CURSOR}
-                ${MENU_ENVIRONMENT_BACKGROUND})
+                ${MENU_ENVIRONMENT_BACKGROUND} ${UPGRADE_BUTTON_IMAGES})
 				
 #Add Interactable Cursor
 file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${INTERACTABLE_CURSOR} )
@@ -130,8 +132,7 @@ file(RELATIVE_PATH GET_REL_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${MENU_LIGHT_UP_SO
 get_filename_component(FILE_PATH "${GET_REL_PATH}" DIRECTORY)
 set_property(SOURCE "${MENU_LIGHT_UP_SOUND}" PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${FILE_PATH}")
 				
-#individually set the file's path properties
-
+				
 foreach(FONT_FILE ${FONT_SOURCES})
 
 	# Get the folder and the file name
@@ -144,6 +145,19 @@ foreach(FONT_FILE ${FONT_SOURCES})
 	set_property(SOURCE ${FONT_FILE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH}")
 
 endforeach(FONT_FILE)
+
+foreach(BUTTON_IMAGE ${UPGRADE_BUTTON_IMAGES})
+
+	# Get the folder and the file name
+	file(RELATIVE_PATH RES_PATH "${CMAKE_CURRENT_SOURCE_DIR}" ${BUTTON_IMAGE})
+  
+	# keep only the name of the folder
+	get_filename_component(NEW_FILE_PATH ${RES_PATH} DIRECTORY)
+
+	# Add the FONT_FILE into the NEW_FILE_PATH folder
+	set_property(SOURCE ${BUTTON_IMAGE} PROPERTY MACOSX_PACKAGE_LOCATION "Resources/${NEW_FILE_PATH}")
+
+endforeach(BUTTON_IMAGE)
 	
 # Code from here: https://stackoverflow.com/questions/17070101/why-i-cannot-link-the-mac-framework-file-with-cmake
 target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Foundation")

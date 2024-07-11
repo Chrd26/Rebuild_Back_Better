@@ -80,15 +80,21 @@ int main()
 							
 							delete(Game::mainMenu);
 							std::string generateFont2Path = Game::execpath + std::string("/Contents/Resources/fonts/CfArpineDemoRegular-q2Zr2.ttf");
-							std::string generateBackgroundImagePath = Game::execpath + std::string("/Contents/Resources/graphics/enviroment/Game_Enviroment_Alternative Sky.jpg");
+							std::string generateBackgroundImagePath = Game::execpath + std::string("/Contents/Resources/graphics/enviroment/Game_Enviroment_Alternative_Sky.jpg");
 							std::string generateMenuSfxPath = Game::execpath + std::string("/Contents/Resources/audio/menulightup/lightup.wav");
-							std::string generateUpgradeButtonDefaultPath = Game::execpath + std::string("");
+							std::string generateUpgradeButtonDefaultPath = Game::execpath + std::string("/Contentes/Resources/graphics/interface/UpgradeButton.png");
+							std::string generateUpgradeButtonHoveredPath = Game::execpath + std::string("/Contentes/Resources/graphics/interface/UpgradeButtonClicked.png");
+							std::string generateUpgradeButtonClickedPath = Game::execpath + std::string("/Contentes/Resources/graphics/interface/UpgradeButtonLightUp.png");
 							Game::gameplay = new Gameplay(	generateFont2Path,
 															generateBackgroundImagePath,
 															generateMenuSfxPath,
 															Game::windowWidth,
 															Game::windowHeight, 
-															Game::renderer);
+															Game::renderer,
+															generateUpgradeButtonDefaultPath,
+															generateUpgradeButtonHoveredPath,
+															generateUpgradeButtonClickedPath	);
+															
 							Game::currentGameState = GAMEPLAY;
 							
 							break;
