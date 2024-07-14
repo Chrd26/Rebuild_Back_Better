@@ -28,17 +28,15 @@ long_line_behaviour=1
 long_line_column=100
 
 [files]
-current_page=4
-FILE_NAME_0=1109;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgameplay.cpp;0;4
-FILE_NAME_1=172;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgameplay.h;0;4
-FILE_NAME_2=6169;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fmain.cpp;0;4
-FILE_NAME_3=55;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fupgradebutton.h;0;4
-FILE_NAME_4=2103;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fupgradebutton.cpp;0;4
-FILE_NAME_5=26;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fupgradegrid.h;0;4
-FILE_NAME_6=1503;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fplayer.cpp;0;4
-FILE_NAME_7=1030;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fupgradegrid.cpp;0;4
-FILE_NAME_8=7695;CMake;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2FCMakeLists.txt;0;4
-FILE_NAME_9=85;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgame.h;0;4
+current_page=6
+FILE_NAME_0=2765;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fmain.cpp;0;4
+FILE_NAME_1=1020;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fplayer.cpp;0;4
+FILE_NAME_2=0;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgameplay.h;0;4
+FILE_NAME_3=972;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fgameplay.cpp;0;4
+FILE_NAME_4=1624;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fupgradegrid.cpp;0;4
+FILE_NAME_5=384;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fupgradegrid.h;0;4
+FILE_NAME_6=1420;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fupgradebutton.cpp;0;4
+FILE_NAME_7=21;C++;0;EUTF-8;1;1;0;%2FUsers%2Fchrisd%2FDesktop%2FRebuild_Back_Better%2Fsrc%2Fupgradebutton.h;0;4
 
 [VTE]
 last_dir=/Users/chrisd
