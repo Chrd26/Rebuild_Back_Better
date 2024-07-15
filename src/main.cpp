@@ -115,7 +115,6 @@ int main()
 							else if (Game::gameplay->pauseMenu->pauseMenuExitGame->isHovering)
 							{
 								quit = true;
-								std::cout << "exit" << std::endl;
 								break;
 							}
 						}
@@ -126,12 +125,6 @@ int main()
 		}
 		
 		SDL_PumpEvents();
-		
-		if (mouseState == LEFT_MOUSE_BUTTON)
-		{
-			std::cout << "Pressed Button: " << mouseState << std::endl;
-			std::cout << "Mouse X: " << Game::mouseX << "Mouse Y: " << Game::mouseY << std::endl;		
-		}
 		
 		if (mouseState == RIGHT_MOUSE_BUTTON)
 		{
@@ -182,7 +175,14 @@ int main()
 																	Game::windowHeight, Game::renderer);
 				}
 				
-				Game::gameplay->upgrades->ShowUpgradeButtons(Game::mouseX, Game::mouseY, false);
+				if (mouseState == LEFT_MOUSE_BUTTON && Game::currentGameState == GAMEPLAY)
+				{
+					Game::gameplay->upgrades->ShowUpgradeButtons(Game::mouseX, Game::mouseY, true);			
+				}else
+				{
+					Game::gameplay->upgrades->ShowUpgradeButtons(Game::mouseX, Game::mouseY, false);
+				}
+				
 				break;
 			
 			case PAUSED:

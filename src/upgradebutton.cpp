@@ -1,14 +1,27 @@
 #include "upgradebutton.h"
 
+bool UpgradeButton::isButtonClicked(bool isHovered)
+{
+	if (isHovered)
+	{
+		return true;
+	}else
+	{
+		return false;
+	}
+}
+
 bool UpgradeButton::IsButtonHovered(int getMouseX, int getMouseY)
 {
 	if (getMouseX >= x && getMouseX <= x + width)
 	{
 		if (getMouseY >= y && getMouseY <= y + height)
 		{
+			isHovered = true;
 			return true;
 		}
 	}
+	isHovered = false;
 	return false;
 }
 
@@ -44,21 +57,23 @@ UpgradeButton::UpgradeButton(	std::string defaultImageLocation, std::string hove
 								
 }
 
-void UpgradeButton::DisplayButton(int mouseX, int mouseY, bool isButtonClicked)
+void UpgradeButton::DisplayButton(int mouseX, int mouseY)
 {
 	SDL_Surface *convertedImage;
 	float sizePercentage = 0.2;
+	ishovered = IsButtonHovered(mouseX, mouseY);
+	isClicked = isButtonClicked(isHovered);
 	
-	if (isButtonClicked)
+	if (isClicked)
 	{
-		convertedImage = SDL_ConvertSurface(	upgradeButtonImageDefault,
-												upgradeButtonImageDefault->format);
+		convertedImage = SDL_ConvertSurface(	upgradeButtonImageClicked,
+												upgradeButtonImageClicked->format	);
 							
 	}
-	else if (IsButtonHovered(mouseX, mouseY))
+	else if (isHovered)
 	{
 		convertedImage = SDL_ConvertSurface(	upgradeButtonImageHovered,
-												upgradeButtonImageHovered->format);
+												upgradeButtonImageHovered->format	);
 		
 		if (verticalPOS < maxVerticalMovement)
 		{
@@ -76,7 +91,7 @@ void UpgradeButton::DisplayButton(int mouseX, int mouseY, bool isButtonClicked)
 	const SDL_FRect buttonImageHolder = {	static_cast<float>(x),
 											static_cast<float>(y) - verticalPOS,
 											static_cast<float>(convertedImage->w),
-											static_cast<float>(convertedImage->h)};
+											static_cast<float>(convertedImage->h)	};
 											
 	width = convertedImage->w;
 	height = convertedImage->h;		

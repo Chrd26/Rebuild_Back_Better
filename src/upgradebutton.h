@@ -16,12 +16,21 @@ private:
 	SDL_Surface *upgradeButtonImageClicked;
 	SDL_Renderer *renderer;
 
+private:
+	bool IsButtonHovered(int getMouseX, int getMouseY);
+	bool isButtonClicked(bool isHovered);
+	
+	
+public:
+	bool isClicked;
+	bool isHovered;
+
 public:
 	UpgradeButton(	std::string defaultImageLocation, std::string hoveredImageLocation,
 					std::string clickedImageLocation, SDL_Renderer *getRenderer, 
 					int _x, int _y, int _maxVerticalMovement);
 					
 	~UpgradeButton();
-	bool IsButtonHovered(int getMouseX, int getMouseY);
-	void DisplayButton(int mouseX, int mouseY, bool isButtonClicked);
+
+	void DisplayButton(int mouseX, int mouseY);
 };
