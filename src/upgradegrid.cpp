@@ -14,37 +14,40 @@ Upgrades::Upgrades(	std::string defaultImageButtonLocation, std::string hoveredI
 										clickedImageButtonLocation,
 										getRenderer,
 										initialX,
-										initialY	);
+										initialY,
+										150);
 	
 	summonWorkers = new UpgradeButton(	defaultImageButtonLocation,
 										hoveredImageButtonLocation,
 										clickedImageButtonLocation,
 										getRenderer,
 										initialX + gap,
-										initialY);
+										initialY,
+										150);
 										
 	upgradeFighters = new UpgradeButton(	defaultImageButtonLocation,
 											hoveredImageButtonLocation,
 											clickedImageButtonLocation,
 											getRenderer,
 											initialX + gap * 2,
-											initialY);
+											initialY,
+											150);
 											
 	upgradeWorkers = new UpgradeButton(	defaultImageButtonLocation,
 										hoveredImageButtonLocation,
 										clickedImageButtonLocation,
 										getRenderer,
 										initialX + gap * 3,
-										initialY);
+										initialY,
+										150);
 										
 	upgradeCursor = new UpgradeButton(	defaultImageButtonLocation,
 										hoveredImageButtonLocation,
 										clickedImageButtonLocation,
 										getRenderer,
 										initialX + gap * 4,
-										initialY);								
-	
-										
+										initialY,
+										150);									
 														
 }
 

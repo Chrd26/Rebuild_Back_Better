@@ -1,13 +1,20 @@
 #include "upgradebutton.h"
 
-bool UpgradeButton::IsButtonHovered(int getmouseX, int getMouseY)
+bool UpgradeButton::IsButtonHovered(int getMouseX, int getMouseY)
 {
+	if (getMouseX >= x && getMouseX <= x + width)
+	{
+		if (getMouseY >= y && getMouseY <= y + height)
+		{
+			return true;
+		}
+	}
 	return false;
 }
 
 UpgradeButton::UpgradeButton(	std::string defaultImageLocation, std::string hoveredImageLocation,
 								std::string clickedImageLocation, SDL_Renderer *getRenderer, 
-								int _x, int _y)
+								int _x, int _y, int _maxVerticalMovement)
 {
 	renderer = getRenderer;
 	auto loadDefaultImage = std::async(	std::launch::async, IMG_Load, 
@@ -33,6 +40,7 @@ UpgradeButton::UpgradeButton(	std::string defaultImageLocation, std::string hove
 	
 	x = _x;
 	y = _y;
+	maxVerticalMovement = _maxVerticalMovement;
 								
 }
 
@@ -51,18 +59,27 @@ void UpgradeButton::DisplayButton(int mouseX, int mouseY, bool isButtonClicked)
 	{
 		convertedImage = SDL_ConvertSurface(	upgradeButtonImageHovered,
 												upgradeButtonImageHovered->format);
+		
+		if (verticalPOS < maxVerticalMovement)
+		{
+			verticalPOS += 20;
+		}
 	}
 	else
 	{
 		convertedImage = SDL_ConvertSurface(	upgradeButtonImageDefault,
 												upgradeButtonImageDefault->format);
+		verticalPOS = 0;
 	}
 	
 	SDL_Texture *buttonImageTexture = SDL_CreateTextureFromSurface(renderer, convertedImage);
 	const SDL_FRect buttonImageHolder = {	static_cast<float>(x),
-											static_cast<float>(y),
+											static_cast<float>(y) - verticalPOS,
 											static_cast<float>(convertedImage->w),
-											static_cast<float>(convertedImage->h)};		
+											static_cast<float>(convertedImage->h)};
+											
+	width = convertedImage->w;
+	height = convertedImage->h;		
 											
 	SDL_RenderTexture(renderer, buttonImageTexture, nullptr, &buttonImageHolder);
 	SDL_DestroyTexture(buttonImageTexture);

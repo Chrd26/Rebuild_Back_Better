@@ -23,9 +23,9 @@ Gameplay::Gameplay(	std::string menuFontLocation, std::string backgroundLocation
 							clickedUpgradeButtonImageLocation,
 							windowWidth,
 							windowHeight,
-							static_cast<float>(windowWidth * 0.07),
+							static_cast<float>(windowWidth * 0.22),
 							static_cast<float>(windowHeight * 0.9),
-							300,
+							200,
 							getRenderer	);
 }
 
@@ -42,7 +42,7 @@ void Gameplay::ShowBackground(int getWidth, int getHeight, SDL_Renderer *getRend
 	const SDL_FRect backgroundHolder = {0, 
 										static_cast<float>(getHeight * 0.05), 
 										static_cast<float>(getWidth), 
-										static_cast<float>(getHeight * 0.85)};
+										static_cast<float>(getHeight * 0.9)};
 	SDL_RenderTexture(getRenderer, backgroundImageTexture, nullptr, &backgroundHolder);
 	
 	SDL_DestroySurface(convert);

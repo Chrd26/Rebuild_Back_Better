@@ -9,6 +9,8 @@ class UpgradeButton
 private:
 	float x, y;
 	float width, height;
+	float verticalPOS;
+	float maxVerticalMovement;
 	SDL_Surface *upgradeButtonImageDefault;
 	SDL_Surface *upgradeButtonImageHovered;
 	SDL_Surface *upgradeButtonImageClicked;
@@ -17,7 +19,7 @@ private:
 public:
 	UpgradeButton(	std::string defaultImageLocation, std::string hoveredImageLocation,
 					std::string clickedImageLocation, SDL_Renderer *getRenderer, 
-					int _x, int _y);
+					int _x, int _y, int _maxVerticalMovement);
 					
 	~UpgradeButton();
 	bool IsButtonHovered(int getMouseX, int getMouseY);
