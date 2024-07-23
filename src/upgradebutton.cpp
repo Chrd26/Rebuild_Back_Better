@@ -57,12 +57,16 @@ UpgradeButton::UpgradeButton(	std::string defaultImageLocation, std::string hove
 								
 }
 
-void UpgradeButton::DisplayButton(int mouseX, int mouseY)
+void UpgradeButton::DisplayButton(int mouseX, int mouseY, bool isLeftMouseButtonPressed)
 {
 	SDL_Surface *convertedImage;
 	float sizePercentage = 0.2;
 	ishovered = IsButtonHovered(mouseX, mouseY);
-	isClicked = isButtonClicked(isHovered);
+	
+	if (isLeftMouseButtonPressed)
+	{
+		isClicked = isButtonClicked(isHovered);
+	}
 	
 	if (isClicked)
 	{

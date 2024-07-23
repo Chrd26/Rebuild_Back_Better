@@ -26,8 +26,8 @@ public:
 	bool isHovered;
 
 public:
-	UpgradeButton(	std::string defaultImageLocation, std::string hoveredImageLocation,
-					std::string clickedImageLocation, SDL_Renderer *getRenderer, 
+	UpgradeButton(	std::string &defaultImageLocation, std::string &hoveredImageLocation,
+					std::string &clickedImageLocation, SDL_Renderer *getRenderer, 
 					int _x, int _y, int _maxVerticalMovement);
 					
 	~UpgradeButton();

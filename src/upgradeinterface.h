@@ -1,16 +1,18 @@
-#include "upgradebutton.h"
+#include "upgrade.h"
+#include <vector>
 
-class Upgrades{
+class UpgradeInterface{
 	
 public:
-	Upgrades(	std::string defaultImageButtonLocation, std::string hoveredImageButtonLocation,
-				std::string clickedImageButtonLocation, int getWindowWidth, int getWindowHeight,
+	UpgradeInterface(	std::string &defaultImageButtonLocation, std::string &hoveredImageButtonLocation,
+				std::string &clickedImageButtonLocation, int &getWindowWidth, int getWindowHeight,
 				float initialX, float initialY, float gap, SDL_Renderer *getRenderer);
 				
-	~Upgrades();
+	~UpgradeInterface();
 	void ShowUpgradeButtons(int _x, int _y, bool _isClicked);
 	
 private:
+	static std::vector<Upgrade> upgrades; 
 	static UpgradeButton *upgradeWorkers;
 	static UpgradeButton *summonWorkers;
 	static UpgradeButton *upgradeFighters;

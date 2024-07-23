@@ -1,66 +1,71 @@
-#include "upgradegrid.h"
-UpgradeButton *Upgrades::summonFighters = nullptr;
-UpgradeButton *Upgrades::summonWorkers = nullptr;
-UpgradeButton *Upgrades::upgradeCursor = nullptr;
-UpgradeButton *Upgrades::upgradeFighters = nullptr;
-UpgradeButton *Upgrades::upgradeWorkers = nullptr;
+#include "upgradeinterface.h"
 
-Upgrades::Upgrades(	std::string defaultImageButtonLocation, std::string hoveredImageButtonLocation,
-					std::string clickedImageButtonLocation, int getWindowWidth, int getWindowHeight,
-					float initialX, float initialY, float gap, SDL_Renderer *getRenderer)
+UpgradeButton *UpgradeInterface::summonFighters = nullptr;
+UpgradeButton *UpgradeInterface::summonWorkers = nullptr;
+UpgradeButton *UpgradeInterface::upgradeCursor = nullptr;
+UpgradeButton *UpgradeInterface::upgradeFighters = nullptr;
+UpgradeButton *UpgradeInterface::upgradeWorkers = nullptr;
+
+UpgradeInterface::UpgradeInterface(	std::string &defaultImageButtonLocation, 
+									std::string &hoveredImageButtonLocation,
+									std::string &clickedImageButtonLocation, 
+									int getWindowWidth, int getWindowHeight,
+									float initialX, float initialY, 
+									float gap, SDL_Renderer *getRenderer, 
+									int buttonsAmount)
 {
-	summonFighters = new UpgradeButton(	defaultImageButtonLocation, 
-										hoveredImageButtonLocation,
-										clickedImageButtonLocation,
-										getRenderer,
-										initialX,
-										initialY,
-										150);
 	
-	summonWorkers = new UpgradeButton(	defaultImageButtonLocation,
-										hoveredImageButtonLocation,
-										clickedImageButtonLocation,
-										getRenderer,
-										initialX + gap,
-										initialY,
-										150);
-										
-	upgradeFighters = new UpgradeButton(	defaultImageButtonLocation,
-											hoveredImageButtonLocation,
-											clickedImageButtonLocation,
-											getRenderer,
-											initialX + gap * 2,
-											initialY,
-											150);
-											
-	upgradeWorkers = new UpgradeButton(	defaultImageButtonLocation,
-										hoveredImageButtonLocation,
-										clickedImageButtonLocation,
-										getRenderer,
-										initialX + gap * 3,
-										initialY,
-										150);
-										
-	upgradeCursor = new UpgradeButton(	defaultImageButtonLocation,
-										hoveredImageButtonLocation,
-										clickedImageButtonLocation,
-										getRenderer,
-										initialX + gap * 4,
-										initialY,
-										150);									
-														
+	for (int i = 0; i < buttonsAmount; i++)
+	{
+		std::string buttonName;
+		int calculateX = initialX + (gap * i);
+		switch(i)
+		{
+			case 0:
+			buttonName = "Summon Fighters";
+			calculateX = initialX;
+			break;
+			
+			case 1:
+			buttonName = "Summon Workers"
+			calculateX = initialX + (gap * i);
+			break;
+			
+			case 2: 
+			buttonName = "Upgrade Fighters";
+			calculateX = initialX + (gap * i);
+			break;
+			
+			case 3:
+			buttonName = "Upgrade Workers";
+			calculateX = initialX + (gap * i);
+			break;
+			
+			case 4:
+			buttonName = "Upgrade Cursor";
+			calculateX = initialX + (gap * i);
+			break;
+		}
+		
+		int calculateX = initialX + (gap * i);
+		
+		upgrades.emplace_back(	buttonName,
+								defaultImageButtonLocation,
+								hoveredImageButtonLocation,
+								clickedImageButtonLocation,
+								getRenderer,
+								calculateX,
+								initialY,
+								150);
+	}
 }
 
 Upgrades::~Upgrades()
 {
-	delete(upgradeWorkers);
-	delete(upgradeFighters);
-	delete(upgradeCursor);
-	delete(summonFighters);
-	delete(summonWorkers);
+	upgrades.clear();
 }
 
-void Upgrades::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked)
+void UpgradeInterface::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked)
 {
 	if (!_isClicked)
 	{
@@ -71,7 +76,7 @@ void Upgrades::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked)
 		upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
 	}else
 	{
-		if (summonFighters->isHovered)
+		if (summonFighters->button->isHovered)
 		{
 			summonFighters->DisplayButton(_mouseX, _mouseY, true);
 			summonWorkers->DisplayButton(_mouseX, _mouseY, false);
@@ -80,7 +85,7 @@ void Upgrades::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked)
 			upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
 		}
 		
-		if (summonWorkers->isHovered)
+		if (summonWorkers->button->isHovered)
 		{
 			summonWorkers->DisplayButton(_mouseX, _mouseY, true);
 			summonFighters->DisplayButton(_mouseX, _mouseY, false);
@@ -89,7 +94,7 @@ void Upgrades::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked)
 			upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
 		}
 		
-		if (upgradeWorkers->isHovered)
+		if (upgradeWorkers->button->isHovered)
 		{
 			upgradeWorkers->DisplayButton(_mouseX, _mouseY, true);
 			summonFighters->DisplayButton(_mouseX, _mouseY, false);
@@ -98,7 +103,7 @@ void Upgrades::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked)
 			upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
 		}
 		
-		if (upgradeFighters->isHovered)
+		if (upgradeFighters->button->isHovered)
 		{
 			upgradeFighters->DisplayButton(_mouseX, _mouseY, true);	
 			summonFighters->DisplayButton(_mouseX, _mouseY, false);
@@ -107,7 +112,7 @@ void Upgrades::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked)
 			upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
 		}
 		
-		if (upgradeCursor->isHovered)
+		if (upgradeCursor->button->isHovered)
 		{
 			upgradeCursor->DisplayButton(_mouseX, _mouseY, true);
 			summonFighters->DisplayButton(_mouseX, _mouseY, false);
