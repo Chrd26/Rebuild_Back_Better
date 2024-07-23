@@ -1,16 +1,5 @@
 #include "upgradebutton.h"
 
-bool UpgradeButton::isButtonClicked(bool isHovered)
-{
-	if (isHovered)
-	{
-		return true;
-	}else
-	{
-		return false;
-	}
-}
-
 bool UpgradeButton::IsButtonHovered(int getMouseX, int getMouseY)
 {
 	if (getMouseX >= x && getMouseX <= x + width)
@@ -57,16 +46,11 @@ UpgradeButton::UpgradeButton(	std::string defaultImageLocation, std::string hove
 								
 }
 
-void UpgradeButton::DisplayButton(int mouseX, int mouseY, bool isLeftMouseButtonPressed)
+void UpgradeButton::DisplayButton(	int mouseX, int mouseY, boo isClicked)
 {
 	SDL_Surface *convertedImage;
 	float sizePercentage = 0.2;
 	ishovered = IsButtonHovered(mouseX, mouseY);
-	
-	if (isLeftMouseButtonPressed)
-	{
-		isClicked = isButtonClicked(isHovered);
-	}
 	
 	if (isClicked)
 	{

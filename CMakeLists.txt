@@ -85,7 +85,8 @@ add_executable(	${PROJECT_NAME} MACOSX_BUNDLE
 				./src/text.cpp ./src/text.h ./src/thief.h
 				./src/pausemenu.h ./src/pausemenu.cpp
 				./src/upgradebutton.h ./src/upgradebutton.cpp
-				./src/upgradegrid.h ./src/upgradegrid.cpp
+				./src/upgrade.h ./src upgrade.cpp
+				./src/upgradeinterface.h ./src/upgradeinterface.cpp
 				./src/gameplay.h ./src/gameplay.cpp
 				${FONT_SOURCES} ${MENU_LIGHT_UP_SOUND}
 				${MENU_MUSIC} ${DEFAULT_CURSOR} ${ATTACK_CURSOR}

@@ -66,59 +66,26 @@ Upgrades::~Upgrades()
 }
 
 void UpgradeInterface::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked)
-{
-	if (!_isClicked)
+{ßßß
+	
+	for (upgrade :: upgrades)
 	{
-		summonFighters->DisplayButton(_mouseX, _mouseY, false);
-		summonWorkers->DisplayButton(_mouseX, _mouseY, false);
-		upgradeFighters->DisplayButton(_mouseX, _mouseY, false);
-		upgradeWorkers->DisplayButton(_mouseX, _mouseY, false);
-		upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
-	}else
-	{
-		if (summonFighters->button->isHovered)
-		{
-			summonFighters->DisplayButton(_mouseX, _mouseY, true);
-			summonWorkers->DisplayButton(_mouseX, _mouseY, false);
-			upgradeFighters->DisplayButton(_mouseX, _mouseY, false);
-			upgradeWorkers->DisplayButton(_mouseX, _mouseY, false);
-			upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
-		}
+		std::string getHoverStatus = upgrade.IsUpgradeButtonHovered();
 		
-		if (summonWorkers->button->isHovered)
+		if (getHoverStatus.compare("null") != 0)
 		{
-			summonWorkers->DisplayButton(_mouseX, _mouseY, true);
-			summonFighters->DisplayButton(_mouseX, _mouseY, false);
-			upgradeFighters->DisplayButton(_mouseX, _mouseY, false);
-			upgradeWorkers->DisplayButton(_mouseX, _mouseY, false);
-			upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
+			if (!_isClicked)
+			{
+				upgrade.DisplayButton(_mouseX, _mouseY, true);
+			}
+			else
+			{
+				upgrade.DisplayButton(_mouseX, _mouseY, false);
+			}
 		}
-		
-		if (upgradeWorkers->button->isHovered)
+		else
 		{
-			upgradeWorkers->DisplayButton(_mouseX, _mouseY, true);
-			summonFighters->DisplayButton(_mouseX, _mouseY, false);
-			summonWorkers->DisplayButton(_mouseX, _mouseY, false);
-			upgradeFighters->DisplayButton(_mouseX, _mouseY, false);
-			upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
-		}
-		
-		if (upgradeFighters->button->isHovered)
-		{
-			upgradeFighters->DisplayButton(_mouseX, _mouseY, true);	
-			summonFighters->DisplayButton(_mouseX, _mouseY, false);
-			summonWorkers->DisplayButton(_mouseX, _mouseY, false);
-			upgradeWorkers->DisplayButton(_mouseX, _mouseY, false);
-			upgradeCursor->DisplayButton(_mouseX, _mouseY, false);
-		}
-		
-		if (upgradeCursor->button->isHovered)
-		{
-			upgradeCursor->DisplayButton(_mouseX, _mouseY, true);
-			summonFighters->DisplayButton(_mouseX, _mouseY, false);
-			summonWorkers->DisplayButton(_mouseX, _mouseY, false);
-			upgradeFighters->DisplayButton(_mouseX, _mouseY, false);
-			upgradeWorkers->DisplayButton(_mouseX, _mouseY, false);
+			upgrade.isplayButton(_mouseX, _mouseY, false);
 		}
 	}
 }

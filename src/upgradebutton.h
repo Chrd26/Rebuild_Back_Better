@@ -18,11 +18,9 @@ private:
 
 private:
 	bool IsButtonHovered(int getMouseX, int getMouseY);
-	bool isButtonClicked(bool isHovered);
 	
 	
 public:
-	bool isClicked;
 	bool isHovered;
 
 public:
@@ -32,5 +30,5 @@ public:
 					
 	~UpgradeButton();
 
-	void DisplayButton(int mouseX, int mouseY);
+	void DisplayButton(int mouseX, int mouseY, bool isClicked);
 };
