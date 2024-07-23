@@ -49,7 +49,7 @@ void Upgrade::DisplayUpgrade(int mouseX, int mouseY, bool isLeftMouseButtonPress
 {
 	button->DisplayButton(mousX, mouseY, isLefTMouseButtonPressed);
 	
-	if (button->isClicked)
+	if (button->isHovered && isLeftMouseButtonPressed)
 	{
 		UpgradeLevel(resources);
 	}
