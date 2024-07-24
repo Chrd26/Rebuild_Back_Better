@@ -14,8 +14,8 @@ bool UpgradeButton::IsButtonHovered(int getMouseX, int getMouseY)
 	return false;
 }
 
-UpgradeButton::UpgradeButton(	std::string defaultImageLocation, std::string hoveredImageLocation,
-								std::string clickedImageLocation, SDL_Renderer *getRenderer, 
+UpgradeButton::UpgradeButton(	std::string &defaultImageLocation, std::string &hoveredImageLocation,
+								std::string &clickedImageLocation, SDL_Renderer *getRenderer, 
 								int _x, int _y, int _maxVerticalMovement)
 {
 	renderer = getRenderer;
@@ -46,11 +46,11 @@ UpgradeButton::UpgradeButton(	std::string defaultImageLocation, std::string hove
 								
 }
 
-void UpgradeButton::DisplayButton(	int mouseX, int mouseY, boo isClicked)
+void UpgradeButton::DisplayButton(	int mouseX, int mouseY, bool isClicked)
 {
 	SDL_Surface *convertedImage;
 	float sizePercentage = 0.2;
-	ishovered = IsButtonHovered(mouseX, mouseY);
+	isHovered = IsButtonHovered(mouseX, mouseY);
 	
 	if (isClicked)
 	{

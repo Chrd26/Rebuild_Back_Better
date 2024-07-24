@@ -93,7 +93,8 @@ int main()
 															Game::renderer,
 															generateUpgradeButtonDefaultPath,
 															generateUpgradeButtonHoveredPath,
-															generateUpgradeButtonClickedPath	);
+															generateUpgradeButtonClickedPath,
+															1.6f);
 															
 							Game::currentGameState = GAMEPLAY;
 							
@@ -177,10 +178,16 @@ int main()
 				
 				if (mouseState == LEFT_MOUSE_BUTTON && Game::currentGameState == GAMEPLAY)
 				{
-					Game::gameplay->upgrades->ShowUpgradeButtons(Game::mouseX, Game::mouseY, true);			
+					Game::gameplay->upgradeInterface->ShowUpgradeButtons(	Game::mouseX, 
+																			Game::mouseY, 
+																			true,
+																			Gameplay::currentNutrients);			
 				}else
 				{
-					Game::gameplay->upgrades->ShowUpgradeButtons(Game::mouseX, Game::mouseY, false);
+					Game::gameplay->upgradeInterface->ShowUpgradeButtons(	Game::mouseX, 
+																			Game::mouseY, 
+																			false,
+																			Gameplay::currentNutrients);
 				}
 				
 				break;

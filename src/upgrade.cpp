@@ -29,10 +29,10 @@ void Upgrade::UpgradeLevel(int &currentResources)
 	}
 }
 
-Upgrade::Upgrade(	std::string &upgradeName, int initialUpgradeResourcesNeeded, 
+Upgrade::Upgrade(	std::string upgradeName, int initialUpgradeResourcesNeeded, 
 					std::string &defaultImageLocation, std::string &hoveredImageLocation,
 					std::string &clickedImageLocation, SDL_Renderer *getRenderer, 
-					int setX, int setY, int setMaxVerticalMovement)
+					int setX, int setY, int setMaxVerticalMovement, float setUpgradeMultiplier)
 {
 	upgradeID = upgradeName;
 	level = 0;
@@ -42,12 +42,19 @@ Upgrade::Upgrade(	std::string &upgradeName, int initialUpgradeResourcesNeeded,
 								getRenderer,
 								setX, 
 								setY, 
-								setMaxVerticalMovement);			
+								setMaxVerticalMovement);	
+								
+	upgradeMultiplier = setUpgradeMultiplier;		
+}
+
+Upgrade::~Upgrade()
+{
+	delete(button);
 }
 
 void Upgrade::DisplayUpgrade(int mouseX, int mouseY, bool isLeftMouseButtonPressed, int &resources)
 {
-	button->DisplayButton(mousX, mouseY, isLefTMouseButtonPressed);
+	button->DisplayButton(mouseX, mouseY, isLeftMouseButtonPressed);
 	
 	if (button->isHovered && isLeftMouseButtonPressed)
 	{

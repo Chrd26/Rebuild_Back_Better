@@ -5,14 +5,15 @@ UpgradeButton *UpgradeInterface::summonWorkers = nullptr;
 UpgradeButton *UpgradeInterface::upgradeCursor = nullptr;
 UpgradeButton *UpgradeInterface::upgradeFighters = nullptr;
 UpgradeButton *UpgradeInterface::upgradeWorkers = nullptr;
+std::vector<Upgrade> UpgradeInterface::upgrades;
 
 UpgradeInterface::UpgradeInterface(	std::string &defaultImageButtonLocation, 
-									std::string &hoveredImageButtonLocation,
-									std::string &clickedImageButtonLocation, 
-									int getWindowWidth, int getWindowHeight,
-									float initialX, float initialY, 
-									float gap, SDL_Renderer *getRenderer, 
-									int buttonsAmount)
+						std::string &hoveredImageButtonLocation,
+						std::string &clickedImageButtonLocation, 
+						int &getWindowWidth, int getWindowHeight,
+						float initialX, float initialY, 
+						float gap, SDL_Renderer *getRenderer, 
+						int buttonsAmount, float upgradeMultiplier)
 {
 	
 	for (int i = 0; i < buttonsAmount; i++)
@@ -27,7 +28,7 @@ UpgradeInterface::UpgradeInterface(	std::string &defaultImageButtonLocation,
 			break;
 			
 			case 1:
-			buttonName = "Summon Workers"
+			buttonName = "Summon Workers";
 			calculateX = initialX + (gap * i);
 			break;
 			
@@ -47,28 +48,28 @@ UpgradeInterface::UpgradeInterface(	std::string &defaultImageButtonLocation,
 			break;
 		}
 		
-		int calculateX = initialX + (gap * i);
-		
-		upgrades.emplace_back(	buttonName,
-								defaultImageButtonLocation,
-								hoveredImageButtonLocation,
-								clickedImageButtonLocation,
-								getRenderer,
-								calculateX,
-								initialY,
-								150);
+		upgrades.emplace_back(	Upgrade(	buttonName,
+											200,
+											defaultImageButtonLocation,
+											hoveredImageButtonLocation,
+											clickedImageButtonLocation,
+											getRenderer,
+											calculateX,
+											initialY,
+											150,
+											upgradeMultiplier));
 	}
 }
 
-Upgrades::~Upgrades()
+UpgradeInterface::~UpgradeInterface()
 {
 	upgrades.clear();
 }
 
-void UpgradeInterface::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked)
-{ßßß
+void UpgradeInterface::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClicked, int &resources)
+{
 	
-	for (upgrade :: upgrades)
+	for (auto upgrade : upgrades)
 	{
 		std::string getHoverStatus = upgrade.IsUpgradeButtonHovered();
 		
@@ -76,16 +77,16 @@ void UpgradeInterface::ShowUpgradeButtons(int _mouseX, int _mouseY, bool _isClic
 		{
 			if (!_isClicked)
 			{
-				upgrade.DisplayButton(_mouseX, _mouseY, true);
+				upgrade.DisplayUpgrade(_mouseX, _mouseY, true, resources);
 			}
 			else
 			{
-				upgrade.DisplayButton(_mouseX, _mouseY, false);
+				upgrade.DisplayUpgrade(_mouseX, _mouseY, false, resources);
 			}
 		}
 		else
 		{
-			upgrade.isplayButton(_mouseX, _mouseY, false);
+			upgrade.DisplayUpgrade(_mouseX, _mouseY, false, resources);
 		}
 	}
 }

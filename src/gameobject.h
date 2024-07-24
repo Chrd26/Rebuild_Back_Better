@@ -11,13 +11,3 @@ public:
 	unsigned int level;
 	int x, y;
 };
-
-class Upgrade
-{
-public:
-	unsigned int upgradeLevel;
-	unsigned int upgradeCost;
-	unsigned int initialCost;
-	
-	virtual void UpgradeNow();
-};
