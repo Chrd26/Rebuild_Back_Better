@@ -30,6 +30,8 @@ int main()
 		// Read more about that here:  
 		// https://discourse.libsdl.org/t/polling-events-vs-get-keyboardstate/39050/5
 		mouseState = SDL_GetMouseState(&Game::mouseX, &Game::mouseY);
+		Game::mouseX *= 2;
+		Game::mouseY *= 2;
 		keyboardState = SDL_GetKeyboardState(&keyPress);
 		
 		SDL_SetRenderDrawColor(Game::renderer, 0x00, 0x00, 0x00, 0X00);

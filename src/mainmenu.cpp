@@ -19,8 +19,8 @@ MainMenu::MainMenu(	std::string &font1Path, std::string &font2Path,
 {
 	// Load Main Menu elements
 	renderer = inputRenderer;
-	auto getTitlefont = std::async(std::launch::async, LoadFont, font1Path, 150);
-	auto getMenuFont = std::async(std::launch::async, LoadFont, font2Path, 60);
+	auto getTitlefont = std::async(std::launch::async, LoadFont, font1Path, 300);
+	auto getMenuFont = std::async(std::launch::async, LoadFont, font2Path, 120);
     auto getImage = std::async(std::launch::async, IMG_Load, bgImageLocation.c_str());
 	menuMusic = new AudioPlayer<Mix_Music>(musicPath);
 

@@ -169,3 +169,11 @@ target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_ttf::SDL3_ttf)
 target_link_libraries(${PROJECT_NAME} PRIVATE cpplocate::cpplocate)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_mixer::SDL3_mixer)
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL3_image::SDL3_image)
+
+# Special thanks 
+# https://stackoverflow.com/questions/45048882/how-can-i-set-nshighresolutioncapable-in-info-plist-via-cmake
+ add_custom_command(
+      TARGET ${PROJECT_NAME}
+      POST_BUILD
+      COMMAND plutil -replace NSHighResolutionCapable -bool true ${PROJECT_NAME}.app/Contents/Info.plist
+      )

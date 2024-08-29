@@ -25,11 +25,11 @@ void Player::ShowCursor(SDL_Renderer *renderer, bool interactive)
 	if (!interactive)
 	{
 		convertImage = SDL_ConvertSurface(defaultCursorImage, defaultCursorImage->format);
-		imageSizeDivisionValue = 10;
+		imageSizeDivisionValue = 5;
 	}else
 	{
 		convertImage = SDL_ConvertSurface(interatacbleCursorImage, interatacbleCursorImage->format);
-		imageSizeDivisionValue = 15;
+		imageSizeDivisionValue = 7;
 	}
 	if (convertImage == nullptr)
 	{

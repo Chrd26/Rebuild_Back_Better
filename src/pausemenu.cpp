@@ -25,7 +25,7 @@ TTF_Font *PauseMenu::LoadFont(std::string urlToFont, unsigned int fontSize)
 PauseMenu::PauseMenu(	std::string pathToFont, std::string pathToAudio,
 						int windowWidth, int windowHeight, SDL_Renderer *getRenderer)
 {
-	auto getFont = std::async(std::launch::async, LoadFont, pathToFont, 50);
+	auto getFont = std::async(std::launch::async, LoadFont, pathToFont, 100);
 	getFont.wait();
 	pauseMenuFont = getFont.get();
 	pauseMenuContinue = new TextElement(static_cast<float>(windowWidth * 0.41),

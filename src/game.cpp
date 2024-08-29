@@ -42,7 +42,7 @@ bool Game::Initialise()
     // Create Window
     window = SDL_CreateWindow("Rebuild Back Better",
 							  SCREEN_WIDTH, SCREEN_HEIGHT,
-							  SDL_WINDOW_FULLSCREEN);
+							  SDL_WINDOW_FULLSCREEN|SDL_WINDOW_HIGH_PIXEL_DENSITY);
 							  
 	// Set window position
 	int windowPOSOutput = SDL_SetWindowPosition(window,
@@ -102,6 +102,8 @@ bool Game::Initialise()
 	}		  
 	
 	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+	windowWidth *= 2;
+	windowHeight *= 2;
 
   return true;
 }
